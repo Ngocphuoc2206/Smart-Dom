@@ -19,6 +19,9 @@ namespace Smart_Dom.Models
         [DataType(DataType.Date)]
         public DateTime DOB { get; set; }
 
+        [Required]
+        public string IDCard { get; set; } // Identity card number
+
         [StringLength(10)]
         public string Gender { get; set; }
 
