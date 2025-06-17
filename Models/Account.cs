@@ -14,6 +14,9 @@ namespace Smart_Dom.Models
         [StringLength(50)]
         public string Password { get; set; }
 
+        // 0: Owner; 1: Tenant
+        public int Role { get; set; }
+
         [Required]
         public int UserId { get; set; }
         [ForeignKey("UserId")]

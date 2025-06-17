@@ -25,8 +25,5 @@ namespace Smart_Dom.Models
         [StringLength(150)]
         public string Address { get; set; }
 
-        // 0: Owner; 1: Tenant
-        public int Role { get; set; }
-
     }
 }

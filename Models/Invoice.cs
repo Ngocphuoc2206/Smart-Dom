@@ -37,6 +37,8 @@ namespace Smart_Dom.Models
         [StringLength(500)]
         public string? Note { get; set; } // Additional notes or comments
 
+        [Required]
+        public string Status { get; set; } // e.g., "Chưa thanh toán", "Đã thanh toán", "Quá hạn"
 
     }
 }
