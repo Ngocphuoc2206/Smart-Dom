@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Smart-Dom")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+530988d5db0a2e4984385673c21e4b6f3a675a07")]
 [assembly: System.Reflection.AssemblyProductAttribute("Smart-Dom")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Smart-Dom")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
