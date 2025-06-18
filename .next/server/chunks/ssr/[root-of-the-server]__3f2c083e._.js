@@ -31,7 +31,7 @@ function AuthProvider({ children }) {
         // Check if user is logged in on app start
         const checkAuth = ()=>{
             try {
-                const userData = localStorage.getItem('user');
+                const userData = localStorage.getItem("user");
                 if (userData) {
                     const parsedUser = JSON.parse(userData);
                     if (parsedUser.isAuthenticated) {
@@ -39,8 +39,8 @@ function AuthProvider({ children }) {
                     }
                 }
             } catch (error) {
-                console.error('Error checking auth:', error);
-                localStorage.removeItem('user');
+                console.error("Error checking auth:", error);
+                localStorage.removeItem("user");
             } finally{
                 setIsLoading(false);
             }
@@ -49,14 +49,14 @@ function AuthProvider({ children }) {
     }, []);
     const login = (userData)=>{
         setUser(userData);
-        localStorage.setItem('user', JSON.stringify(userData));
+        localStorage.setItem("user", JSON.stringify(userData));
     };
     const logout = ()=>{
         setUser(null);
         // Clear all authentication data
-        localStorage.removeItem('user');
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('refreshToken');
+        localStorage.removeItem("user");
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("refreshToken");
         // Clear any session storage
         sessionStorage.clear();
         // Clear any cookies (if using cookies for auth)
@@ -66,7 +66,7 @@ function AuthProvider({ children }) {
             document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
         });
         // Force reload to clear any cached state
-        window.location.href = '/';
+        window.location.href = "/";
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(AuthContext.Provider, {
         value: {
@@ -78,14 +78,14 @@ function AuthProvider({ children }) {
         children: children
     }, void 0, false, {
         fileName: "[project]/src/contexts/AuthContext.tsx",
-        lineNumber: 77,
+        lineNumber: 80,
         columnNumber: 5
     }, this);
 }
 function useAuth() {
     const context = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useContext"])(AuthContext);
     if (context === undefined) {
-        throw new Error('useAuth must be used within an AuthProvider');
+        throw new Error("useAuth must be used within an AuthProvider");
     }
     return context;
 }
@@ -98,12 +98,12 @@ function ProtectedRoute({ children, allowedUserTypes }) {
                 className: "animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"
             }, void 0, false, {
                 fileName: "[project]/src/contexts/AuthContext.tsx",
-                lineNumber: 104,
+                lineNumber: 107,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/contexts/AuthContext.tsx",
-            lineNumber: 103,
+            lineNumber: 106,
             columnNumber: 7
         }, this);
     }
@@ -118,7 +118,7 @@ function ProtectedRoute({ children, allowedUserTypes }) {
                         children: "🔒"
                     }, void 0, false, {
                         fileName: "[project]/src/contexts/AuthContext.tsx",
-                        lineNumber: 113,
+                        lineNumber: 116,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -126,7 +126,7 @@ function ProtectedRoute({ children, allowedUserTypes }) {
                         children: "Yêu cầu đăng nhập"
                     }, void 0, false, {
                         fileName: "[project]/src/contexts/AuthContext.tsx",
-                        lineNumber: 114,
+                        lineNumber: 117,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -134,7 +134,7 @@ function ProtectedRoute({ children, allowedUserTypes }) {
                         children: "Bạn cần đăng nhập để truy cập trang này"
                     }, void 0, false, {
                         fileName: "[project]/src/contexts/AuthContext.tsx",
-                        lineNumber: 117,
+                        lineNumber: 120,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -146,7 +146,7 @@ function ProtectedRoute({ children, allowedUserTypes }) {
                                 children: "Đăng nhập"
                             }, void 0, false, {
                                 fileName: "[project]/src/contexts/AuthContext.tsx",
-                                lineNumber: 121,
+                                lineNumber: 124,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -155,24 +155,24 @@ function ProtectedRoute({ children, allowedUserTypes }) {
                                 children: "Đăng ký"
                             }, void 0, false, {
                                 fileName: "[project]/src/contexts/AuthContext.tsx",
-                                lineNumber: 127,
+                                lineNumber: 130,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/contexts/AuthContext.tsx",
-                        lineNumber: 120,
+                        lineNumber: 123,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/contexts/AuthContext.tsx",
-                lineNumber: 112,
+                lineNumber: 115,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/contexts/AuthContext.tsx",
-            lineNumber: 111,
+            lineNumber: 114,
             columnNumber: 7
         }, this);
     }
@@ -187,7 +187,7 @@ function ProtectedRoute({ children, allowedUserTypes }) {
                         children: "⛔"
                     }, void 0, false, {
                         fileName: "[project]/src/contexts/AuthContext.tsx",
-                        lineNumber: 143,
+                        lineNumber: 146,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -195,7 +195,7 @@ function ProtectedRoute({ children, allowedUserTypes }) {
                         children: "Không có quyền truy cập"
                     }, void 0, false, {
                         fileName: "[project]/src/contexts/AuthContext.tsx",
-                        lineNumber: 144,
+                        lineNumber: 147,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -203,27 +203,27 @@ function ProtectedRoute({ children, allowedUserTypes }) {
                         children: "Bạn không có quyền truy cập vào trang này"
                     }, void 0, false, {
                         fileName: "[project]/src/contexts/AuthContext.tsx",
-                        lineNumber: 147,
+                        lineNumber: 150,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                        href: user.userType === 'owner' ? '/owner-dashboard' : '/tenant-dashboard',
+                        href: user.userType === "owner" ? "/owner-dashboard" : "/tenant-dashboard",
                         className: "block w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors",
                         children: "Về Dashboard"
                     }, void 0, false, {
                         fileName: "[project]/src/contexts/AuthContext.tsx",
-                        lineNumber: 150,
+                        lineNumber: 153,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/contexts/AuthContext.tsx",
-                lineNumber: 142,
+                lineNumber: 145,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/contexts/AuthContext.tsx",
-            lineNumber: 141,
+            lineNumber: 144,
             columnNumber: 7
         }, this);
     }

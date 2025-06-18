@@ -1,15 +1,18 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 interface User {
   email: string;
   name: string;
-  userType: 'owner' | 'tenant';
+  dob: string;
+  userType: "owner" | "tenant";
   isAuthenticated: boolean;
   avatar?: string;
   phone?: string;
   joinDate?: string;
+  idNumber?: string;
+  address?: string;
 }
 
 interface AuthContextType {
@@ -29,7 +32,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Check if user is logged in on app start
     const checkAuth = () => {
       try {
-        const userData = localStorage.getItem('user');
+        const userData = localStorage.getItem("user");
         if (userData) {
           const parsedUser = JSON.parse(userData);
           if (parsedUser.isAuthenticated) {
@@ -37,8 +40,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           }
         }
       } catch (error) {
-        console.error('Error checking auth:', error);
-        localStorage.removeItem('user');
+        console.error("Error checking auth:", error);
+        localStorage.removeItem("user");
       } finally {
         setIsLoading(false);
       }
@@ -49,15 +52,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = (userData: User) => {
     setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem("user", JSON.stringify(userData));
   };
 
   const logout = () => {
     setUser(null);
     // Clear all authentication data
-    localStorage.removeItem('user');
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('refreshToken');
+    localStorage.removeItem("user");
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("refreshToken");
 
     // Clear any session storage
     sessionStorage.clear();
@@ -70,7 +73,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
 
     // Force reload to clear any cached state
-    window.location.href = '/';
+    window.location.href = "/";
   };
 
   return (
@@ -83,18 +86,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }
 
 // Protected Route Component
-export function ProtectedRoute({ 
-  children, 
-  allowedUserTypes 
-}: { 
+export function ProtectedRoute({
+  children,
+  allowedUserTypes,
+}: {
   children: React.ReactNode;
-  allowedUserTypes?: ('owner' | 'tenant')[];
+  allowedUserTypes?: ("owner" | "tenant")[];
 }) {
   const { user, isLoading } = useAuth();
 
@@ -148,7 +151,11 @@ export function ProtectedRoute({
             Bạn không có quyền truy cập vào trang này
           </p>
           <a
-            href={user.userType === 'owner' ? '/owner-dashboard' : '/tenant-dashboard'}
+            href={
+              user.userType === "owner"
+                ? "/owner-dashboard"
+                : "/tenant-dashboard"
+            }
             className="block w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors"
           >
             Về Dashboard

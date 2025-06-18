@@ -104,6 +104,7 @@ export default function RegisterPage() {
     if (!validateForm()) return;
     setIsLoading(true);
 
+    //Call Api
     try {
       const response = await fetch(
         `https://localhost:7257/api/AccountControllers/Account`,
@@ -114,7 +115,7 @@ export default function RegisterPage() {
             FullName: formData.fullName,
             Email: formData.email,
             Phone: formData.phone,
-            DateOfBirth: formData.dateOfBirth,
+            DOB: new Date(formData.dateOfBirth).toISOString(),
             Address: formData.address,
             Gender: formData.gender,
             Password: formData.password,
@@ -133,7 +134,11 @@ export default function RegisterPage() {
         email: formData.email,
         userType: "tenant",
         name: formData.fullName,
+        phone: formData.phone,
         isAuthenticated: true,
+        idNumber: formData.idNumber,
+        dob: formData.dateOfBirth,
+        address: formData.address,
       });
       router.push("/tenant-dashboard");
     } catch (err: any) {
