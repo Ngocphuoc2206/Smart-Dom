@@ -1,0 +1,3 @@
+ECHO is on.
+#bỏ qua thư mục node_modules
+node_modules/
