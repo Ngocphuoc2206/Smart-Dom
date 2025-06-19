@@ -89,11 +89,4 @@ src/
 - Hệ thống notification real-time
 - Mobile app (React Native)
 - Báo cáo và analytics nâng cao
-
-## 📞 Liên hệ
-- Email: support@smartdorm.vn
-- Phone: 1900 1234
-- Address: Hà Nội, Việt Nam
-
-## 📄 License
-MIT License - xem file LICENSE để biết thêm chi tiết.
+- Email: tranngocphuoc.2000vta@gmail.com
