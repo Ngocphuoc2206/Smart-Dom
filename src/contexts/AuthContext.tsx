@@ -5,7 +5,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 interface User {
   email: string;
   name: string;
-  dob: string;
+  dob?: string;
   userType: "owner" | "tenant";
   isAuthenticated: boolean;
   avatar?: string;

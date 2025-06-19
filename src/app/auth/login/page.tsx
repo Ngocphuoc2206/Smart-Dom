@@ -40,22 +40,39 @@ export default function LoginPage() {
     setIsLoading(true);
     setError("");
 
+    const response = await fetch(`https://localhost:7257/api/Account/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: formData.email,
+        password: formData.password,
+      }),
+    });
+    //Nếu không có tài khoản đã đăng kí
+    if (!response.ok) {
+      const json = await response.json().catch(() => null);
+      setIsLoading(false);
+      throw new Error(json?.message || "Đăng nhập thất bại");
+    }
+    //Sau khi xác minh thành công tài khoản đã đăng kí
+    const data = await response.json();
+    console.log(data);
     // Simulate API call
     setTimeout(() => {
       // Mock authentication
-      if (formData.email && formData.password) {
+      if (data.email && formData.password) {
         // Use AuthContext login function
         const userData = {
-          email: formData.email,
-          userType: formData.userType,
-          name: formData.userType === "owner" ? "Chủ trọ ABC" : "Nguyễn Văn A",
+          email: data.email,
+          userType: data.role,
+          name: data.role === 0 ? "Chủ trọ" : data.fullname,
           isAuthenticated: true,
         };
 
         login(userData);
 
         // Redirect based on user type
-        if (formData.userType === "owner") {
+        if (data.role === 0) {
           router.push("/owner-dashboard");
         } else {
           router.push("/tenant-dashboard");

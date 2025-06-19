@@ -1,6 +1,6 @@
-export async function RegistrationUser() {
+export async function AccountUser() {
   try {
-    const res = await fetch("https://localhost:7107/api/AccountController");
+    const res = await fetch("https://localhost:7257/api/Account");
     const data = await res.json();
     return data;
   } catch (error) {

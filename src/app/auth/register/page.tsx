@@ -106,24 +106,21 @@ export default function RegisterPage() {
 
     //Call Api
     try {
-      const response = await fetch(
-        `https://localhost:7257/api/AccountControllers/Account`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            FullName: formData.fullName,
-            Email: formData.email,
-            Phone: formData.phone,
-            DOB: new Date(formData.dateOfBirth).toISOString(),
-            Address: formData.address,
-            Gender: formData.gender,
-            Password: formData.password,
-            IDCard: formData.idNumber,
-            UserType: formData.userType,
-          }),
-        }
-      );
+      const response = await fetch(`https://localhost:7257/api/Account`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          FullName: formData.fullName,
+          Email: formData.email,
+          Phone: formData.phone,
+          DOB: new Date(formData.dateOfBirth).toISOString(),
+          Address: formData.address,
+          Gender: formData.gender,
+          Password: formData.password,
+          IDCard: formData.idNumber,
+          UserType: formData.userType,
+        }),
+      });
 
       if (!response.ok) {
         const json = await response.json().catch(() => null);
