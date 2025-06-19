@@ -136,6 +136,7 @@ export default function RegisterPage() {
         idNumber: formData.idNumber,
         dob: formData.dateOfBirth,
         address: formData.address,
+        gender: formData.gender,
       });
       router.push("/tenant-dashboard");
     } catch (err: any) {

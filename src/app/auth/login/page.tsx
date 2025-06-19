@@ -1,16 +1,16 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "../../../contexts/AuthContext";
 import {
+  BuildingOfficeIcon,
   EyeIcon,
   EyeSlashIcon,
-  UserIcon,
   LockClosedIcon,
-  BuildingOfficeIcon,
+  UserIcon,
 } from "@heroicons/react/24/outline";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useAuth } from "../../../contexts/AuthContext";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -40,48 +40,77 @@ export default function LoginPage() {
     setIsLoading(true);
     setError("");
 
-    const response = await fetch(`https://localhost:7257/api/Account/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: formData.email,
-        password: formData.password,
-      }),
-    });
-    //Nếu không có tài khoản đã đăng kí
-    if (!response.ok) {
-      const json = await response.json().catch(() => null);
-      setIsLoading(false);
-      throw new Error(json?.message || "Đăng nhập thất bại");
-    }
-    //Sau khi xác minh thành công tài khoản đã đăng kí
-    const data = await response.json();
-    console.log(data);
-    // Simulate API call
-    setTimeout(() => {
-      // Mock authentication
-      if (data.email && formData.password) {
-        // Use AuthContext login function
-        const userData = {
-          email: data.email,
-          userType: data.role,
-          name: data.role === 0 ? "Chủ trọ" : data.fullname,
-          isAuthenticated: true,
-        };
-
-        login(userData);
-
-        // Redirect based on user type
-        if (data.role === 0) {
+    // Xử lý login demo cho chủ trọ
+    if (formData.userType === "owner") {
+      setTimeout(() => {
+        if (
+          formData.email === "owner@demo.com" &&
+          formData.password === "123456"
+        ) {
+          const userData = {
+            email: formData.email,
+            name: "Chủ trọ",
+            userType: "owner" as const,
+            isAuthenticated: true,
+            phone: "0393329634",
+            idNumber: "052204015567",
+            dob: "06-22-2004",
+            address: "38D Tam Bình, Thủ Đức, TP.HCM",
+            gender: "male",
+          };
+          login(userData);
           router.push("/owner-dashboard");
         } else {
-          router.push("/tenant-dashboard");
+          setError("Tài khoản demo chủ trọ là: owner@demo.com / 123456");
         }
-      } else {
-        setError("Vui lòng nhập đầy đủ thông tin");
+        setIsLoading(false);
+      }, 1500);
+      return;
+    }
+
+    // Gọi API thật cho khách thuê
+    try {
+      const response = await fetch(`https://localhost:7257/api/Account/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      if (!response.ok) {
+        const json = await response.json().catch(() => null);
+        throw new Error(json?.message || "Đăng nhập thất bại");
       }
+
+      const data = await response.json();
+
+      setTimeout(() => {
+        if (data.email && formData.password) {
+          const userData = {
+            email: data.email,
+            userType: "tenant" as const,
+            name: data.role === 0 ? "Chủ trọ" : data.fullName,
+            isAuthenticated: true,
+            phone: data.phone,
+            idUser: data.idUser,
+            idNumber: data.idNumber,
+            dob: data.dateOfBirth,
+            address: data.address,
+            gender: data.gender,
+          };
+          login(userData);
+          router.push("/tenant-dashboard");
+        } else {
+          setError("Vui lòng nhập đầy đủ thông tin");
+        }
+        setIsLoading(false);
+      }, 1500);
+    } catch (err: any) {
+      setError(err.message);
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -219,9 +248,6 @@ export default function LoginPage() {
               <div className="text-xs text-blue-700 space-y-1">
                 <p>
                   <strong>Chủ trọ:</strong> owner@demo.com / 123456
-                </p>
-                <p>
-                  <strong>Khách thuê:</strong> tenant@demo.com / 123456
                 </p>
               </div>
               <div className="mt-3 pt-3 border-t border-blue-200">

@@ -13,6 +13,8 @@ interface User {
   joinDate?: string;
   idNumber?: string;
   address?: string;
+  gender?: string;
+  idUser?: string;
 }
 
 interface AuthContextType {

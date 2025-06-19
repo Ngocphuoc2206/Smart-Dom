@@ -371,8 +371,8 @@ export default function TenantDashboard() {
         {/* User Info & Logout */}
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
           <div className="mb-3 px-4 py-2 bg-gray-50 rounded-lg">
-            <p className="text-sm font-medium text-gray-900">Nguyễn Văn A</p>
-            <p className="text-xs text-gray-500">tenant@demo.com</p>
+            <p className="text-sm font-medium text-gray-900">{user?.name}</p>
+            <p className="text-xs text-gray-500">{user?.email}</p>
           </div>
           <button
             onClick={handleLogout}
@@ -1271,7 +1271,7 @@ export default function TenantDashboard() {
                           className="w-full border border-gray-300 rounded-lg px-3 py-2 bg-gray-50"
                           disabled
                         >
-                          <option>{user.gender}</option>
+                          <option>{user?.gender}</option>
                         </select>
                       </div>
                       <div className="md:col-span-2">
@@ -1280,7 +1280,7 @@ export default function TenantDashboard() {
                         </label>
                         <input
                           type="text"
-                          value={user.address}
+                          value={user?.address}
                           className="w-full border border-gray-300 rounded-lg px-3 py-2 bg-gray-50"
                           readOnly
                         />
