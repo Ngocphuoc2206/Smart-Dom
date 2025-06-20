@@ -1,10 +1,11 @@
-﻿namespace Smart_Dom.DTO
+﻿namespace Smart_Dom.DTOs
 {
-    public class AccountDto
+    public class AccountRegisterDTO
     {
         public string FullName { get; set; }
         public string Email { get; set; } // Email == UserName
         public string Phone { get; set; }
+        public DateTime DOB { get; set; } // Date of Birth
         public string Address { get; set; } // Address of the user
         public string IDCard { get; set; } // Identity card number
         public string Gender { get; set; }

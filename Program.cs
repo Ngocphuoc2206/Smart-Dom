@@ -1,4 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Smart_Dom.Interfaces;
+using Smart_Dom.Repositories;
+using Smart_Dom.Services;
 
 namespace Smart_Dom
 {
@@ -11,9 +14,19 @@ namespace Smart_Dom
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            
+
             //Cấu hình kết nối cơ sở dữ liệu với Entity Framework Core
             builder.Services.AddDbContext<Models.AppDBContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("AppDBContext")));
+
+            //Cấu hình Repository
+            builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+            //Cấu hình Services
+            builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             //Cấu hình cors nhúng nextjs
             builder.Services.AddCors(options =>
@@ -33,12 +46,12 @@ namespace Smart_Dom
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
+            app.UseCors("AllowNextJs");
             app.UseAuthorization();
 
             app.MapControllerRoute(

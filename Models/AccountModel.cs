@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Smart_Dom.Models
 {
-    public class Account
+    public class AccountModel
     {
         [Key]
         public int Id { get; set; }
@@ -11,8 +11,8 @@ namespace Smart_Dom.Models
         [StringLength(50)]
         public string UserName { get; set; }
 
-        [StringLength(50)]
-        public string Password { get; set; }
+        [StringLength(200)]
+        public string PasswordHash { get; set; }
 
         // 0: Owner; 1: Tenant
         public int Role { get; set; }

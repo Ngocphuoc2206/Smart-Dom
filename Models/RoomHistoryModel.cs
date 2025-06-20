@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Smart_Dom.Models
 {
-    public class RoomHistory
+    public class RoomHistoryModel
     {
         [Key]
         public int ID { get; set; }
@@ -11,7 +11,7 @@ namespace Smart_Dom.Models
         [Required]
         public int RoomId { get; set; }
         [ForeignKey("RoomId")]
-        public Room? Room { get; set; }
+        public RoomModel? Room { get; set; }
 
         [Required]
         public int UserId { get; set; }

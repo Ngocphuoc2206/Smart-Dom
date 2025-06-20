@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Smart_Dom.Models;
 
@@ -11,9 +12,11 @@ using Smart_Dom.Models;
 namespace Smart_Dom.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250619112419_UpdateRoomDB")]
+    partial class UpdateRoomDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace Smart_Dom.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Smart_Dom.Models.AccountModel", b =>
+            modelBuilder.Entity("Smart_Dom.Models.Account", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,7 +56,7 @@ namespace Smart_Dom.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("Smart_Dom.Models.ContractModel", b =>
+            modelBuilder.Entity("Smart_Dom.Models.Contract", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -88,7 +91,7 @@ namespace Smart_Dom.Migrations
                     b.ToTable("Contracts");
                 });
 
-            modelBuilder.Entity("Smart_Dom.Models.InvoiceModel", b =>
+            modelBuilder.Entity("Smart_Dom.Models.Invoice", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -178,7 +181,45 @@ namespace Smart_Dom.Migrations
                     b.ToTable("MaintenanceRequests");
                 });
 
-            modelBuilder.Entity("Smart_Dom.Models.RoomHistoryModel", b =>
+            modelBuilder.Entity("Smart_Dom.Models.Room", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("Amenities")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Area")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("Floor")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RoomNumber")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("Smart_Dom.Models.RoomHistory", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -205,44 +246,6 @@ namespace Smart_Dom.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("RoomHistories");
-                });
-
-            modelBuilder.Entity("Smart_Dom.Models.RoomModel", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("Amenities")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("Area")
-                        .HasColumnType("real");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<int>("Floor")
-                        .HasColumnType("int");
-
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
-
-                    b.Property<int>("RoomNumber")
-                        .HasMaxLength(100)
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Rooms");
                 });
 
             modelBuilder.Entity("Smart_Dom.Models.UserModel", b =>
@@ -290,7 +293,7 @@ namespace Smart_Dom.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Smart_Dom.Models.AccountModel", b =>
+            modelBuilder.Entity("Smart_Dom.Models.Account", b =>
                 {
                     b.HasOne("Smart_Dom.Models.UserModel", "User")
                         .WithMany()
@@ -301,7 +304,7 @@ namespace Smart_Dom.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Smart_Dom.Models.ContractModel", b =>
+            modelBuilder.Entity("Smart_Dom.Models.Contract", b =>
                 {
                     b.HasOne("Smart_Dom.Models.UserModel", "User")
                         .WithMany()
@@ -309,7 +312,7 @@ namespace Smart_Dom.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Smart_Dom.Models.RoomModel", "Room")
+                    b.HasOne("Smart_Dom.Models.Room", "Room")
                         .WithMany()
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -320,9 +323,9 @@ namespace Smart_Dom.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Smart_Dom.Models.InvoiceModel", b =>
+            modelBuilder.Entity("Smart_Dom.Models.Invoice", b =>
                 {
-                    b.HasOne("Smart_Dom.Models.RoomModel", "Room")
+                    b.HasOne("Smart_Dom.Models.Room", "Room")
                         .WithMany()
                         .HasForeignKey("IDRoom")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -341,7 +344,7 @@ namespace Smart_Dom.Migrations
 
             modelBuilder.Entity("Smart_Dom.Models.MaintenanceRequest", b =>
                 {
-                    b.HasOne("Smart_Dom.Models.RoomModel", "Room")
+                    b.HasOne("Smart_Dom.Models.Room", "Room")
                         .WithMany()
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -358,9 +361,9 @@ namespace Smart_Dom.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Smart_Dom.Models.RoomHistoryModel", b =>
+            modelBuilder.Entity("Smart_Dom.Models.RoomHistory", b =>
                 {
-                    b.HasOne("Smart_Dom.Models.RoomModel", "Room")
+                    b.HasOne("Smart_Dom.Models.Room", "Room")
                         .WithMany()
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)

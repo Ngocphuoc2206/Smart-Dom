@@ -9,6 +9,7 @@ C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\Smart
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\Smart-Dom.pdb
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\Humanizer.dll
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -278,6 +279,7 @@ C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\Smart
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\Smart-Dom.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\Smart-Dom.RazorAssemblyInfo.cache
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\Smart-Dom.RazorAssemblyInfo.cs
+C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\Smart-Dom.sourcelink.json
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\scopedcss\bundle\Smart-Dom.styles.css
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\scopedcss\projectbundle\Smart-Dom.bundle.scp.css
@@ -296,4 +298,4 @@ C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\refin
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\Smart-Dom.pdb
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\Smart-Dom.genruntimeconfig.cache
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\ref\Smart-Dom.dll
-C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\Smart-Dom.sourcelink.json
+C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

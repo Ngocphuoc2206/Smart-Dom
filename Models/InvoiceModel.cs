@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Smart_Dom.Models
 {
-    public class Invoice
+    public class InvoiceModel
     {
         [Key]
         public int Id { get; set; }
@@ -16,7 +16,7 @@ namespace Smart_Dom.Models
         [Required]
         public int IDRoom { get; set; }
         [ForeignKey("IDRoom")]
-        public Room? Room { get; set; }
+        public RoomModel? Room { get; set; }
 
         [Required]
         public string InvoiceType { get; set; } // e.g., "Tiền phòng", "Tiền điện", "Tiền nước", "Phí dịch vụ", "Khác" 
