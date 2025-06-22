@@ -66,5 +66,42 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.Room.Controllers.RoomController",
+    "Method": "Delete",
+    "RelativePath": "api/Room/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.Room.Controllers.RoomController",
+    "Method": "Update",
+    "RelativePath": "api/Room/update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "room",
+        "Type": "Smart_Dom.DTOs.RoomDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

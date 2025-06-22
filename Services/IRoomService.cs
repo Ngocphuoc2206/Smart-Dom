@@ -9,7 +9,7 @@ namespace Smart_Dom.Services
         Task<IEnumerable<RoomDTO>> GetAllRoomsWithHistoryAsync();
         Task<RoomModel?> GetRoomByIdAsync(int id);
         Task CreateRoomAsync(RoomDTO room);
-        Task UpdateRoomAsync(RoomDTO room, int id);
+        Task UpdateRoomAsync(RoomDTO room);
         Task DeleteRoomAsync(int id);
 
     }

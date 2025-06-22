@@ -43,9 +43,26 @@ namespace Smart_Dom.Services
             }
         }
 
-        public Task DeleteRoomAsync(int id)
+        public async Task DeleteRoomAsync(int id)
         {
-            throw new NotImplementedException();
+            var existingRoom = await _roomRepository.GetByIdAsync(id);
+            if (existingRoom == null)
+            {
+                _logger.LogWarning($"Room with ID {id} not found for deletion.");
+                throw new KeyNotFoundException($"Room with ID {id} not found.");
+            }
+            using var transaction = _context.Database.BeginTransaction();
+            try
+            {
+                await _roomRepository.DeleteAsync(id);
+                await transaction.CommitAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting room");
+                transaction.Rollback();
+                throw new Exception("Error deleting room", ex);
+            }
         }
 
         public async Task<IEnumerable<RoomModel>> GetAllRoomAsync()
@@ -63,14 +80,14 @@ namespace Smart_Dom.Services
             return await _roomRepository.GetByIdAsync(id);
         }
 
-        public async Task UpdateRoomAsync(RoomDTO room, int id)
+        public async Task UpdateRoomAsync(RoomDTO room)
         {
             //Check room exists
-            var existingRoom = await _roomRepository.GetByIdAsync(id);
+            var existingRoom = await _roomRepository.GetByIdAsync(room.ID);
             if (existingRoom == null)
             {
-                _logger.LogWarning($"Room with ID {id} not found for update.");
-                throw new KeyNotFoundException($"Room with ID {id} not found.");
+                _logger.LogWarning($"Room with ID {room.ID} not found for update.");
+                throw new KeyNotFoundException($"Room with ID {room.ID} not found.");
             }
             using var transaction = _context.Database.BeginTransaction();
             try
