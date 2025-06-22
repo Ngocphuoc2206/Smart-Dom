@@ -7,48 +7,6 @@ import { useRouter } from "next/navigation";
 import { getRoom } from "../hooks/useRoom";
 
 // Mock data
-const mockRooms = [
-  {
-    id: 1,
-    number: "101",
-    status: "occupied",
-    tenant: "Nguyễn Văn A",
-    price: 3000000,
-    area: 25,
-  },
-  {
-    id: 2,
-    number: "102",
-    status: "available",
-    tenant: null,
-    price: 3200000,
-    area: 28,
-  },
-  {
-    id: 3,
-    number: "103",
-    status: "maintenance",
-    tenant: null,
-    price: 3000000,
-    area: 25,
-  },
-  {
-    id: 4,
-    number: "201",
-    status: "occupied",
-    tenant: "Trần Thị B",
-    price: 3500000,
-    area: 30,
-  },
-  {
-    id: 5,
-    number: "202",
-    status: "available",
-    tenant: null,
-    price: 3500000,
-    area: 30,
-  },
-];
 
 const mockBills = [
   {
@@ -240,6 +198,9 @@ export default function OwnerDashboard() {
 
   useEffect(() => {
     getRoom().then(setRooms);
+    if (rooms.length === 0) {
+      alert("Không có dữ liệu phòng nào. Vui lòng thêm phòng mới.");
+    }
   }, []);
 
   // Modal states
@@ -436,13 +397,17 @@ export default function OwnerDashboard() {
   const handleRoomSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log(editingRoom ? "Updating room:" : "Creating room:", roomForm);
-    const response = await fetch(`https://localhost:7257/api/Room/create`, {
-      method: "POST",
+    const url = editingRoom
+      ? `https://localhost:7257/api/Room/update/${editingRoom.id}`
+      : `https://localhost:7257/api/Room/create`;
+    const method = editingRoom ? "PUT" : "POST";
+    const response = await fetch(url, {
+      method: method,
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        number: parseInt(roomForm.number),
+        roomNumber: parseInt(roomForm.number),
         price: parseFloat(roomForm.price),
         area: parseFloat(roomForm.area),
         floor: roomForm.floor ? parseInt(roomForm.floor) : null,
