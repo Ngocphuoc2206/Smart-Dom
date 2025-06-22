@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Smart_Dom.DTOs;
 using Smart_Dom.Interfaces;
 using Smart_Dom.Models;
 
@@ -25,7 +26,7 @@ namespace Smart_Dom.Repositories
             if (existingRoom != null)
             {
                 _context.Rooms.Remove(existingRoom);
-                await _context.SaveChangesAsync();
+                SaveChangesAsync().Wait();
             }
             else
             {
@@ -36,6 +37,29 @@ namespace Smart_Dom.Repositories
         public async Task<IEnumerable<RoomModel>> GetAllAsync()
         {
             return await _context.Rooms.ToListAsync();
+        }
+
+        public Task<IEnumerable<RoomDTO>> GetAllWithHistoryAsync()
+        {
+            var rooms = from r in _context.Rooms
+                        join h in _context.RoomHistories on r.ID equals h.RoomId into roomHistories
+                        from h in roomHistories.DefaultIfEmpty()
+                        join u in _context.Users on h.UserId equals u.ID into users
+                        from u in users.DefaultIfEmpty()
+                        select new RoomDTO
+                        {
+                            ID = r.ID,
+                            RoomNumber = r.RoomNumber,
+                            Floor = r.Floor,
+                            Area = r.Area,
+                            Price = r.Price,
+                            FullName = u != null ? u.FullName : null,
+                            Description = r.Description,
+                            Status = r.Status,
+                            Amenities = r.Amenities != null ? r.Amenities.Split(new[] { ',' }, StringSplitOptions.None).ToList() : new List<string>() // Fix for CS0854
+                        };
+
+            return Task.FromResult(rooms.AsEnumerable());
         }
 
         public async Task<RoomModel?> GetByIdAsync(int id)

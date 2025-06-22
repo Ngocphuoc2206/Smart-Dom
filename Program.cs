@@ -13,7 +13,6 @@ namespace Smart_Dom
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
             
 
             //Cấu hình kết nối cơ sở dữ liệu với Entity Framework Core
@@ -23,10 +22,12 @@ namespace Smart_Dom
             //Cấu hình Repository
             builder.Services.AddScoped<IAccountRepository, AccountRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 
             //Cấu hình Services
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IRoomService, RoomService>();
 
             //Cấu hình cors nhúng nextjs
             builder.Services.AddCors(options =>

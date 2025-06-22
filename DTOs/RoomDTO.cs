@@ -2,7 +2,9 @@
 {
     public class RoomDTO
     {
-        public int Number { get; set; }
+        public int ID { get; set; } // Assuming this is the unique identifier for the room
+        public string? FullName { get; set; } = null;// Assuming this is the user's full name associated with the room
+        public int RoomNumber { get; set; }
         public float Price { get; set; }
         public int Floor { get; set; }
         public float Area { get; set; }

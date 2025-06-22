@@ -25,7 +25,7 @@ namespace Smart_Dom.Repositories
             if (existingAccount != null)
             {
                 _context.Accounts.Remove(existingAccount);
-                await _context.SaveChangesAsync();
+                SaveChangesAsync().Wait();
             }
             else
             {

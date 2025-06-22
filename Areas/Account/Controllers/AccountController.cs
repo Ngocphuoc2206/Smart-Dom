@@ -5,6 +5,7 @@ using Smart_Dom.DTOs;
 using Smart_Dom.Interfaces;
 using Smart_Dom.Models;
 using Smart_Dom.Services;
+using System.Threading.Tasks;
 namespace Smart_Dom.Areas.AccountControllers.Controllers
 {
     [Area("AccountControllers")]
@@ -15,11 +16,13 @@ namespace Smart_Dom.Areas.AccountControllers.Controllers
         private readonly ILogger<AccountController> _logger;
         private readonly AppDBContext _context;
         private readonly IAccountService _accountService;
-        public AccountController(ILogger<AccountController> logger, AppDBContext context, IAccountService accountService)
+        private readonly IUserService _userService;
+        public AccountController(ILogger<AccountController> logger, AppDBContext context, IAccountService accountService, IUserService userService)
         {
             _logger = logger;
             _context = context;
             _accountService = accountService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -53,20 +56,17 @@ namespace Smart_Dom.Areas.AccountControllers.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginModelDTO model)
+        public async Task<IActionResult> Login([FromBody] LoginModelDTO model)
         {
             _logger.LogInformation("User login attempt for email: {Email}", model.Email);
-            var account = _context.Accounts
-                            .FirstOrDefault(a => a.UserName == model.Email);
-
+            var account = await _accountService.GetAccountByUsernameAsync(model.Email);
+            //Decode the password and verify it against the stored hash
             if (account == null || !BCrypt.Net.BCrypt.Verify(model.Password, account.PasswordHash))
             {
                 return Unauthorized("Invalid email or password.");
             }
 
-            var user = _context.Users
-                .FirstOrDefault(u => u.ID == account.UserId);
-            bool isPasswordValid = BCrypt.Net.BCrypt.Verify(model.Password, account.PasswordHash);
+            var user = await _userService.GetUserByIdAsync(account.UserId);
             return Ok(new
             {
                 username = account.UserName,
