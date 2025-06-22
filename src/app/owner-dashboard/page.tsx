@@ -198,9 +198,6 @@ export default function OwnerDashboard() {
 
   useEffect(() => {
     getRoom().then(setRooms);
-    if (rooms.length === 0) {
-      alert("Không có dữ liệu phòng nào. Vui lòng thêm phòng mới.");
-    }
   }, []);
 
   // Modal states
@@ -222,6 +219,7 @@ export default function OwnerDashboard() {
 
   // Form data
   const [roomForm, setRoomForm] = useState({
+    id: 0,
     number: "",
     price: "",
     area: "",
@@ -301,11 +299,13 @@ export default function OwnerDashboard() {
   };
 
   // Modal handlers
-  const openRoomModal = (room?: any) => {
+  const openRoomModal = (room?: any, roomID?: any) => {
+    alert("Mở modal phòng với ID: " + roomID);
     if (room) {
       setEditingRoom(room);
       setRoomForm({
-        number: room.number,
+        id: parseInt(roomID),
+        number: room.roomNumber.toString(),
         price: room.price.toString(),
         area: room.area.toString(),
         floor: room.floor?.toString() || "",
@@ -316,6 +316,7 @@ export default function OwnerDashboard() {
     } else {
       setEditingRoom(null);
       setRoomForm({
+        id: 0,
         number: "",
         price: "",
         area: "",
@@ -398,7 +399,7 @@ export default function OwnerDashboard() {
     e.preventDefault();
     console.log(editingRoom ? "Updating room:" : "Creating room:", roomForm);
     const url = editingRoom
-      ? `https://localhost:7257/api/Room/update/${editingRoom.id}`
+      ? `https://localhost:7257/api/Room/update/${roomForm.id}`
       : `https://localhost:7257/api/Room/create`;
     const method = editingRoom ? "PUT" : "POST";
     const response = await fetch(url, {
@@ -456,9 +457,19 @@ export default function OwnerDashboard() {
     );
   };
 
-  const handleDeleteRoom = (roomId: string) => {
-    if (confirm("Bạn có chắc chắn muốn xóa phòng này?")) {
-      console.log("Deleting room:", roomId);
+  const handleDeleteRoom = async (roomId: string) => {
+    if (confirm("Bạn có chắc chắn muốn xóa phòng này?" + roomId)) {
+      const url = `https://localhost:7257/api/Room/delete/${roomId}`;
+      const response = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        alert("Có lỗi xảy ra khi xóa phòng!");
+        return;
+      }
       alert("Xóa phòng thành công!");
     }
   };
@@ -807,7 +818,9 @@ export default function OwnerDashboard() {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                           <button
-                            onClick={() => openRoomModal(room)}
+                            onClick={() =>
+                              openRoomModal(room, parseInt(room.id))
+                            }
                             className="text-blue-600 hover:text-blue-900 mr-3 px-3 py-1 rounded-lg hover:bg-blue-50 transition-colors"
                           >
                             Sửa
