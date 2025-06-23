@@ -2,6 +2,7 @@
 using Smart_Dom.DTOs;
 using Smart_Dom.Models;
 using Smart_Dom.Services;
+using System.Threading.Tasks;
 
 namespace Smart_Dom.Areas.Room.Controllers
 {
@@ -23,6 +24,18 @@ namespace Smart_Dom.Areas.Room.Controllers
             _logger.LogInformation("Retrieving all rooms");
             var rooms = _roomService.GetAllRoomsWithHistoryAsync();
             return Ok(rooms);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id) { 
+            _logger.LogInformation($"Retrieving room with ID {id}");
+            var room = await _roomService.GetRoomByIdAsync(id);
+            if (room == null)
+            {
+                _logger.LogWarning($"Room with ID {id} not found");
+                return NotFound($"Room with ID {id} not found");
+            }
+            return Ok(room);
         }
 
         [HttpPost("create")]

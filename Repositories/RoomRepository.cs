@@ -67,6 +67,7 @@ namespace Smart_Dom.Repositories
             return await _context.Rooms.FindAsync(id);
         }
 
+
         public async Task<bool> SaveChangesAsync()
         {
             return await _context.SaveChangesAsync() > 0;
