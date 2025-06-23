@@ -394,6 +394,11 @@ export default function OwnerDashboard() {
     setShowReportDetailModal(true);
   };
 
+  const fetchRooms = async () => {
+    const data = await getRoom();
+    setRooms(data);
+  };
+
   // Form submit handlers
   const handleRoomSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -425,7 +430,7 @@ export default function OwnerDashboard() {
       );
       return;
     }
-
+    await fetchRooms(); // Refresh room list
     setShowRoomModal(false);
     alert(
       editingRoom ? "Cập nhật phòng thành công!" : "Thêm phòng mới thành công!"
@@ -470,6 +475,7 @@ export default function OwnerDashboard() {
         alert("Có lỗi xảy ra khi xóa phòng!");
         return;
       }
+      await fetchRooms(); // Refresh room list
       alert("Xóa phòng thành công!");
     }
   };

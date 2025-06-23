@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
+import { getRoom } from "@/app/hooks/useRoom";
 
 // Mock data
 const mockAllRooms = [
@@ -185,6 +186,11 @@ export default function TenantDashboard() {
   const { logout } = useAuth();
   const { user } = useAuth();
   const router = useRouter();
+  const [rooms, setRooms] = useState<any[]>([]);
+
+  useEffect(() => {
+    getRoom().then(setRooms);
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -266,7 +272,7 @@ export default function TenantDashboard() {
   };
 
   // Filter rooms based on criteria
-  const filteredRooms = mockAllRooms.filter((room) => {
+  const filteredRooms = rooms.filter((room) => {
     const matchesStatus =
       roomFilters.status === "all" || room.status === roomFilters.status;
     const matchesMinPrice =
@@ -277,11 +283,9 @@ export default function TenantDashboard() {
       !roomFilters.minArea || room.area >= parseInt(roomFilters.minArea);
     const matchesSearch =
       !roomFilters.searchTerm ||
-      room.number
-        .toLowerCase()
-        .includes(roomFilters.searchTerm.toLowerCase()) ||
-      room.amenities.some((amenity) =>
-        amenity.toLowerCase().includes(roomFilters.searchTerm.toLowerCase())
+      (Array.isArray(room.amenities) ? room.amenities : []).some(
+        (amenity: string) =>
+          amenity.toLowerCase().includes(roomFilters.searchTerm.toLowerCase())
       );
 
     return (
@@ -615,8 +619,7 @@ export default function TenantDashboard() {
                     Danh sách phòng trọ
                   </h2>
                   <div className="text-sm text-gray-600">
-                    Hiển thị {filteredRooms.length} / {mockAllRooms.length}{" "}
-                    phòng
+                    Hiển thị {filteredRooms.length} / {rooms.length} phòng
                   </div>
                 </div>
 
@@ -624,34 +627,25 @@ export default function TenantDashboard() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                   <div className="bg-green-50 p-4 rounded-lg text-center">
                     <div className="text-2xl font-bold text-green-600">
-                      {
-                        mockAllRooms.filter((r) => r.status === "available")
-                          .length
-                      }
+                      {rooms.filter((r) => r.status === "available").length}
                     </div>
                     <div className="text-sm text-green-700">Phòng trống</div>
                   </div>
                   <div className="bg-blue-50 p-4 rounded-lg text-center">
                     <div className="text-2xl font-bold text-blue-600">
-                      {
-                        mockAllRooms.filter((r) => r.status === "occupied")
-                          .length
-                      }
+                      {rooms.filter((r) => r.status === "occupied").length}
                     </div>
                     <div className="text-sm text-blue-700">Đã thuê</div>
                   </div>
                   <div className="bg-yellow-50 p-4 rounded-lg text-center">
                     <div className="text-2xl font-bold text-yellow-600">
-                      {
-                        mockAllRooms.filter((r) => r.status === "maintenance")
-                          .length
-                      }
+                      {rooms.filter((r) => r.status === "maintenance").length}
                     </div>
                     <div className="text-sm text-yellow-700">Bảo trì</div>
                   </div>
                   <div className="bg-gray-50 p-4 rounded-lg text-center">
                     <div className="text-2xl font-bold text-gray-600">
-                      {mockAllRooms.length}
+                      {rooms.length}
                     </div>
                     <div className="text-sm text-gray-700">Tổng phòng</div>
                   </div>
@@ -719,7 +713,7 @@ export default function TenantDashboard() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
                       Tìm kiếm
                     </label>
                     <input
@@ -776,7 +770,7 @@ export default function TenantDashboard() {
                     <div className="p-4">
                       <div className="flex justify-between items-start mb-2">
                         <h3 className="text-lg font-semibold text-gray-900">
-                          Phòng {room.number}
+                          Phòng {room.roomNumber}
                         </h3>
                         <div className="text-right">
                           <p className="text-2xl font-bold text-green-600">
@@ -821,14 +815,16 @@ export default function TenantDashboard() {
                           Tiện nghi:
                         </p>
                         <div className="flex flex-wrap gap-1">
-                          {room.amenities.map((amenity, index) => (
-                            <span
-                              key={index}
-                              className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded"
-                            >
-                              {amenity}
-                            </span>
-                          ))}
+                          {room.amenities.map(
+                            (amenity: string, index: number) => (
+                              <span
+                                key={index}
+                                className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded"
+                              >
+                                {amenity}
+                              </span>
+                            )
+                          )}
                         </div>
                       </div>
 
@@ -836,7 +832,7 @@ export default function TenantDashboard() {
                         {room.status === "available" ? (
                           <>
                             <Link
-                              href="/book-room"
+                              href={`/book-room?roomID=${room.id}`}
                               className="flex-1 bg-green-600 text-white py-2 rounded hover:bg-green-700 text-center font-medium"
                             >
                               Đặt phòng

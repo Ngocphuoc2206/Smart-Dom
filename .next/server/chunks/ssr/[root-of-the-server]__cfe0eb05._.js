@@ -435,6 +435,10 @@ function OwnerDashboard() {
         setSelectedReport(report);
         setShowReportDetailModal(true);
     };
+    const fetchRooms = async ()=>{
+        const data = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$hooks$2f$useRoom$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getRoom"])();
+        setRooms(data);
+    };
     // Form submit handlers
     const handleRoomSubmit = async (e)=>{
         e.preventDefault();
@@ -460,6 +464,7 @@ function OwnerDashboard() {
             alert(editingRoom ? "Có lỗi xảy ra khi cập nhật phòng!" : "Có lỗi xảy ra khi thêm phòng mới!");
             return;
         }
+        await fetchRooms(); // Refresh room list
         setShowRoomModal(false);
         alert(editingRoom ? "Cập nhật phòng thành công!" : "Thêm phòng mới thành công!");
     };
@@ -488,6 +493,7 @@ function OwnerDashboard() {
                 alert("Có lỗi xảy ra khi xóa phòng!");
                 return;
             }
+            await fetchRooms(); // Refresh room list
             alert("Xóa phòng thành công!");
         }
     };
@@ -546,12 +552,12 @@ function OwnerDashboard() {
                                         children: "🏠"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 537,
+                                        lineNumber: 543,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 536,
+                                    lineNumber: 542,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -561,7 +567,7 @@ function OwnerDashboard() {
                                             children: "SmartDorm"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 540,
+                                            lineNumber: 546,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -569,24 +575,24 @@ function OwnerDashboard() {
                                             children: "Dashboard Chủ trọ"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 541,
+                                            lineNumber: 547,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 539,
+                                    lineNumber: 545,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                            lineNumber: 535,
+                            lineNumber: 541,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                        lineNumber: 534,
+                        lineNumber: 540,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -643,7 +649,7 @@ function OwnerDashboard() {
                                             children: tab.icon
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 568,
+                                            lineNumber: 574,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -651,30 +657,30 @@ function OwnerDashboard() {
                                             children: tab.label
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 575,
+                                            lineNumber: 581,
                                             columnNumber: 17
                                         }, this),
                                         activeTab === tab.id && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "ml-auto w-2 h-2 bg-white rounded-full"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 577,
+                                            lineNumber: 583,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, tab.id, true, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 559,
+                                    lineNumber: 565,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                            lineNumber: 548,
+                            lineNumber: 554,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                        lineNumber: 547,
+                        lineNumber: 553,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -688,7 +694,7 @@ function OwnerDashboard() {
                                         children: user?.name
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 587,
+                                        lineNumber: 593,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -696,13 +702,13 @@ function OwnerDashboard() {
                                         children: user?.email
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 588,
+                                        lineNumber: 594,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                lineNumber: 586,
+                                lineNumber: 592,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -714,32 +720,32 @@ function OwnerDashboard() {
                                         children: "🚪"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 594,
+                                        lineNumber: 600,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         children: "Đăng xuất"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 597,
+                                        lineNumber: 603,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                lineNumber: 590,
+                                lineNumber: 596,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                        lineNumber: 585,
+                        lineNumber: 591,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                lineNumber: 532,
+                lineNumber: 538,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -792,7 +798,7 @@ function OwnerDashboard() {
                                                 ].find((tab)=>tab.id === activeTab)?.label
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 608,
+                                                lineNumber: 614,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -800,13 +806,13 @@ function OwnerDashboard() {
                                                 children: "Quản lý và theo dõi hoạt động của hệ thống"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 622,
+                                                lineNumber: 628,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 607,
+                                        lineNumber: 613,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -816,28 +822,28 @@ function OwnerDashboard() {
                                             children: new Date().toLocaleDateString("vi-VN")
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 627,
+                                            lineNumber: 633,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 626,
+                                        lineNumber: 632,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                lineNumber: 606,
+                                lineNumber: 612,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                            lineNumber: 605,
+                            lineNumber: 611,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                        lineNumber: 604,
+                        lineNumber: 610,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -859,7 +865,7 @@ function OwnerDashboard() {
                                                             children: "🏠"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 644,
+                                                            lineNumber: 650,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -869,7 +875,7 @@ function OwnerDashboard() {
                                                                     children: "Tổng phòng"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 646,
+                                                                    lineNumber: 652,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -877,24 +883,24 @@ function OwnerDashboard() {
                                                                     children: "5"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 649,
+                                                                    lineNumber: 655,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 645,
+                                                            lineNumber: 651,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 643,
+                                                    lineNumber: 649,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 642,
+                                                lineNumber: 648,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -907,7 +913,7 @@ function OwnerDashboard() {
                                                             children: "✅"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 655,
+                                                            lineNumber: 661,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -917,7 +923,7 @@ function OwnerDashboard() {
                                                                     children: "Đã thuê"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 657,
+                                                                    lineNumber: 663,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -925,24 +931,24 @@ function OwnerDashboard() {
                                                                     children: "2"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 660,
+                                                                    lineNumber: 666,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 656,
+                                                            lineNumber: 662,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 654,
+                                                    lineNumber: 660,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 653,
+                                                lineNumber: 659,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -955,7 +961,7 @@ function OwnerDashboard() {
                                                             children: "🔓"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 666,
+                                                            lineNumber: 672,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -965,7 +971,7 @@ function OwnerDashboard() {
                                                                     children: "Phòng trống"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 668,
+                                                                    lineNumber: 674,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -973,24 +979,24 @@ function OwnerDashboard() {
                                                                     children: "2"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 671,
+                                                                    lineNumber: 677,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 667,
+                                                            lineNumber: 673,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 665,
+                                                    lineNumber: 671,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 664,
+                                                lineNumber: 670,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1003,7 +1009,7 @@ function OwnerDashboard() {
                                                             children: "💰"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 677,
+                                                            lineNumber: 683,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1013,7 +1019,7 @@ function OwnerDashboard() {
                                                                     children: "Doanh thu tháng"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 679,
+                                                                    lineNumber: 685,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1021,30 +1027,30 @@ function OwnerDashboard() {
                                                                     children: "7.5M"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 682,
+                                                                    lineNumber: 688,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 678,
+                                                            lineNumber: 684,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 676,
+                                                    lineNumber: 682,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 675,
+                                                lineNumber: 681,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 641,
+                                        lineNumber: 647,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1058,7 +1064,7 @@ function OwnerDashboard() {
                                                         children: "Hóa đơn cần xử lý"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 691,
+                                                        lineNumber: 697,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1078,7 +1084,7 @@ function OwnerDashboard() {
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                lineNumber: 703,
+                                                                                lineNumber: 709,
                                                                                 columnNumber: 29
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1089,13 +1095,13 @@ function OwnerDashboard() {
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                lineNumber: 706,
+                                                                                lineNumber: 712,
                                                                                 columnNumber: 29
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 702,
+                                                                        lineNumber: 708,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1103,24 +1109,24 @@ function OwnerDashboard() {
                                                                         children: getStatusText(bill.status)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 710,
+                                                                        lineNumber: 716,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 ]
                                                             }, bill.id, true, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 698,
+                                                                lineNumber: 704,
                                                                 columnNumber: 25
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 694,
+                                                        lineNumber: 700,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 690,
+                                                lineNumber: 696,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1131,7 +1137,7 @@ function OwnerDashboard() {
                                                         children: "Báo cáo sự cố mới"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 723,
+                                                        lineNumber: 729,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1149,7 +1155,7 @@ function OwnerDashboard() {
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                lineNumber: 735,
+                                                                                lineNumber: 741,
                                                                                 columnNumber: 29
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1157,13 +1163,13 @@ function OwnerDashboard() {
                                                                                 children: report.issue
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                lineNumber: 736,
+                                                                                lineNumber: 742,
                                                                                 columnNumber: 29
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 734,
+                                                                        lineNumber: 740,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1171,36 +1177,36 @@ function OwnerDashboard() {
                                                                         children: getStatusText(report.status)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 740,
+                                                                        lineNumber: 746,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 ]
                                                             }, report.id, true, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 730,
+                                                                lineNumber: 736,
                                                                 columnNumber: 25
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 726,
+                                                        lineNumber: 732,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 722,
+                                                lineNumber: 728,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 689,
+                                        lineNumber: 695,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                lineNumber: 639,
+                                lineNumber: 645,
                                 columnNumber: 13
                             }, this),
                             activeTab === "rooms" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1214,7 +1220,7 @@ function OwnerDashboard() {
                                                 children: "Quản lý phòng trọ"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 759,
+                                                lineNumber: 765,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1226,20 +1232,20 @@ function OwnerDashboard() {
                                                         children: "+"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 766,
+                                                        lineNumber: 772,
                                                         columnNumber: 19
                                                     }, this),
                                                     "Thêm phòng mới"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 762,
+                                                lineNumber: 768,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 758,
+                                        lineNumber: 764,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1256,7 +1262,7 @@ function OwnerDashboard() {
                                                                 children: "Phòng"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 775,
+                                                                lineNumber: 781,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1264,7 +1270,7 @@ function OwnerDashboard() {
                                                                 children: "Trạng thái"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 778,
+                                                                lineNumber: 784,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1272,7 +1278,7 @@ function OwnerDashboard() {
                                                                 children: "Khách thuê"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 781,
+                                                                lineNumber: 787,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1280,7 +1286,7 @@ function OwnerDashboard() {
                                                                 children: "Giá thuê"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 784,
+                                                                lineNumber: 790,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1288,7 +1294,7 @@ function OwnerDashboard() {
                                                                 children: "Diện tích"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 787,
+                                                                lineNumber: 793,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1296,18 +1302,18 @@ function OwnerDashboard() {
                                                                 children: "Thao tác"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 790,
+                                                                lineNumber: 796,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 774,
+                                                        lineNumber: 780,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 773,
+                                                    lineNumber: 779,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1319,7 +1325,7 @@ function OwnerDashboard() {
                                                                     children: room.roomNumber
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 798,
+                                                                    lineNumber: 804,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1329,12 +1335,12 @@ function OwnerDashboard() {
                                                                         children: getStatusText(room.status)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 802,
+                                                                        lineNumber: 808,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 801,
+                                                                    lineNumber: 807,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1342,7 +1348,7 @@ function OwnerDashboard() {
                                                                     children: room.fullName || "-"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 810,
+                                                                    lineNumber: 816,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1353,7 +1359,7 @@ function OwnerDashboard() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 813,
+                                                                    lineNumber: 819,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1364,7 +1370,7 @@ function OwnerDashboard() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 816,
+                                                                    lineNumber: 822,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1376,7 +1382,7 @@ function OwnerDashboard() {
                                                                             children: "Sửa"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 820,
+                                                                            lineNumber: 826,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1385,41 +1391,41 @@ function OwnerDashboard() {
                                                                             children: "Xóa"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 828,
+                                                                            lineNumber: 834,
                                                                             columnNumber: 27
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 819,
+                                                                    lineNumber: 825,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, room.id, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 797,
+                                                            lineNumber: 803,
                                                             columnNumber: 23
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 795,
+                                                    lineNumber: 801,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 772,
+                                            lineNumber: 778,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 771,
+                                        lineNumber: 777,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                lineNumber: 757,
+                                lineNumber: 763,
                                 columnNumber: 13
                             }, this),
                             activeTab === "bills" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1433,7 +1439,7 @@ function OwnerDashboard() {
                                                 children: "Quản lý hóa đơn"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 847,
+                                                lineNumber: 853,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1445,20 +1451,20 @@ function OwnerDashboard() {
                                                         children: "+"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 854,
+                                                        lineNumber: 860,
                                                         columnNumber: 19
                                                     }, this),
                                                     "Tạo hóa đơn mới"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 850,
+                                                lineNumber: 856,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 846,
+                                        lineNumber: 852,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1475,7 +1481,7 @@ function OwnerDashboard() {
                                                                 children: "Phòng"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 863,
+                                                                lineNumber: 869,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1483,7 +1489,7 @@ function OwnerDashboard() {
                                                                 children: "Khách thuê"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 866,
+                                                                lineNumber: 872,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1491,7 +1497,7 @@ function OwnerDashboard() {
                                                                 children: "Loại hóa đơn"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 869,
+                                                                lineNumber: 875,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1499,7 +1505,7 @@ function OwnerDashboard() {
                                                                 children: "Số tiền"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 872,
+                                                                lineNumber: 878,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1507,7 +1513,7 @@ function OwnerDashboard() {
                                                                 children: "Hạn thanh toán"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 875,
+                                                                lineNumber: 881,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1515,7 +1521,7 @@ function OwnerDashboard() {
                                                                 children: "Trạng thái"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 878,
+                                                                lineNumber: 884,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1523,18 +1529,18 @@ function OwnerDashboard() {
                                                                 children: "Thao tác"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 881,
+                                                                lineNumber: 887,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 862,
+                                                        lineNumber: 868,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 861,
+                                                    lineNumber: 867,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1546,7 +1552,7 @@ function OwnerDashboard() {
                                                                     children: bill.room
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 889,
+                                                                    lineNumber: 895,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1554,7 +1560,7 @@ function OwnerDashboard() {
                                                                     children: bill.tenant
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 892,
+                                                                    lineNumber: 898,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1562,7 +1568,7 @@ function OwnerDashboard() {
                                                                     children: bill.type === "monthly" ? "Tiền phòng" : "Tiền điện"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 895,
+                                                                    lineNumber: 901,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1573,7 +1579,7 @@ function OwnerDashboard() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 898,
+                                                                    lineNumber: 904,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1581,7 +1587,7 @@ function OwnerDashboard() {
                                                                     children: bill.dueDate
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 901,
+                                                                    lineNumber: 907,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1591,12 +1597,12 @@ function OwnerDashboard() {
                                                                         children: getStatusText(bill.status)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 905,
+                                                                        lineNumber: 911,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 904,
+                                                                    lineNumber: 910,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1608,7 +1614,7 @@ function OwnerDashboard() {
                                                                             children: "Xem"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 914,
+                                                                            lineNumber: 920,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1617,7 +1623,7 @@ function OwnerDashboard() {
                                                                             children: "Sửa"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 920,
+                                                                            lineNumber: 926,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1626,41 +1632,41 @@ function OwnerDashboard() {
                                                                             children: "Nhắc nhở"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 926,
+                                                                            lineNumber: 932,
                                                                             columnNumber: 27
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 913,
+                                                                    lineNumber: 919,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, bill.id, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 888,
+                                                            lineNumber: 894,
                                                             columnNumber: 23
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 886,
+                                                    lineNumber: 892,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 860,
+                                            lineNumber: 866,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 859,
+                                        lineNumber: 865,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                lineNumber: 845,
+                                lineNumber: 851,
                                 columnNumber: 13
                             }, this),
                             activeTab === "tenants" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1674,7 +1680,7 @@ function OwnerDashboard() {
                                                 children: "Quản lý khách thuê"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 945,
+                                                lineNumber: 951,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1686,20 +1692,20 @@ function OwnerDashboard() {
                                                         children: "+"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 952,
+                                                        lineNumber: 958,
                                                         columnNumber: 19
                                                     }, this),
                                                     "Thêm khách thuê mới"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 948,
+                                                lineNumber: 954,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 944,
+                                        lineNumber: 950,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1716,7 +1722,7 @@ function OwnerDashboard() {
                                                                 children: "Khách thuê"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 961,
+                                                                lineNumber: 967,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1724,7 +1730,7 @@ function OwnerDashboard() {
                                                                 children: "Phòng"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 964,
+                                                                lineNumber: 970,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1732,7 +1738,7 @@ function OwnerDashboard() {
                                                                 children: "Điện thoại"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 967,
+                                                                lineNumber: 973,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1740,7 +1746,7 @@ function OwnerDashboard() {
                                                                 children: "Ngày bắt đầu"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 970,
+                                                                lineNumber: 976,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1748,7 +1754,7 @@ function OwnerDashboard() {
                                                                 children: "Trạng thái"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 973,
+                                                                lineNumber: 979,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1756,18 +1762,18 @@ function OwnerDashboard() {
                                                                 children: "Thao tác"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 976,
+                                                                lineNumber: 982,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 960,
+                                                        lineNumber: 966,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 959,
+                                                    lineNumber: 965,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1809,7 +1815,7 @@ function OwnerDashboard() {
                                                                                 children: tenant.name.charAt(0)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                lineNumber: 1011,
+                                                                                lineNumber: 1017,
                                                                                 columnNumber: 29
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1819,7 +1825,7 @@ function OwnerDashboard() {
                                                                                         children: tenant.name
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                        lineNumber: 1015,
+                                                                                        lineNumber: 1021,
                                                                                         columnNumber: 31
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1830,24 +1836,24 @@ function OwnerDashboard() {
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                        lineNumber: 1018,
+                                                                                        lineNumber: 1024,
                                                                                         columnNumber: 31
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                lineNumber: 1014,
+                                                                                lineNumber: 1020,
                                                                                 columnNumber: 29
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1010,
+                                                                        lineNumber: 1016,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1009,
+                                                                    lineNumber: 1015,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1855,7 +1861,7 @@ function OwnerDashboard() {
                                                                     children: tenant.room
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1024,
+                                                                    lineNumber: 1030,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1863,7 +1869,7 @@ function OwnerDashboard() {
                                                                     children: tenant.phone
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1027,
+                                                                    lineNumber: 1033,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1871,7 +1877,7 @@ function OwnerDashboard() {
                                                                     children: tenant.startDate
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1030,
+                                                                    lineNumber: 1036,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1881,12 +1887,12 @@ function OwnerDashboard() {
                                                                         children: tenant.status === "active" ? "Đang thuê" : "Chờ xác nhận"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1034,
+                                                                        lineNumber: 1040,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1033,
+                                                                    lineNumber: 1039,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1898,7 +1904,7 @@ function OwnerDashboard() {
                                                                             children: "Xem"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 1047,
+                                                                            lineNumber: 1053,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1907,7 +1913,7 @@ function OwnerDashboard() {
                                                                             children: "Sửa"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 1053,
+                                                                            lineNumber: 1059,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1916,41 +1922,41 @@ function OwnerDashboard() {
                                                                             children: "Xóa"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 1059,
+                                                                            lineNumber: 1065,
                                                                             columnNumber: 27
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1046,
+                                                                    lineNumber: 1052,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, tenant.id, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1008,
+                                                            lineNumber: 1014,
                                                             columnNumber: 23
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 981,
+                                                    lineNumber: 987,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 958,
+                                            lineNumber: 964,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 957,
+                                        lineNumber: 963,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                lineNumber: 943,
+                                lineNumber: 949,
                                 columnNumber: 13
                             }, this),
                             activeTab === "reports" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1964,7 +1970,7 @@ function OwnerDashboard() {
                                                 children: "Báo cáo sự cố"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1079,
+                                                lineNumber: 1085,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1977,62 +1983,25 @@ function OwnerDashboard() {
                                                                 children: "Tất cả trạng thái"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1084,
+                                                                lineNumber: 1090,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 children: "Chờ xử lý"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1085,
+                                                                lineNumber: 1091,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 children: "Đang xử lý"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1086,
-                                                                columnNumber: 21
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                children: "Hoàn thành"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1087,
-                                                                columnNumber: 21
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 1083,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                        className: "border border-gray-300 rounded-lg px-3 py-2",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                children: "Tất cả mức độ"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1090,
-                                                                columnNumber: 21
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                children: "Cao"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1091,
-                                                                columnNumber: 21
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                children: "Trung bình"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/app/owner-dashboard/page.tsx",
                                                                 lineNumber: 1092,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                                children: "Thấp"
+                                                                children: "Hoàn thành"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
                                                                 lineNumber: 1093,
@@ -2043,17 +2012,54 @@ function OwnerDashboard() {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
                                                         lineNumber: 1089,
                                                         columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                        className: "border border-gray-300 rounded-lg px-3 py-2",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                children: "Tất cả mức độ"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/owner-dashboard/page.tsx",
+                                                                lineNumber: 1096,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                children: "Cao"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/owner-dashboard/page.tsx",
+                                                                lineNumber: 1097,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                children: "Trung bình"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/owner-dashboard/page.tsx",
+                                                                lineNumber: 1098,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                children: "Thấp"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/owner-dashboard/page.tsx",
+                                                                lineNumber: 1099,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/owner-dashboard/page.tsx",
+                                                        lineNumber: 1095,
+                                                        columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1082,
+                                                lineNumber: 1088,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 1078,
+                                        lineNumber: 1084,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2070,7 +2076,7 @@ function OwnerDashboard() {
                                                                 children: "Sự cố"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1102,
+                                                                lineNumber: 1108,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2078,7 +2084,7 @@ function OwnerDashboard() {
                                                                 children: "Phòng"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1105,
+                                                                lineNumber: 1111,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2086,7 +2092,7 @@ function OwnerDashboard() {
                                                                 children: "Khách thuê"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1108,
+                                                                lineNumber: 1114,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2094,7 +2100,7 @@ function OwnerDashboard() {
                                                                 children: "Mức độ"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1111,
+                                                                lineNumber: 1117,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2102,7 +2108,7 @@ function OwnerDashboard() {
                                                                 children: "Ngày báo cáo"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1114,
+                                                                lineNumber: 1120,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2110,7 +2116,7 @@ function OwnerDashboard() {
                                                                 children: "Trạng thái"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1117,
+                                                                lineNumber: 1123,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2118,18 +2124,18 @@ function OwnerDashboard() {
                                                                 children: "Thao tác"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1120,
+                                                                lineNumber: 1126,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 1101,
+                                                        lineNumber: 1107,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1100,
+                                                    lineNumber: 1106,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -2176,7 +2182,7 @@ function OwnerDashboard() {
                                                                                 children: report.issue
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                lineNumber: 1161,
+                                                                                lineNumber: 1167,
                                                                                 columnNumber: 29
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2184,18 +2190,18 @@ function OwnerDashboard() {
                                                                                 children: report.description
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                lineNumber: 1164,
+                                                                                lineNumber: 1170,
                                                                                 columnNumber: 29
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1160,
+                                                                        lineNumber: 1166,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1159,
+                                                                    lineNumber: 1165,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2203,7 +2209,7 @@ function OwnerDashboard() {
                                                                     children: report.room
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1169,
+                                                                    lineNumber: 1175,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2211,7 +2217,7 @@ function OwnerDashboard() {
                                                                     children: report.tenant
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1172,
+                                                                    lineNumber: 1178,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2221,12 +2227,12 @@ function OwnerDashboard() {
                                                                         children: report.priority === "high" ? "Cao" : report.priority === "medium" ? "Trung bình" : "Thấp"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1176,
+                                                                        lineNumber: 1182,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1175,
+                                                                    lineNumber: 1181,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2234,7 +2240,7 @@ function OwnerDashboard() {
                                                                     children: report.date
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1192,
+                                                                    lineNumber: 1198,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2244,12 +2250,12 @@ function OwnerDashboard() {
                                                                         children: getStatusText(report.status)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1196,
+                                                                        lineNumber: 1202,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1195,
+                                                                    lineNumber: 1201,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2261,7 +2267,7 @@ function OwnerDashboard() {
                                                                             children: "Xem"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 1205,
+                                                                            lineNumber: 1211,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2270,7 +2276,7 @@ function OwnerDashboard() {
                                                                             children: "Cập nhật"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 1211,
+                                                                            lineNumber: 1217,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         report.status === "pending" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2279,41 +2285,41 @@ function OwnerDashboard() {
                                                                             children: "Xử lý"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 1218,
+                                                                            lineNumber: 1224,
                                                                             columnNumber: 29
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1204,
+                                                                    lineNumber: 1210,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, report.id, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1158,
+                                                            lineNumber: 1164,
                                                             columnNumber: 23
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1125,
+                                                    lineNumber: 1131,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 1099,
+                                            lineNumber: 1105,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 1098,
+                                        lineNumber: 1104,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                lineNumber: 1077,
+                                lineNumber: 1083,
                                 columnNumber: 13
                             }, this),
                             activeTab === "messages" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2327,7 +2333,7 @@ function OwnerDashboard() {
                                                 children: "Tin nhắn với khách thuê"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1243,
+                                                lineNumber: 1249,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2342,7 +2348,7 @@ function OwnerDashboard() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 1247,
+                                                        lineNumber: 1253,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2353,26 +2359,26 @@ function OwnerDashboard() {
                                                                 children: "+"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1255,
+                                                                lineNumber: 1261,
                                                                 columnNumber: 21
                                                             }, this),
                                                             "Tin nhắn mới"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 1254,
+                                                        lineNumber: 1260,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1246,
+                                                lineNumber: 1252,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 1242,
+                                        lineNumber: 1248,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2388,12 +2394,12 @@ function OwnerDashboard() {
                                                             children: "Cuộc trò chuyện"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1265,
+                                                            lineNumber: 1271,
                                                             columnNumber: 21
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 1264,
+                                                        lineNumber: 1270,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2412,20 +2418,20 @@ function OwnerDashboard() {
                                                                                     children: conversation.tenant.avatar
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                    lineNumber: 1282,
+                                                                                    lineNumber: 1288,
                                                                                     columnNumber: 29
                                                                                 }, this),
                                                                                 conversation.isOnline && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                     className: "absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                    lineNumber: 1286,
+                                                                                    lineNumber: 1292,
                                                                                     columnNumber: 31
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 1281,
+                                                                            lineNumber: 1287,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2439,7 +2445,7 @@ function OwnerDashboard() {
                                                                                             children: conversation.tenant.name
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                            lineNumber: 1291,
+                                                                                            lineNumber: 1297,
                                                                                             columnNumber: 31
                                                                                         }, this),
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2447,13 +2453,13 @@ function OwnerDashboard() {
                                                                                             children: conversation.lastMessageTime
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                            lineNumber: 1294,
+                                                                                            lineNumber: 1300,
                                                                                             columnNumber: 31
                                                                                         }, this)
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                    lineNumber: 1290,
+                                                                                    lineNumber: 1296,
                                                                                     columnNumber: 29
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2464,7 +2470,7 @@ function OwnerDashboard() {
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                    lineNumber: 1298,
+                                                                                    lineNumber: 1304,
                                                                                     columnNumber: 29
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2472,7 +2478,7 @@ function OwnerDashboard() {
                                                                                     children: conversation.lastMessage
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                    lineNumber: 1301,
+                                                                                    lineNumber: 1307,
                                                                                     columnNumber: 29
                                                                                 }, this),
                                                                                 conversation.unreadCount > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2482,40 +2488,40 @@ function OwnerDashboard() {
                                                                                         children: conversation.unreadCount
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                        lineNumber: 1306,
+                                                                                        lineNumber: 1312,
                                                                                         columnNumber: 33
                                                                                     }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                    lineNumber: 1305,
+                                                                                    lineNumber: 1311,
                                                                                     columnNumber: 31
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 1289,
+                                                                            lineNumber: 1295,
                                                                             columnNumber: 27
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1280,
+                                                                    lineNumber: 1286,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             }, conversation.id, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1271,
+                                                                lineNumber: 1277,
                                                                 columnNumber: 23
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 1269,
+                                                        lineNumber: 1275,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1263,
+                                                lineNumber: 1269,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2536,20 +2542,20 @@ function OwnerDashboard() {
                                                                                     children: selectedConversation.tenant.avatar
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                    lineNumber: 1326,
+                                                                                    lineNumber: 1332,
                                                                                     columnNumber: 29
                                                                                 }, this),
                                                                                 selectedConversation.isOnline && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                     className: "absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                    lineNumber: 1330,
+                                                                                    lineNumber: 1336,
                                                                                     columnNumber: 31
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 1325,
+                                                                            lineNumber: 1331,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2559,7 +2565,7 @@ function OwnerDashboard() {
                                                                                     children: selectedConversation.tenant.name
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                    lineNumber: 1334,
+                                                                                    lineNumber: 1340,
                                                                                     columnNumber: 29
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2573,19 +2579,19 @@ function OwnerDashboard() {
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                    lineNumber: 1337,
+                                                                                    lineNumber: 1343,
                                                                                     columnNumber: 29
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 1333,
+                                                                            lineNumber: 1339,
                                                                             columnNumber: 27
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1324,
+                                                                    lineNumber: 1330,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2596,7 +2602,7 @@ function OwnerDashboard() {
                                                                             children: "📞"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 1344,
+                                                                            lineNumber: 1350,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2604,19 +2610,19 @@ function OwnerDashboard() {
                                                                             children: "ℹ️"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 1347,
+                                                                            lineNumber: 1353,
                                                                             columnNumber: 27
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1343,
+                                                                    lineNumber: 1349,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1323,
+                                                            lineNumber: 1329,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2631,7 +2637,7 @@ function OwnerDashboard() {
                                                                                 children: message.content
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                lineNumber: 1371,
+                                                                                lineNumber: 1377,
                                                                                 columnNumber: 31
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2639,23 +2645,23 @@ function OwnerDashboard() {
                                                                                 children: message.timestamp
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                lineNumber: 1372,
+                                                                                lineNumber: 1378,
                                                                                 columnNumber: 31
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1364,
+                                                                        lineNumber: 1370,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 }, message.id, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1356,
+                                                                    lineNumber: 1362,
                                                                     columnNumber: 27
                                                                 }, this))
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1354,
+                                                            lineNumber: 1360,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2672,7 +2678,7 @@ function OwnerDashboard() {
                                                                         placeholder: "Nhập tin nhắn..."
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1392,
+                                                                        lineNumber: 1398,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2682,18 +2688,18 @@ function OwnerDashboard() {
                                                                         children: "Gửi"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1399,
+                                                                        lineNumber: 1405,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1388,
+                                                                lineNumber: 1394,
                                                                 columnNumber: 25
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1387,
+                                                            lineNumber: 1393,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
@@ -2707,7 +2713,7 @@ function OwnerDashboard() {
                                                                 children: "💬"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1412,
+                                                                lineNumber: 1418,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -2715,7 +2721,7 @@ function OwnerDashboard() {
                                                                 children: "Chọn cuộc trò chuyện"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1413,
+                                                                lineNumber: 1419,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2723,35 +2729,35 @@ function OwnerDashboard() {
                                                                 children: "Chọn một khách thuê để bắt đầu nhắn tin"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1416,
+                                                                lineNumber: 1422,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 1411,
+                                                        lineNumber: 1417,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1410,
+                                                    lineNumber: 1416,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1319,
+                                                lineNumber: 1325,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 1261,
+                                        lineNumber: 1267,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                lineNumber: 1241,
+                                lineNumber: 1247,
                                 columnNumber: 13
                             }, this),
                             activeTab === "reviews" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2765,7 +2771,7 @@ function OwnerDashboard() {
                                                 children: "Đánh giá từ khách thuê"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1431,
+                                                lineNumber: 1437,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2778,48 +2784,48 @@ function OwnerDashboard() {
                                                                 children: "Tất cả đánh giá"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1436,
+                                                                lineNumber: 1442,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 children: "5 sao"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1437,
+                                                                lineNumber: 1443,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 children: "4 sao"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1438,
+                                                                lineNumber: 1444,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 children: "3 sao"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1439,
+                                                                lineNumber: 1445,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 children: "2 sao"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1440,
+                                                                lineNumber: 1446,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 children: "1 sao"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1441,
+                                                                lineNumber: 1447,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 1435,
+                                                        lineNumber: 1441,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -2829,53 +2835,53 @@ function OwnerDashboard() {
                                                                 children: "Tất cả phòng"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1444,
+                                                                lineNumber: 1450,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 children: "Phòng 101"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1445,
+                                                                lineNumber: 1451,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 children: "Phòng 102"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1446,
+                                                                lineNumber: 1452,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 children: "Phòng 201"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1447,
+                                                                lineNumber: 1453,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 children: "Phòng 202"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1448,
+                                                                lineNumber: 1454,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 1443,
+                                                        lineNumber: 1449,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1434,
+                                                lineNumber: 1440,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 1430,
+                                        lineNumber: 1436,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2893,7 +2899,7 @@ function OwnerDashboard() {
                                                                     children: "Đánh giá trung bình"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1458,
+                                                                    lineNumber: 1464,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2901,7 +2907,7 @@ function OwnerDashboard() {
                                                                     children: "4.2"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1461,
+                                                                    lineNumber: 1467,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2917,18 +2923,18 @@ function OwnerDashboard() {
                                                                             children: "⭐"
                                                                         }, star, false, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 1464,
+                                                                            lineNumber: 1470,
                                                                             columnNumber: 27
                                                                         }, this))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1462,
+                                                                    lineNumber: 1468,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1457,
+                                                            lineNumber: 1463,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2936,18 +2942,18 @@ function OwnerDashboard() {
                                                             children: "⭐"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1475,
+                                                            lineNumber: 1481,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1456,
+                                                    lineNumber: 1462,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1455,
+                                                lineNumber: 1461,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2962,7 +2968,7 @@ function OwnerDashboard() {
                                                                     children: "Tổng đánh giá"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1482,
+                                                                    lineNumber: 1488,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2970,7 +2976,7 @@ function OwnerDashboard() {
                                                                     children: "24"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1483,
+                                                                    lineNumber: 1489,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2978,13 +2984,13 @@ function OwnerDashboard() {
                                                                     children: "+3 tuần này"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1484,
+                                                                    lineNumber: 1490,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1481,
+                                                            lineNumber: 1487,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2992,18 +2998,18 @@ function OwnerDashboard() {
                                                             children: "📝"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1486,
+                                                            lineNumber: 1492,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1480,
+                                                    lineNumber: 1486,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1479,
+                                                lineNumber: 1485,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3018,7 +3024,7 @@ function OwnerDashboard() {
                                                                     children: "Đánh giá tích cực"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1493,
+                                                                    lineNumber: 1499,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3026,7 +3032,7 @@ function OwnerDashboard() {
                                                                     children: "87%"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1494,
+                                                                    lineNumber: 1500,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3034,13 +3040,13 @@ function OwnerDashboard() {
                                                                     children: "4-5 sao"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1495,
+                                                                    lineNumber: 1501,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1492,
+                                                            lineNumber: 1498,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3048,18 +3054,18 @@ function OwnerDashboard() {
                                                             children: "👍"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1497,
+                                                            lineNumber: 1503,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1491,
+                                                    lineNumber: 1497,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1490,
+                                                lineNumber: 1496,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3074,7 +3080,7 @@ function OwnerDashboard() {
                                                                     children: "Phòng được yêu thích"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1504,
+                                                                    lineNumber: 1510,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3082,7 +3088,7 @@ function OwnerDashboard() {
                                                                     children: "101"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1507,
+                                                                    lineNumber: 1513,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3090,13 +3096,13 @@ function OwnerDashboard() {
                                                                     children: "4.8/5 sao"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1508,
+                                                                    lineNumber: 1514,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1503,
+                                                            lineNumber: 1509,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3104,24 +3110,24 @@ function OwnerDashboard() {
                                                             children: "🏆"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1510,
+                                                            lineNumber: 1516,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1502,
+                                                    lineNumber: 1508,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1501,
+                                                lineNumber: 1507,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 1454,
+                                        lineNumber: 1460,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3191,7 +3197,7 @@ function OwnerDashboard() {
                                                                         children: review.anonymous ? "?" : review.tenant.charAt(0)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1579,
+                                                                        lineNumber: 1585,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3201,7 +3207,7 @@ function OwnerDashboard() {
                                                                                 children: review.tenant
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                lineNumber: 1583,
+                                                                                lineNumber: 1589,
                                                                                 columnNumber: 27
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3214,19 +3220,19 @@ function OwnerDashboard() {
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                lineNumber: 1586,
+                                                                                lineNumber: 1592,
                                                                                 columnNumber: 27
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1582,
+                                                                        lineNumber: 1588,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1578,
+                                                                lineNumber: 1584,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3246,7 +3252,7 @@ function OwnerDashboard() {
                                                                                     children: "⭐"
                                                                                 }, star, false, {
                                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                    lineNumber: 1594,
+                                                                                    lineNumber: 1600,
                                                                                     columnNumber: 29
                                                                                 }, this)),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3257,13 +3263,13 @@ function OwnerDashboard() {
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                lineNumber: 1605,
+                                                                                lineNumber: 1611,
                                                                                 columnNumber: 27
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1592,
+                                                                        lineNumber: 1598,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3271,19 +3277,19 @@ function OwnerDashboard() {
                                                                         children: review.rating >= 4.5 ? "Xuất sắc" : review.rating >= 4 ? "Rất tốt" : review.rating >= 3 ? "Tốt" : review.rating >= 2 ? "Trung bình" : "Cần cải thiện"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1609,
+                                                                        lineNumber: 1615,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1591,
+                                                                lineNumber: 1597,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 1577,
+                                                        lineNumber: 1583,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3291,7 +3297,7 @@ function OwnerDashboard() {
                                                         children: review.review
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 1623,
+                                                        lineNumber: 1629,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3304,7 +3310,7 @@ function OwnerDashboard() {
                                                                         children: category === "cleanliness" ? "Vệ sinh" : category === "facilities" ? "Tiện nghi" : category === "location" ? "Vị trí" : category === "value" ? "Giá trị" : "Chủ trọ"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1631,
+                                                                        lineNumber: 1637,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3320,23 +3326,23 @@ function OwnerDashboard() {
                                                                                 children: "⭐"
                                                                             }, star, false, {
                                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                lineNumber: 1644,
+                                                                                lineNumber: 1650,
                                                                                 columnNumber: 33
                                                                             }, this))
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1642,
+                                                                        lineNumber: 1648,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 ]
                                                             }, category, true, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1630,
+                                                                lineNumber: 1636,
                                                                 columnNumber: 27
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 1627,
+                                                        lineNumber: 1633,
                                                         columnNumber: 21
                                                     }, this),
                                                     review.response && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3349,7 +3355,7 @@ function OwnerDashboard() {
                                                                     children: "CT"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1665,
+                                                                    lineNumber: 1671,
                                                                     columnNumber: 27
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3363,7 +3369,7 @@ function OwnerDashboard() {
                                                                                     children: "Phản hồi từ chủ trọ"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                    lineNumber: 1670,
+                                                                                    lineNumber: 1676,
                                                                                     columnNumber: 31
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3371,13 +3377,13 @@ function OwnerDashboard() {
                                                                                     children: review.responseDate
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                                    lineNumber: 1673,
+                                                                                    lineNumber: 1679,
                                                                                     columnNumber: 31
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 1669,
+                                                                            lineNumber: 1675,
                                                                             columnNumber: 29
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3385,24 +3391,24 @@ function OwnerDashboard() {
                                                                             children: review.response
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 1677,
+                                                                            lineNumber: 1683,
                                                                             columnNumber: 29
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1668,
+                                                                    lineNumber: 1674,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1664,
+                                                            lineNumber: 1670,
                                                             columnNumber: 25
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 1663,
+                                                        lineNumber: 1669,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3417,7 +3423,7 @@ function OwnerDashboard() {
                                                                         children: review.response ? "Chỉnh sửa phản hồi" : "Phản hồi"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1685,
+                                                                        lineNumber: 1691,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3425,13 +3431,13 @@ function OwnerDashboard() {
                                                                         children: "Cảm ơn"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1691,
+                                                                        lineNumber: 1697,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1684,
+                                                                lineNumber: 1690,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3442,7 +3448,7 @@ function OwnerDashboard() {
                                                                         children: "Hữu ích?"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1696,
+                                                                        lineNumber: 1702,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3450,7 +3456,7 @@ function OwnerDashboard() {
                                                                         children: "👍"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1697,
+                                                                        lineNumber: 1703,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3458,36 +3464,36 @@ function OwnerDashboard() {
                                                                         children: "12"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1700,
+                                                                        lineNumber: 1706,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1695,
+                                                                lineNumber: 1701,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 1683,
+                                                        lineNumber: 1689,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, review.id, true, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1573,
+                                                lineNumber: 1579,
                                                 columnNumber: 19
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 1516,
+                                        lineNumber: 1522,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                lineNumber: 1429,
+                                lineNumber: 1435,
                                 columnNumber: 13
                             }, this),
                             activeTab === "revenue" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3501,7 +3507,7 @@ function OwnerDashboard() {
                                                 children: "Báo cáo doanh thu"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1712,
+                                                lineNumber: 1718,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3514,41 +3520,41 @@ function OwnerDashboard() {
                                                                 children: "Tháng này"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1717,
+                                                                lineNumber: 1723,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 children: "Tháng trước"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1718,
+                                                                lineNumber: 1724,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 children: "3 tháng gần đây"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1719,
+                                                                lineNumber: 1725,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 children: "6 tháng gần đây"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1720,
+                                                                lineNumber: 1726,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 children: "Năm nay"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1721,
+                                                                lineNumber: 1727,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 1716,
+                                                        lineNumber: 1722,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3556,19 +3562,19 @@ function OwnerDashboard() {
                                                         children: "Xuất báo cáo"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 1723,
+                                                        lineNumber: 1729,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1715,
+                                                lineNumber: 1721,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 1711,
+                                        lineNumber: 1717,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3586,7 +3592,7 @@ function OwnerDashboard() {
                                                                     children: "Tổng doanh thu"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1734,
+                                                                    lineNumber: 1740,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3594,7 +3600,7 @@ function OwnerDashboard() {
                                                                     children: "15.2M"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1735,
+                                                                    lineNumber: 1741,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3602,13 +3608,13 @@ function OwnerDashboard() {
                                                                     children: "+12% so với tháng trước"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1736,
+                                                                    lineNumber: 1742,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1733,
+                                                            lineNumber: 1739,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3616,18 +3622,18 @@ function OwnerDashboard() {
                                                             children: "💰"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1740,
+                                                            lineNumber: 1746,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1732,
+                                                    lineNumber: 1738,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1731,
+                                                lineNumber: 1737,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3642,7 +3648,7 @@ function OwnerDashboard() {
                                                                     children: "Tiền phòng"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1746,
+                                                                    lineNumber: 1752,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3650,7 +3656,7 @@ function OwnerDashboard() {
                                                                     children: "12.0M"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1747,
+                                                                    lineNumber: 1753,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3658,13 +3664,13 @@ function OwnerDashboard() {
                                                                     children: "79% tổng doanh thu"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1748,
+                                                                    lineNumber: 1754,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1745,
+                                                            lineNumber: 1751,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3672,18 +3678,18 @@ function OwnerDashboard() {
                                                             children: "🏠"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1752,
+                                                            lineNumber: 1758,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1744,
+                                                    lineNumber: 1750,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1743,
+                                                lineNumber: 1749,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3698,7 +3704,7 @@ function OwnerDashboard() {
                                                                     children: "Tiền điện nước"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1758,
+                                                                    lineNumber: 1764,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3706,7 +3712,7 @@ function OwnerDashboard() {
                                                                     children: "2.8M"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1759,
+                                                                    lineNumber: 1765,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3714,13 +3720,13 @@ function OwnerDashboard() {
                                                                     children: "18% tổng doanh thu"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1760,
+                                                                    lineNumber: 1766,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1757,
+                                                            lineNumber: 1763,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3728,18 +3734,18 @@ function OwnerDashboard() {
                                                             children: "⚡"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1764,
+                                                            lineNumber: 1770,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1756,
+                                                    lineNumber: 1762,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1755,
+                                                lineNumber: 1761,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3754,7 +3760,7 @@ function OwnerDashboard() {
                                                                     children: "Phí dịch vụ"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1770,
+                                                                    lineNumber: 1776,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3762,7 +3768,7 @@ function OwnerDashboard() {
                                                                     children: "400K"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1771,
+                                                                    lineNumber: 1777,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3770,13 +3776,13 @@ function OwnerDashboard() {
                                                                     children: "3% tổng doanh thu"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1772,
+                                                                    lineNumber: 1778,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1769,
+                                                            lineNumber: 1775,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3784,24 +3790,24 @@ function OwnerDashboard() {
                                                             children: "🔧"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1776,
+                                                            lineNumber: 1782,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1768,
+                                                    lineNumber: 1774,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1767,
+                                                lineNumber: 1773,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 1730,
+                                        lineNumber: 1736,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3812,7 +3818,7 @@ function OwnerDashboard() {
                                                 children: "Biểu đồ doanh thu theo tháng"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1783,
+                                                lineNumber: 1789,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3825,7 +3831,7 @@ function OwnerDashboard() {
                                                             children: "📊"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1788,
+                                                            lineNumber: 1794,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3833,7 +3839,7 @@ function OwnerDashboard() {
                                                             children: "Biểu đồ doanh thu sẽ được hiển thị ở đây"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1789,
+                                                            lineNumber: 1795,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3841,24 +3847,24 @@ function OwnerDashboard() {
                                                             children: "Tích hợp với thư viện Chart.js hoặc Recharts"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1792,
+                                                            lineNumber: 1798,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1787,
+                                                    lineNumber: 1793,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1786,
+                                                lineNumber: 1792,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 1782,
+                                        lineNumber: 1788,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3871,12 +3877,12 @@ function OwnerDashboard() {
                                                     children: "Chi tiết doanh thu theo phòng"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1802,
+                                                    lineNumber: 1808,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1801,
+                                                lineNumber: 1807,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
@@ -3891,7 +3897,7 @@ function OwnerDashboard() {
                                                                     children: "Phòng"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1809,
+                                                                    lineNumber: 1815,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -3899,7 +3905,7 @@ function OwnerDashboard() {
                                                                     children: "Khách thuê"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1812,
+                                                                    lineNumber: 1818,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -3907,7 +3913,7 @@ function OwnerDashboard() {
                                                                     children: "Tiền phòng"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1815,
+                                                                    lineNumber: 1821,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -3915,7 +3921,7 @@ function OwnerDashboard() {
                                                                     children: "Điện nước"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1818,
+                                                                    lineNumber: 1824,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -3923,7 +3929,7 @@ function OwnerDashboard() {
                                                                     children: "Dịch vụ"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1821,
+                                                                    lineNumber: 1827,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -3931,7 +3937,7 @@ function OwnerDashboard() {
                                                                     children: "Tổng cộng"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1824,
+                                                                    lineNumber: 1830,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -3939,18 +3945,18 @@ function OwnerDashboard() {
                                                                     children: "Trạng thái"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 1827,
+                                                                    lineNumber: 1833,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1808,
+                                                            lineNumber: 1814,
                                                             columnNumber: 21
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 1807,
+                                                        lineNumber: 1813,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -3995,7 +4001,7 @@ function OwnerDashboard() {
                                                                         children: item.room
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1868,
+                                                                        lineNumber: 1874,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -4003,7 +4009,7 @@ function OwnerDashboard() {
                                                                         children: item.tenant
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1871,
+                                                                        lineNumber: 1877,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -4014,7 +4020,7 @@ function OwnerDashboard() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1874,
+                                                                        lineNumber: 1880,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -4025,7 +4031,7 @@ function OwnerDashboard() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1877,
+                                                                        lineNumber: 1883,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -4036,7 +4042,7 @@ function OwnerDashboard() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1880,
+                                                                        lineNumber: 1886,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -4047,7 +4053,7 @@ function OwnerDashboard() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1883,
+                                                                        lineNumber: 1889,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -4057,53 +4063,53 @@ function OwnerDashboard() {
                                                                             children: getStatusText(item.status)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                            lineNumber: 1892,
+                                                                            lineNumber: 1898,
                                                                             columnNumber: 27
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                        lineNumber: 1891,
+                                                                        lineNumber: 1897,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, index, true, {
                                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                lineNumber: 1867,
+                                                                lineNumber: 1873,
                                                                 columnNumber: 23
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                        lineNumber: 1832,
+                                                        lineNumber: 1838,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 1806,
+                                                lineNumber: 1812,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                        lineNumber: 1800,
+                                        lineNumber: 1806,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                lineNumber: 1710,
+                                lineNumber: 1716,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                        lineNumber: 636,
+                        lineNumber: 642,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                lineNumber: 602,
+                lineNumber: 608,
                 columnNumber: 7
             }, this),
             showRoomModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4119,7 +4125,7 @@ function OwnerDashboard() {
                                     children: editingRoom ? "Chỉnh sửa phòng" : "Thêm phòng mới"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 1914,
+                                    lineNumber: 1920,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4127,13 +4133,13 @@ function OwnerDashboard() {
                                     children: editingRoom ? "Cập nhật thông tin phòng" : "Nhập thông tin phòng mới"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 1917,
+                                    lineNumber: 1923,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                            lineNumber: 1913,
+                            lineNumber: 1919,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -4150,7 +4156,7 @@ function OwnerDashboard() {
                                                     children: "Số phòng *"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1926,
+                                                    lineNumber: 1932,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -4165,13 +4171,13 @@ function OwnerDashboard() {
                                                     required: true
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1929,
+                                                    lineNumber: 1935,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 1925,
+                                            lineNumber: 1931,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4181,7 +4187,7 @@ function OwnerDashboard() {
                                                     children: "Giá thuê (VNĐ) *"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1941,
+                                                    lineNumber: 1947,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -4196,13 +4202,13 @@ function OwnerDashboard() {
                                                     required: true
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1944,
+                                                    lineNumber: 1950,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 1940,
+                                            lineNumber: 1946,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4212,7 +4218,7 @@ function OwnerDashboard() {
                                                     children: "Diện tích (m²) *"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1956,
+                                                    lineNumber: 1962,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -4227,13 +4233,13 @@ function OwnerDashboard() {
                                                     required: true
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1959,
+                                                    lineNumber: 1965,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 1955,
+                                            lineNumber: 1961,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4243,7 +4249,7 @@ function OwnerDashboard() {
                                                     children: "Số tầng *"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1971,
+                                                    lineNumber: 1977,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -4258,13 +4264,13 @@ function OwnerDashboard() {
                                                     required: true
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1974,
+                                                    lineNumber: 1980,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 1970,
+                                            lineNumber: 1976,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4274,7 +4280,7 @@ function OwnerDashboard() {
                                                     children: "Trạng thái"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1986,
+                                                    lineNumber: 1992,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -4290,7 +4296,7 @@ function OwnerDashboard() {
                                                             children: "Trống"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1996,
+                                                            lineNumber: 2002,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -4298,7 +4304,7 @@ function OwnerDashboard() {
                                                             children: "Đã thuê"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1997,
+                                                            lineNumber: 2003,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -4306,19 +4312,19 @@ function OwnerDashboard() {
                                                             children: "Bảo trì"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 1998,
+                                                            lineNumber: 2004,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 1989,
+                                                    lineNumber: 1995,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 1985,
+                                            lineNumber: 1991,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4329,7 +4335,7 @@ function OwnerDashboard() {
                                                     children: "Mô tả phòng"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2002,
+                                                    lineNumber: 2008,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -4343,13 +4349,13 @@ function OwnerDashboard() {
                                                     placeholder: "Mô tả về phòng, vị trí, đặc điểm..."
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2005,
+                                                    lineNumber: 2011,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2001,
+                                            lineNumber: 2007,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4360,7 +4366,7 @@ function OwnerDashboard() {
                                                     children: "Tiện nghi"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2016,
+                                                    lineNumber: 2022,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4399,7 +4405,7 @@ function OwnerDashboard() {
                                                                     className: "mr-2"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 2031,
+                                                                    lineNumber: 2037,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4407,30 +4413,30 @@ function OwnerDashboard() {
                                                                     children: amenity
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                                    lineNumber: 2051,
+                                                                    lineNumber: 2057,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, amenity, true, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2030,
+                                                            lineNumber: 2036,
                                                             columnNumber: 23
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2019,
+                                                    lineNumber: 2025,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2015,
+                                            lineNumber: 2021,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 1924,
+                                    lineNumber: 1930,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4443,7 +4449,7 @@ function OwnerDashboard() {
                                             children: "Hủy"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2059,
+                                            lineNumber: 2065,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -4452,30 +4458,30 @@ function OwnerDashboard() {
                                             children: editingRoom ? "Cập nhật" : "Thêm phòng"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2066,
+                                            lineNumber: 2072,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2058,
+                                    lineNumber: 2064,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                            lineNumber: 1923,
+                            lineNumber: 1929,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                    lineNumber: 1912,
+                    lineNumber: 1918,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                lineNumber: 1911,
+                lineNumber: 1917,
                 columnNumber: 9
             }, this),
             showTenantModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4491,7 +4497,7 @@ function OwnerDashboard() {
                                     children: editingTenant ? "Chỉnh sửa khách thuê" : "Thêm khách thuê mới"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2082,
+                                    lineNumber: 2088,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4499,13 +4505,13 @@ function OwnerDashboard() {
                                     children: editingTenant ? "Cập nhật thông tin khách thuê" : "Nhập thông tin khách thuê mới"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2085,
+                                    lineNumber: 2091,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                            lineNumber: 2081,
+                            lineNumber: 2087,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -4522,7 +4528,7 @@ function OwnerDashboard() {
                                                     children: "Họ và tên *"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2094,
+                                                    lineNumber: 2100,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -4537,13 +4543,13 @@ function OwnerDashboard() {
                                                     required: true
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2097,
+                                                    lineNumber: 2103,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2093,
+                                            lineNumber: 2099,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4553,7 +4559,7 @@ function OwnerDashboard() {
                                                     children: "Email"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2109,
+                                                    lineNumber: 2115,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -4567,13 +4573,13 @@ function OwnerDashboard() {
                                                     placeholder: "VD: tenant@email.com"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2112,
+                                                    lineNumber: 2118,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2108,
+                                            lineNumber: 2114,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4583,7 +4589,7 @@ function OwnerDashboard() {
                                                     children: "Số điện thoại *"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2123,
+                                                    lineNumber: 2129,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -4598,13 +4604,13 @@ function OwnerDashboard() {
                                                     required: true
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2126,
+                                                    lineNumber: 2132,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2122,
+                                            lineNumber: 2128,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4614,7 +4620,7 @@ function OwnerDashboard() {
                                                     children: "CCCD/CMND"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2138,
+                                                    lineNumber: 2144,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -4628,13 +4634,13 @@ function OwnerDashboard() {
                                                     placeholder: "VD: 123456789012"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2141,
+                                                    lineNumber: 2147,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2137,
+                                            lineNumber: 2143,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4644,7 +4650,7 @@ function OwnerDashboard() {
                                                     children: "Phòng *"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2152,
+                                                    lineNumber: 2158,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -4661,7 +4667,7 @@ function OwnerDashboard() {
                                                             children: "Chọn phòng"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2163,
+                                                            lineNumber: 2169,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -4669,7 +4675,7 @@ function OwnerDashboard() {
                                                             children: "Phòng 101"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2164,
+                                                            lineNumber: 2170,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -4677,7 +4683,7 @@ function OwnerDashboard() {
                                                             children: "Phòng 102"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2165,
+                                                            lineNumber: 2171,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -4685,7 +4691,7 @@ function OwnerDashboard() {
                                                             children: "Phòng 103"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2166,
+                                                            lineNumber: 2172,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -4693,7 +4699,7 @@ function OwnerDashboard() {
                                                             children: "Phòng 201"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2167,
+                                                            lineNumber: 2173,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -4701,19 +4707,19 @@ function OwnerDashboard() {
                                                             children: "Phòng 202"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2168,
+                                                            lineNumber: 2174,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2155,
+                                                    lineNumber: 2161,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2151,
+                                            lineNumber: 2157,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4723,7 +4729,7 @@ function OwnerDashboard() {
                                                     children: "Ngày bắt đầu thuê *"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2172,
+                                                    lineNumber: 2178,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -4737,13 +4743,13 @@ function OwnerDashboard() {
                                                     required: true
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2175,
+                                                    lineNumber: 2181,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2171,
+                                            lineNumber: 2177,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4753,7 +4759,7 @@ function OwnerDashboard() {
                                                     children: "Tiền cọc (VNĐ)"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2189,
+                                                    lineNumber: 2195,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -4767,13 +4773,13 @@ function OwnerDashboard() {
                                                     placeholder: "VD: 3000000"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2192,
+                                                    lineNumber: 2198,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2188,
+                                            lineNumber: 2194,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4783,7 +4789,7 @@ function OwnerDashboard() {
                                                     children: "Người liên hệ khẩn cấp"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2203,
+                                                    lineNumber: 2209,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -4797,13 +4803,13 @@ function OwnerDashboard() {
                                                     placeholder: "VD: Nguyễn Văn B (Anh trai)"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2206,
+                                                    lineNumber: 2212,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2202,
+                                            lineNumber: 2208,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4813,7 +4819,7 @@ function OwnerDashboard() {
                                                     children: "SĐT liên hệ khẩn cấp"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2220,
+                                                    lineNumber: 2226,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -4827,19 +4833,19 @@ function OwnerDashboard() {
                                                     placeholder: "VD: 0987654321"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2223,
+                                                    lineNumber: 2229,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2219,
+                                            lineNumber: 2225,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2092,
+                                    lineNumber: 2098,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4852,7 +4858,7 @@ function OwnerDashboard() {
                                             children: "Hủy"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2239,
+                                            lineNumber: 2245,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -4861,30 +4867,30 @@ function OwnerDashboard() {
                                             children: editingTenant ? "Cập nhật" : "Thêm khách thuê"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2246,
+                                            lineNumber: 2252,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2238,
+                                    lineNumber: 2244,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                            lineNumber: 2091,
+                            lineNumber: 2097,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                    lineNumber: 2080,
+                    lineNumber: 2086,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                lineNumber: 2079,
+                lineNumber: 2085,
                 columnNumber: 9
             }, this),
             showBillModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4900,7 +4906,7 @@ function OwnerDashboard() {
                                     children: editingBill ? "Chỉnh sửa hóa đơn" : "Tạo hóa đơn mới"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2262,
+                                    lineNumber: 2268,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4908,13 +4914,13 @@ function OwnerDashboard() {
                                     children: editingBill ? "Cập nhật thông tin hóa đơn" : "Nhập thông tin hóa đơn mới"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2265,
+                                    lineNumber: 2271,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                            lineNumber: 2261,
+                            lineNumber: 2267,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -4931,7 +4937,7 @@ function OwnerDashboard() {
                                                     children: "Phòng *"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2274,
+                                                    lineNumber: 2280,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -4948,7 +4954,7 @@ function OwnerDashboard() {
                                                             children: "Chọn phòng"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2285,
+                                                            lineNumber: 2291,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -4956,7 +4962,7 @@ function OwnerDashboard() {
                                                             children: "Phòng 101"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2286,
+                                                            lineNumber: 2292,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -4964,7 +4970,7 @@ function OwnerDashboard() {
                                                             children: "Phòng 102"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2287,
+                                                            lineNumber: 2293,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -4972,7 +4978,7 @@ function OwnerDashboard() {
                                                             children: "Phòng 103"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2288,
+                                                            lineNumber: 2294,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -4980,7 +4986,7 @@ function OwnerDashboard() {
                                                             children: "Phòng 201"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2289,
+                                                            lineNumber: 2295,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -4988,19 +4994,19 @@ function OwnerDashboard() {
                                                             children: "Phòng 202"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2290,
+                                                            lineNumber: 2296,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2277,
+                                                    lineNumber: 2283,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2273,
+                                            lineNumber: 2279,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5010,7 +5016,7 @@ function OwnerDashboard() {
                                                     children: "Khách thuê *"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2294,
+                                                    lineNumber: 2300,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -5027,7 +5033,7 @@ function OwnerDashboard() {
                                                             children: "Chọn khách thuê"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2305,
+                                                            lineNumber: 2311,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -5035,7 +5041,7 @@ function OwnerDashboard() {
                                                             children: "Nguyễn Văn A"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2306,
+                                                            lineNumber: 2312,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -5043,7 +5049,7 @@ function OwnerDashboard() {
                                                             children: "Trần Thị B"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2307,
+                                                            lineNumber: 2313,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -5051,19 +5057,19 @@ function OwnerDashboard() {
                                                             children: "Lê Văn C"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2308,
+                                                            lineNumber: 2314,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2297,
+                                                    lineNumber: 2303,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2293,
+                                            lineNumber: 2299,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5073,7 +5079,7 @@ function OwnerDashboard() {
                                                     children: "Loại hóa đơn *"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2312,
+                                                    lineNumber: 2318,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -5090,7 +5096,7 @@ function OwnerDashboard() {
                                                             children: "Tiền phòng hàng tháng"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2323,
+                                                            lineNumber: 2329,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -5098,7 +5104,7 @@ function OwnerDashboard() {
                                                             children: "Tiền điện"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2324,
+                                                            lineNumber: 2330,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -5106,7 +5112,7 @@ function OwnerDashboard() {
                                                             children: "Tiền nước"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2325,
+                                                            lineNumber: 2331,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -5114,7 +5120,7 @@ function OwnerDashboard() {
                                                             children: "Phí dịch vụ"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2326,
+                                                            lineNumber: 2332,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -5122,19 +5128,19 @@ function OwnerDashboard() {
                                                             children: "Khác"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2327,
+                                                            lineNumber: 2333,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2315,
+                                                    lineNumber: 2321,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2311,
+                                            lineNumber: 2317,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5144,7 +5150,7 @@ function OwnerDashboard() {
                                                     children: "Hạn thanh toán *"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2331,
+                                                    lineNumber: 2337,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -5158,13 +5164,13 @@ function OwnerDashboard() {
                                                     required: true
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2334,
+                                                    lineNumber: 2340,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2330,
+                                            lineNumber: 2336,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5174,7 +5180,7 @@ function OwnerDashboard() {
                                                     children: "Số điện (kWh)"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2345,
+                                                    lineNumber: 2351,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -5188,13 +5194,13 @@ function OwnerDashboard() {
                                                     placeholder: "VD: 150"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2348,
+                                                    lineNumber: 2354,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2344,
+                                            lineNumber: 2350,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5204,7 +5210,7 @@ function OwnerDashboard() {
                                                     children: "Số nước (m³)"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2362,
+                                                    lineNumber: 2368,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -5218,13 +5224,13 @@ function OwnerDashboard() {
                                                     placeholder: "VD: 15"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2365,
+                                                    lineNumber: 2371,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2361,
+                                            lineNumber: 2367,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5235,7 +5241,7 @@ function OwnerDashboard() {
                                                     children: "Tổng tiền (VNĐ) *"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2376,
+                                                    lineNumber: 2382,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -5250,13 +5256,13 @@ function OwnerDashboard() {
                                                     required: true
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2379,
+                                                    lineNumber: 2385,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2375,
+                                            lineNumber: 2381,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5267,7 +5273,7 @@ function OwnerDashboard() {
                                                     children: "Ghi chú"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2391,
+                                                    lineNumber: 2397,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -5281,19 +5287,19 @@ function OwnerDashboard() {
                                                     placeholder: "Ghi chú thêm về hóa đơn..."
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2394,
+                                                    lineNumber: 2400,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2390,
+                                            lineNumber: 2396,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2272,
+                                    lineNumber: 2278,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5306,7 +5312,7 @@ function OwnerDashboard() {
                                             children: "Hủy"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2407,
+                                            lineNumber: 2413,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -5315,30 +5321,30 @@ function OwnerDashboard() {
                                             children: editingBill ? "Cập nhật" : "Tạo hóa đơn"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2414,
+                                            lineNumber: 2420,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2406,
+                                    lineNumber: 2412,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                            lineNumber: 2271,
+                            lineNumber: 2277,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                    lineNumber: 2260,
+                    lineNumber: 2266,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                lineNumber: 2259,
+                lineNumber: 2265,
                 columnNumber: 9
             }, this),
             showReportDetailModal && selectedReport && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5354,7 +5360,7 @@ function OwnerDashboard() {
                                     children: "Chi tiết báo cáo sự cố"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2430,
+                                    lineNumber: 2436,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5362,13 +5368,13 @@ function OwnerDashboard() {
                                     children: "Xem và cập nhật trạng thái xử lý"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2433,
+                                    lineNumber: 2439,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                            lineNumber: 2429,
+                            lineNumber: 2435,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5387,7 +5393,7 @@ function OwnerDashboard() {
                                                             children: "Vấn đề"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2442,
+                                                            lineNumber: 2448,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5395,13 +5401,13 @@ function OwnerDashboard() {
                                                             children: selectedReport.issue
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2445,
+                                                            lineNumber: 2451,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2441,
+                                                    lineNumber: 2447,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5411,36 +5417,12 @@ function OwnerDashboard() {
                                                             children: "Phòng"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2450,
-                                                            columnNumber: 21
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-gray-900",
-                                                            children: selectedReport.room
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2453,
-                                                            columnNumber: 21
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2449,
-                                                    columnNumber: 19
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                            className: "block text-sm font-medium text-gray-700 mb-1",
-                                                            children: "Khách thuê"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/app/owner-dashboard/page.tsx",
                                                             lineNumber: 2456,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                             className: "text-gray-900",
-                                                            children: selectedReport.tenant
+                                                            children: selectedReport.room
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
                                                             lineNumber: 2459,
@@ -5451,11 +5433,35 @@ function OwnerDashboard() {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
                                                     lineNumber: 2455,
                                                     columnNumber: 19
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                            className: "block text-sm font-medium text-gray-700 mb-1",
+                                                            children: "Khách thuê"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/owner-dashboard/page.tsx",
+                                                            lineNumber: 2462,
+                                                            columnNumber: 21
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-gray-900",
+                                                            children: selectedReport.tenant
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/owner-dashboard/page.tsx",
+                                                            lineNumber: 2465,
+                                                            columnNumber: 21
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/owner-dashboard/page.tsx",
+                                                    lineNumber: 2461,
+                                                    columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2440,
+                                            lineNumber: 2446,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5468,36 +5474,12 @@ function OwnerDashboard() {
                                                             children: "Ngày báo cáo"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2464,
+                                                            lineNumber: 2470,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                             className: "text-gray-900",
                                                             children: selectedReport.date
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2467,
-                                                            columnNumber: 21
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2463,
-                                                    columnNumber: 19
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                            className: "block text-sm font-medium text-gray-700 mb-1",
-                                                            children: "Mức độ ưu tiên"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2470,
-                                                            columnNumber: 21
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: `px-2 py-1 text-xs rounded-full ${selectedReport.priority === "high" ? "bg-red-100 text-red-800" : selectedReport.priority === "medium" ? "bg-yellow-100 text-yellow-800" : "bg-green-100 text-green-800"}`,
-                                                            children: selectedReport.priority === "high" ? "Cao" : selectedReport.priority === "medium" ? "Trung bình" : "Thấp"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
                                                             lineNumber: 2473,
@@ -5513,10 +5495,34 @@ function OwnerDashboard() {
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                             className: "block text-sm font-medium text-gray-700 mb-1",
+                                                            children: "Mức độ ưu tiên"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/owner-dashboard/page.tsx",
+                                                            lineNumber: 2476,
+                                                            columnNumber: 21
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: `px-2 py-1 text-xs rounded-full ${selectedReport.priority === "high" ? "bg-red-100 text-red-800" : selectedReport.priority === "medium" ? "bg-yellow-100 text-yellow-800" : "bg-green-100 text-green-800"}`,
+                                                            children: selectedReport.priority === "high" ? "Cao" : selectedReport.priority === "medium" ? "Trung bình" : "Thấp"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/owner-dashboard/page.tsx",
+                                                            lineNumber: 2479,
+                                                            columnNumber: 21
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/app/owner-dashboard/page.tsx",
+                                                    lineNumber: 2475,
+                                                    columnNumber: 19
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                            className: "block text-sm font-medium text-gray-700 mb-1",
                                                             children: "Trạng thái hiện tại"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2490,
+                                                            lineNumber: 2496,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -5524,25 +5530,25 @@ function OwnerDashboard() {
                                                             children: getStatusText(selectedReport.status)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2493,
+                                                            lineNumber: 2499,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2489,
+                                                    lineNumber: 2495,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2462,
+                                            lineNumber: 2468,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2439,
+                                    lineNumber: 2445,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5553,7 +5559,7 @@ function OwnerDashboard() {
                                             children: "Mô tả chi tiết"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2506,
+                                            lineNumber: 2512,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5563,18 +5569,18 @@ function OwnerDashboard() {
                                                 children: selectedReport.description
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                lineNumber: 2510,
+                                                lineNumber: 2516,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2509,
+                                            lineNumber: 2515,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2505,
+                                    lineNumber: 2511,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5585,7 +5591,7 @@ function OwnerDashboard() {
                                             children: "Cập nhật trạng thái"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2516,
+                                            lineNumber: 2522,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5597,7 +5603,7 @@ function OwnerDashboard() {
                                                     children: "Bắt đầu xử lý"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2521,
+                                                    lineNumber: 2527,
                                                     columnNumber: 21
                                                 }, this),
                                                 selectedReport.status === "in-progress" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -5606,7 +5612,7 @@ function OwnerDashboard() {
                                                     children: "Hoàn thành"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2534,
+                                                    lineNumber: 2540,
                                                     columnNumber: 21
                                                 }, this),
                                                 selectedReport.status === "completed" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5617,32 +5623,32 @@ function OwnerDashboard() {
                                                             children: "✅"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2548,
+                                                            lineNumber: 2554,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                             children: "Đã hoàn thành xử lý"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2549,
+                                                            lineNumber: 2555,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2547,
+                                                    lineNumber: 2553,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2519,
+                                            lineNumber: 2525,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2515,
+                                    lineNumber: 2521,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5653,7 +5659,7 @@ function OwnerDashboard() {
                                             children: "Phản hồi cho khách thuê"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2557,
+                                            lineNumber: 2563,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -5663,7 +5669,7 @@ function OwnerDashboard() {
                                             defaultValue: selectedReport.response || ""
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2560,
+                                            lineNumber: 2566,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -5671,13 +5677,13 @@ function OwnerDashboard() {
                                             children: "Gửi phản hồi"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2566,
+                                            lineNumber: 2572,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2556,
+                                    lineNumber: 2562,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5689,7 +5695,7 @@ function OwnerDashboard() {
                                             children: "Đóng"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2573,
+                                            lineNumber: 2579,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -5701,30 +5707,30 @@ function OwnerDashboard() {
                                             children: "Thông báo khách thuê"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2579,
+                                            lineNumber: 2585,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2572,
+                                    lineNumber: 2578,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                            lineNumber: 2437,
+                            lineNumber: 2443,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                    lineNumber: 2428,
+                    lineNumber: 2434,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                lineNumber: 2427,
+                lineNumber: 2433,
                 columnNumber: 9
             }, this),
             showReviewResponseModal && selectedReview && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5740,7 +5746,7 @@ function OwnerDashboard() {
                                     children: "Phản hồi đánh giá"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2598,
+                                    lineNumber: 2604,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5754,13 +5760,13 @@ function OwnerDashboard() {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2601,
+                                    lineNumber: 2607,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                            lineNumber: 2597,
+                            lineNumber: 2603,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5785,12 +5791,12 @@ function OwnerDashboard() {
                                                             children: "⭐"
                                                         }, star, false, {
                                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                            lineNumber: 2613,
+                                                            lineNumber: 2619,
                                                             columnNumber: 23
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2611,
+                                                    lineNumber: 2617,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -5801,7 +5807,7 @@ function OwnerDashboard() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2625,
+                                                    lineNumber: 2631,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -5809,13 +5815,13 @@ function OwnerDashboard() {
                                                     children: selectedReview.date
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2628,
+                                                    lineNumber: 2634,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2610,
+                                            lineNumber: 2616,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5823,13 +5829,13 @@ function OwnerDashboard() {
                                             children: selectedReview.review
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2632,
+                                            lineNumber: 2638,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2609,
+                                    lineNumber: 2615,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -5843,7 +5849,7 @@ function OwnerDashboard() {
                                                     children: "Phản hồi của bạn"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2638,
+                                                    lineNumber: 2644,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -5855,7 +5861,7 @@ function OwnerDashboard() {
                                                     required: true
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2641,
+                                                    lineNumber: 2647,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5863,13 +5869,13 @@ function OwnerDashboard() {
                                                     children: "Phản hồi này sẽ hiển thị công khai dưới đánh giá của khách thuê"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2649,
+                                                    lineNumber: 2655,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2637,
+                                            lineNumber: 2643,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5882,7 +5888,7 @@ function OwnerDashboard() {
                                                     children: "Hủy"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2656,
+                                                    lineNumber: 2662,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -5891,42 +5897,42 @@ function OwnerDashboard() {
                                                     children: selectedReview.response ? "Cập nhật phản hồi" : "Gửi phản hồi"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                                    lineNumber: 2663,
+                                                    lineNumber: 2669,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                            lineNumber: 2655,
+                                            lineNumber: 2661,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                                    lineNumber: 2636,
+                                    lineNumber: 2642,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                            lineNumber: 2607,
+                            lineNumber: 2613,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                    lineNumber: 2596,
+                    lineNumber: 2602,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/owner-dashboard/page.tsx",
-                lineNumber: 2595,
+                lineNumber: 2601,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/owner-dashboard/page.tsx",
-        lineNumber: 530,
+        lineNumber: 536,
         columnNumber: 5
     }, this);
 }

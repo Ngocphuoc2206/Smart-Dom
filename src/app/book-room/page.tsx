@@ -1,16 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { 
-  CalendarIcon, 
-  UserIcon, 
-  PhoneIcon, 
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import {
+  CalendarIcon,
+  UserIcon,
+  PhoneIcon,
   EnvelopeIcon,
   CheckCircleIcon,
-  CreditCardIcon
+  CreditCardIcon,
 } from "@heroicons/react/24/outline";
-
+import "@/app/hooks/useRoomID"; // Custom hook to fetch room ID if needed
+import { getRoomID } from "@/app/hooks/useRoomID";
 const mockRoom = {
   id: 2,
   number: "202",
@@ -18,10 +20,23 @@ const mockRoom = {
   area: 30,
   amenities: ["Máy lạnh", "Tủ lạnh", "WiFi", "Ban công"],
   images: ["room2.jpg"],
-  description: "Phòng rộng rãi, thoáng mát với ban công riêng. Đầy đủ tiện nghi hiện đại.",
+  description:
+    "Phòng rộng rãi, thoáng mát với ban công riêng. Đầy đủ tiện nghi hiện đại.",
   deposit: 7000000, // 2 months rent
-  address: "123 Đường ABC, Quận 1, TP.HCM"
+  address: "123 Đường ABC, Quận 1, TP.HCM",
 };
+
+interface Room {
+  id: number;
+  roomNumber?: string;
+  floor?: number;
+  price?: number;
+  area?: number;
+  amenities: [];
+  images?: string[];
+  description?: string;
+  status?: string;
+}
 
 interface BookingForm {
   fullName: string;
@@ -42,22 +57,47 @@ export default function BookRoomPage() {
     idNumber: "",
     moveInDate: "",
     contractDuration: "12",
-    notes: ""
+    notes: "",
   });
+  const searchParams = useSearchParams();
+  const roomId = searchParams.get("roomID");
+  const [room, setRoom] = useState<Room | null>(null); // Replace with actual room data fetching logic
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  useEffect(() => {
+    if (!roomId) {
+      setError("Không tìm thấy ID phòng. Vui lòng thử lại.");
+      return;
+    }
+
+    getRoomID(parseInt(roomId)).then((data) => {
+      // Chuyển "amenities" thành mảng nếu là chuỗi
+      if (typeof data.amenities === "string") {
+        data.amenities = data.amenities.split(",").map((s: any) => s.trim());
+      }
+
+      setRoom(data);
+    });
+  }, [roomId]);
+
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
@@ -66,8 +106,13 @@ export default function BookRoomPage() {
   };
 
   const isFormValid = () => {
-    return formData.fullName && formData.phone && formData.email && 
-           formData.idNumber && formData.moveInDate;
+    return (
+      formData.fullName &&
+      formData.phone &&
+      formData.email &&
+      formData.idNumber &&
+      formData.moveInDate
+    );
   };
 
   if (step === 3) {
@@ -75,9 +120,11 @@ export default function BookRoomPage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
           <CheckCircleIcon className="h-16 w-16 text-green-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Đặt phòng thành công!</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            Đặt phòng thành công!
+          </h2>
           <p className="text-gray-600 mb-6">
-            Yêu cầu đặt phòng {mockRoom.number} của bạn đã được gửi thành công. 
+            Yêu cầu đặt phòng {mockRoom.number} của bạn đã được gửi thành công.
             Chủ trọ sẽ liên hệ với bạn trong vòng 24h.
           </p>
           <div className="bg-gray-50 p-4 rounded-lg mb-6">
@@ -85,10 +132,16 @@ export default function BookRoomPage() {
             <p className="font-mono text-lg font-semibold">BOOK{Date.now()}</p>
           </div>
           <div className="space-y-3">
-            <Link href="/tenant-dashboard" className="block w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors">
+            <Link
+              href="/tenant-dashboard"
+              className="block w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors"
+            >
               Quay về Dashboard
             </Link>
-            <Link href="/" className="block w-full border border-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+            <Link
+              href="/"
+              className="block w-full border border-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-50 transition-colors"
+            >
               Về trang chủ
             </Link>
           </div>
@@ -108,10 +161,15 @@ export default function BookRoomPage() {
                 <div className="h-8 w-8 bg-green-600 rounded mr-3 flex items-center justify-center">
                   <span className="text-white font-bold">🏠</span>
                 </div>
-                <h1 className="text-xl font-bold text-gray-900">Đặt phòng trọ</h1>
+                <h1 className="text-xl font-bold text-gray-900">
+                  Đặt phòng trọ
+                </h1>
               </Link>
             </div>
-            <Link href="/tenant-dashboard" className="text-green-600 hover:text-green-800">
+            <Link
+              href="/tenant-dashboard"
+              className="text-green-600 hover:text-green-800"
+            >
               ← Quay lại
             </Link>
           </div>
@@ -123,21 +181,41 @@ export default function BookRoomPage() {
         <div className="mb-8">
           <div className="flex items-center justify-center">
             <div className="flex items-center">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                step >= 1 ? "bg-green-600 text-white" : "bg-gray-300 text-gray-600"
-              }`}>
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                  step >= 1
+                    ? "bg-green-600 text-white"
+                    : "bg-gray-300 text-gray-600"
+                }`}
+              >
                 1
               </div>
-              <div className={`w-16 h-1 ${step >= 2 ? "bg-green-600" : "bg-gray-300"}`}></div>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                step >= 2 ? "bg-green-600 text-white" : "bg-gray-300 text-gray-600"
-              }`}>
+              <div
+                className={`w-16 h-1 ${
+                  step >= 2 ? "bg-green-600" : "bg-gray-300"
+                }`}
+              ></div>
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                  step >= 2
+                    ? "bg-green-600 text-white"
+                    : "bg-gray-300 text-gray-600"
+                }`}
+              >
                 2
               </div>
-              <div className={`w-16 h-1 ${step >= 3 ? "bg-green-600" : "bg-gray-300"}`}></div>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                step >= 3 ? "bg-green-600 text-white" : "bg-gray-300 text-gray-600"
-              }`}>
+              <div
+                className={`w-16 h-1 ${
+                  step >= 3 ? "bg-green-600" : "bg-gray-300"
+                }`}
+              ></div>
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                  step >= 3
+                    ? "bg-green-600 text-white"
+                    : "bg-gray-300 text-gray-600"
+                }`}
+              >
                 3
               </div>
             </div>
@@ -154,56 +232,76 @@ export default function BookRoomPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Room Information */}
           <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Thông tin phòng</h2>
-            
+            <h2 className="text-xl font-bold text-gray-900 mb-4">
+              Thông tin phòng
+            </h2>
+
             <div className="h-48 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
-              <span className="text-gray-500">Hình ảnh phòng {mockRoom.number}</span>
+              <span className="text-gray-500">
+                Hình ảnh phòng {mockRoom.number}
+              </span>
             </div>
 
             <div className="space-y-3">
               <div className="flex justify-between">
                 <span className="text-gray-600">Số phòng:</span>
-                <span className="font-semibold">{mockRoom.number}</span>
+                <span className="font-semibold">{room?.roomNumber}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Diện tích:</span>
-                <span className="font-semibold">{mockRoom.area}m²</span>
+                <span className="font-semibold">{room?.area}m²</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Giá thuê:</span>
-                <span className="font-semibold text-green-600">{mockRoom.price.toLocaleString()}đ/tháng</span>
+                <span className="font-semibold text-green-600">
+                  {room?.price
+                    ? `${room.price.toLocaleString()}đ/tháng`
+                    : "Chưa có thông tin giá"}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Tiền cọc:</span>
-                <span className="font-semibold text-orange-600">{mockRoom.deposit.toLocaleString()}đ</span>
+                <span className="font-semibold text-orange-600">
+                  {room?.price
+                    ? `${(room.price / 2).toLocaleString("vi-VN")}đ`
+                    : "Chưa có thông tin"}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Địa chỉ:</span>
-                <span className="font-semibold text-right">{mockRoom.address}</span>
+                <span className="font-semibold text-right">
+                  {mockRoom.address}
+                </span>
               </div>
             </div>
 
             <div className="mt-4">
               <h3 className="font-semibold text-gray-900 mb-2">Tiện nghi</h3>
               <div className="flex flex-wrap gap-2">
-                {mockRoom.amenities.map((amenity, index) => (
-                  <span key={index} className="bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded">
-                    {amenity}
-                  </span>
-                ))}
+                {Array.isArray(room?.amenities) &&
+                  room.amenities.map((amenity, index) => (
+                    <span
+                      key={index}
+                      className="bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded"
+                    >
+                      {amenity}
+                    </span>
+                  ))}
               </div>
             </div>
 
             <div className="mt-4">
               <h3 className="font-semibold text-gray-900 mb-2">Mô tả</h3>
-              <p className="text-gray-600 text-sm">{mockRoom.description}</p>
+              <p className="text-gray-600 text-sm">{room?.description}</p>
             </div>
           </div>
 
           {/* Booking Form */}
           <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Thông tin đặt phòng</h2>
-            
+            <h2 className="text-xl font-bold text-gray-900 mb-4">
+              Thông tin đặt phòng
+            </h2>
+
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -322,9 +420,14 @@ export default function BookRoomPage() {
               </div>
 
               <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                <h4 className="font-semibold text-yellow-800 mb-2">Lưu ý quan trọng:</h4>
+                <h4 className="font-semibold text-yellow-800 mb-2">
+                  Lưu ý quan trọng:
+                </h4>
                 <ul className="text-sm text-yellow-700 space-y-1">
-                  <li>• Cần đặt cọc {mockRoom.deposit.toLocaleString()}đ để giữ phòng</li>
+                  <li>
+                    • Cần đặt cọc {mockRoom.deposit.toLocaleString()}đ để giữ
+                    phòng
+                  </li>
                   <li>• Chủ trọ sẽ liên hệ xác nhận trong vòng 24h</li>
                   <li>• Mang theo CMND/CCCD gốc khi ký hợp đồng</li>
                 </ul>
