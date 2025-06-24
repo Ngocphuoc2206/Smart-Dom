@@ -109,7 +109,7 @@ namespace Smart_Dom.Areas.RoomBooking.Controllers
                 return NotFound($"Room with ID {booking.RoomId} not found");
             }
             booking.Status = "occupied";
-            room.Status = "active";
+            room.Status = "occupied";
             await _roomBookingService.UpdateBookingAsync(booking);
             await _roomService.UpdateRoom(room);
             return Ok();

@@ -24,12 +24,14 @@ namespace Smart_Dom
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IRoomRepository, RoomRepository>();
             builder.Services.AddScoped<IRoomBookingRepository, RoomBookingRepository>();
+            builder.Services.AddScoped<IContractRepository, ContractRepository>();
 
             //Cấu hình Services
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IRoomService, RoomService>();
             builder.Services.AddScoped<IRoomBookingService, RoomBookingService>();
+            builder.Services.AddScoped<IContractService, ContractService>();
 
             //Cấu hình cors nhúng nextjs
             builder.Services.AddCors(options =>

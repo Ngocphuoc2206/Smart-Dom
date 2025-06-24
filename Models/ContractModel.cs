@@ -16,8 +16,7 @@ namespace Smart_Dom.Models
         [Required]
         public float DepositAmount { get; set; }
 
-        // e.g., 0:"Active", 1:"Expired", 2:"Cancelled"
-        public int Status { get; set; }
+        public string? Status { get; set; }
 
         [Required]
         public int IDUser { get; set; }

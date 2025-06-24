@@ -42,8 +42,8 @@ namespace Smart_Dom.Repositories
         public Task<IEnumerable<RoomDTO>> GetAllWithHistoryAsync()
         {
             var rooms = from r in _context.Rooms
-                        join h in _context.CheckInHistories on r.ID equals h.RoomId into roomHistories
-                        from h in roomHistories.DefaultIfEmpty()
+                        join h in _context.RoomBookings on r.ID equals h.RoomId into roomBookings
+                        from h in roomBookings.DefaultIfEmpty()
                         join u in _context.Users on h.UserId equals u.ID into users
                         from u in users.DefaultIfEmpty()
                         select new RoomDTO
@@ -53,7 +53,7 @@ namespace Smart_Dom.Repositories
                             Floor = r.Floor,
                             Area = r.Area,
                             Price = r.Price,
-                            FullName = u != null ? u.FullName : null,
+                            FullName = u.FullName != null ? u.FullName : null,
                             Description = r.Description,
                             Status = r.Status,
                             Amenities = r.Amenities != null ? r.Amenities.Split(new[] { ',' }, StringSplitOptions.None).ToList() : new List<string>() // Fix for CS0854

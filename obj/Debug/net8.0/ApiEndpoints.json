@@ -42,6 +42,48 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Smart_Dom.Areas.Contract.Controllers.ContractController",
+    "Method": "Get",
+    "RelativePath": "api/Contract",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.Contract.Controllers.ContractController",
+    "Method": "GetById",
+    "RelativePath": "api/Contract/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.Contract.Controllers.ContractController",
+    "Method": "Create",
+    "RelativePath": "api/Contract/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "contractDto",
+        "Type": "Smart_Dom.DTOs.Contract.CreateContractDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Smart_Dom.Areas.Room.Controllers.RoomController",
     "Method": "Get",
     "RelativePath": "api/Room",
