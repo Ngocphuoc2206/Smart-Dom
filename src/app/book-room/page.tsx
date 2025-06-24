@@ -13,6 +13,7 @@ import {
 } from "@heroicons/react/24/outline";
 import "@/app/hooks/useRoomID"; // Custom hook to fetch room ID if needed
 import { getRoomID } from "@/app/hooks/useRoomID";
+import { useAuth } from "@/contexts/AuthContext";
 const mockRoom = {
   id: 2,
   number: "202",
@@ -63,6 +64,7 @@ export default function BookRoomPage() {
   const roomId = searchParams.get("roomID");
   const [room, setRoom] = useState<Room | null>(null); // Replace with actual room data fetching logic
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -97,22 +99,48 @@ export default function BookRoomPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    try {
+      const response = await fetch(
+        "https://localhost:7257/api/RoomBooking/create",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userId: user?.idUser,
+            roomId: room?.id,
+            desiredStart: new Date(formData.moveInDate).toISOString(), // đảm bảo đúng ISO
+            contractDuration: parseInt(formData.contractDuration),
+            notes: formData.notes,
+          }),
+        }
+      );
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Lỗi từ server:", errorText);
+        throw new Error("Lỗi đặt phòng");
+      }
+
       setStep(3);
-    }, 2000);
+    } catch (err) {
+      console.error("Lỗi khi gửi yêu cầu:", err);
+      alert(
+        "Không thể gửi yêu cầu đặt phòng. Vui lòng kiểm tra kết nối hoặc thử lại sau."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const isFormValid = () => {
-    return (
-      formData.fullName &&
-      formData.phone &&
-      formData.email &&
-      formData.idNumber &&
-      formData.moveInDate
-    );
+    const valid =
+      (user?.name || formData.fullName) &&
+      (user?.phone || formData.phone) &&
+      (user?.email || formData.email) &&
+      (user?.idNumber || formData.idNumber) &&
+      formData.moveInDate;
+    console.log("isFormValid", valid);
+    return !!valid;
   };
 
   if (step === 3) {
@@ -124,7 +152,7 @@ export default function BookRoomPage() {
             Đặt phòng thành công!
           </h2>
           <p className="text-gray-600 mb-6">
-            Yêu cầu đặt phòng {mockRoom.number} của bạn đã được gửi thành công.
+            Yêu cầu đặt phòng {room?.roomNumber} của bạn đã được gửi thành công.
             Chủ trọ sẽ liên hệ với bạn trong vòng 24h.
           </p>
           <div className="bg-gray-50 p-4 rounded-lg mb-6">
@@ -238,7 +266,7 @@ export default function BookRoomPage() {
 
             <div className="h-48 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
               <span className="text-gray-500">
-                Hình ảnh phòng {mockRoom.number}
+                Hình ảnh phòng {room?.roomNumber}
               </span>
             </div>
 
@@ -312,7 +340,7 @@ export default function BookRoomPage() {
                   <input
                     type="text"
                     name="fullName"
-                    value={formData.fullName}
+                    value={user?.name || formData.fullName}
                     onChange={handleInputChange}
                     className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                     placeholder="Nhập họ và tên"
@@ -330,7 +358,7 @@ export default function BookRoomPage() {
                   <input
                     type="tel"
                     name="phone"
-                    value={formData.phone}
+                    value={user?.phone || formData.phone}
                     onChange={handleInputChange}
                     className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                     placeholder="0123456789"
@@ -348,7 +376,7 @@ export default function BookRoomPage() {
                   <input
                     type="email"
                     name="email"
-                    value={formData.email}
+                    value={user?.email || formData.email}
                     onChange={handleInputChange}
                     className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                     placeholder="email@example.com"
@@ -364,7 +392,7 @@ export default function BookRoomPage() {
                 <input
                   type="text"
                   name="idNumber"
-                  value={formData.idNumber}
+                  value={user?.idNumber || formData.idNumber}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                   placeholder="123456789012"
@@ -425,8 +453,11 @@ export default function BookRoomPage() {
                 </h4>
                 <ul className="text-sm text-yellow-700 space-y-1">
                   <li>
-                    • Cần đặt cọc {mockRoom.deposit.toLocaleString()}đ để giữ
-                    phòng
+                    • Cần đặt cọc{" "}
+                    {room?.price
+                      ? `${(room.price / 2).toLocaleString("vi-VN")}đ `
+                      : "Chưa có thông tin"}
+                    để giữ phòng
                   </li>
                   <li>• Chủ trọ sẽ liên hệ xác nhận trong vòng 24h</li>
                   <li>• Mang theo CMND/CCCD gốc khi ký hợp đồng</li>

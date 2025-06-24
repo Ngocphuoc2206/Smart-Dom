@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { getRoom } from "../hooks/useRoom";
+import { getRoomBookingInfo } from "../hooks/useRoomBookingInfo";
 
 // Mock data
 
@@ -190,6 +191,7 @@ export default function OwnerDashboard() {
   const { user } = useAuth();
   const router = useRouter();
   const [rooms, setRooms] = useState<any[]>([]);
+  const [roomBookingInfo, setRoomBookingInfo] = useState<any[]>([]);
 
   const handleLogout = () => {
     logout();
@@ -198,6 +200,7 @@ export default function OwnerDashboard() {
 
   useEffect(() => {
     getRoom().then(setRooms);
+    getRoomBookingInfo().then(setRoomBookingInfo);
   }, []);
 
   // Modal states
@@ -216,6 +219,7 @@ export default function OwnerDashboard() {
   const [responseText, setResponseText] = useState("");
   const [selectedConversation, setSelectedConversation] = useState<any>(null);
   const [newMessage, setNewMessage] = useState("");
+  const [isExpired, setIsExpired] = useState(false);
 
   // Form data
   const [roomForm, setRoomForm] = useState({
@@ -398,6 +402,34 @@ export default function OwnerDashboard() {
     const data = await getRoom();
     setRooms(data);
   };
+  const fetchRoomBookingInfo = async () => {
+    const data = await getRoomBookingInfo();
+    setRoomBookingInfo(data);
+  };
+
+  const fetchExpiredStatus = async (id: number) => {
+    try {
+      const response = await fetch(
+        `https://localhost:7257/api/RoomBooking/expired/${id}`
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      setIsExpired(true);
+    } catch (error) {
+      console.error("Error fetching expired status:", error);
+      setIsExpired(false);
+    }
+  };
+
+  // Hàm định dạng ngày
+  const formatDate = (dateString: any) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Tháng bắt đầu từ 0
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
 
   // Form submit handlers
   const handleRoomSubmit = async (e: React.FormEvent) => {
@@ -530,6 +562,43 @@ export default function OwnerDashboard() {
       alert("Tin nhắn đã được gửi!");
       setNewMessage("");
     }
+  };
+  // Add this function for confirming tenant
+  const handleConfirmTenant = async (id: any) => {
+    try {
+      const response = await fetch(
+        `https://localhost:7257/api/RoomBooking/confirm/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ status: "occupied" }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Xác nhận không thành công");
+      }
+      alert("Xác nhận thành công!");
+      fetchRoomBookingInfo(); // hoặc cập nhật state thủ công
+    } catch (error) {
+      console.error("Xác nhận thất bại:", error);
+      alert("Xác nhận thất bại!");
+    }
+  };
+
+  const getDaysLeft = (endDate: string | Date, id: number): string => {
+    // Modified line with comments for date calculation
+    const now = new Date();
+    const end = new Date(endDate);
+    // Calculate difference in milliseconds, then convert to days
+    const diff = Math.ceil(
+      (end.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)
+    );
+    if (diff < 0) {
+      fetchExpiredStatus(id); // Fetch expired status if needed
+    }
+    return diff > 0 ? `${diff} ngày` : "Hết hạn";
   };
 
   return (
@@ -977,6 +1046,12 @@ export default function OwnerDashboard() {
                         Ngày bắt đầu
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Ngày kết thúc
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Ngày còn lại
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Trạng thái
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -985,41 +1060,16 @@ export default function OwnerDashboard() {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {[
-                      {
-                        id: 1,
-                        name: "Nguyễn Văn A",
-                        room: "101",
-                        phone: "0123456789",
-                        startDate: "01/01/2024",
-                        status: "active",
-                      },
-                      {
-                        id: 2,
-                        name: "Trần Thị B",
-                        room: "102",
-                        phone: "0987654321",
-                        startDate: "15/01/2024",
-                        status: "active",
-                      },
-                      {
-                        id: 3,
-                        name: "Lê Văn C",
-                        room: "201",
-                        phone: "0369852147",
-                        startDate: "01/02/2024",
-                        status: "pending",
-                      },
-                    ].map((tenant) => (
+                    {roomBookingInfo.map((tenant) => (
                       <tr key={tenant.id}>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             <div className="h-10 w-10 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white font-bold mr-4">
-                              {tenant.name.charAt(0)}
+                              {tenant.fullName.charAt(0)}
                             </div>
                             <div>
                               <div className="text-sm font-medium text-gray-900">
-                                {tenant.name}
+                                {tenant.fullName}
                               </div>
                               <div className="text-sm text-gray-500">
                                 ID: {tenant.id.toString().padStart(3, "0")}
@@ -1028,13 +1078,19 @@ export default function OwnerDashboard() {
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {tenant.room}
+                          {tenant.roomNumber}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           {tenant.phone}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {tenant.startDate}
+                          {formatDate(tenant.desiredStart)}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {formatDate(tenant.desiredEnd)}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {getDaysLeft(tenant.desiredEnd, tenant.id)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span
@@ -1050,12 +1106,15 @@ export default function OwnerDashboard() {
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <button
-                            onClick={() => openTenantModal(tenant)}
-                            className="text-blue-600 hover:text-blue-900 mr-3"
-                          >
-                            Xem
-                          </button>
+                          {tenant.status === "Pending" ? (
+                            <button
+                              onClick={() => handleConfirmTenant(tenant.id)}
+                              className="text-indigo-600 hover:text-indigo-900 mr-3"
+                            >
+                              Xác nhận
+                            </button>
+                          ) : null}
+
                           <button
                             onClick={() => openTenantModal(tenant)}
                             className="text-green-600 hover:text-green-900 mr-3"
@@ -1642,7 +1701,7 @@ export default function OwnerDashboard() {
                                 : category === "location"
                                 ? "Vị trí"
                                 : category === "value"
-                                ? "Giá trị"
+                                ? "Gía trị"
                                 : "Chủ trọ"}
                             </p>
                             <div className="flex justify-center">
@@ -2567,8 +2626,9 @@ export default function OwnerDashboard() {
                   className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   rows={3}
                   placeholder="Nhập phản hồi cho khách thuê về tiến độ xử lý..."
-                  defaultValue={selectedReport.response || ""}
-                />
+                >
+                  {selectedReport.response || ""}
+                </textarea>
                 <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                   Gửi phản hồi
                 </button>

@@ -1,6 +1,7 @@
 {
   "/book-room/page": "app/book-room/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/owner-dashboard/page": "app/owner-dashboard/page.js",
   "/page": "app/page.js",
   "/tenant-dashboard/page": "app/tenant-dashboard/page.js"
 }
