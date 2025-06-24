@@ -29,11 +29,12 @@ namespace Smart_Dom.Models
 
         public DbSet<UserModel> Users { get; set; } = null!;
         public DbSet<RoomModel> Rooms { get; set; } = null!;
-        public DbSet<RoomHistoryModel> RoomHistories { get; set; } = null!;
+        public DbSet<CheckInHistoryModel> CheckInHistories { get; set; } = null!;
         public DbSet<InvoiceModel> Invoices { get; set; } = null!;
         public DbSet<AccountModel> Accounts { get; set; } = null!;
         public DbSet<ContractModel> Contracts { get; set; } = null!;
         public DbSet<MaintenanceRequest> MaintenanceRequests { get; set; } = null!;
+        public DbSet<RoomBookingModel> RoomBookings { get; set; } = null!;
 
     }
 }

@@ -80,6 +80,11 @@ namespace Smart_Dom.Services
             return await _roomRepository.GetByIdAsync(id);
         }
 
+        public async Task UpdateRoom(RoomModel room)
+        {
+            await _roomRepository.UpdateAsync(room);
+        }
+
         public async Task UpdateRoomAsync(RoomDTO room)
         {
             //Check room exists

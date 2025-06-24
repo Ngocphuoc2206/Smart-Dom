@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Smart_Dom.Models
 {
-    public class RoomHistoryModel
+    public class RoomBookingModel
     {
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public int RoomId { get; set; }
@@ -18,9 +18,16 @@ namespace Smart_Dom.Models
         [ForeignKey("UserId")]
         public UserModel? User { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateTime StartDate { get; set; }
-        [DataType(DataType.Date)]
-        public DateTime EndDate { get; set; }
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime DesiredStart { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime DesiredEnd { get; set; }
+
+        [Required]
+        public string Status { get; set; } = "Pending";
+
     }
 }

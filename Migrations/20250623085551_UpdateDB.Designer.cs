@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Smart_Dom.Models;
 
@@ -11,9 +12,11 @@ using Smart_Dom.Models;
 namespace Smart_Dom.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250623085551_UpdateDB")]
+    partial class UpdateDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,39 +210,6 @@ namespace Smart_Dom.Migrations
                     b.ToTable("MaintenanceRequests");
                 });
 
-            modelBuilder.Entity("Smart_Dom.Models.RoomBookingModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("DesiredEnd")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DesiredStart")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("RoomId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoomId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RoomBookings");
-                });
-
             modelBuilder.Entity("Smart_Dom.Models.RoomModel", b =>
                 {
                     b.Property<int>("ID")
@@ -392,25 +362,6 @@ namespace Smart_Dom.Migrations
                 });
 
             modelBuilder.Entity("Smart_Dom.Models.MaintenanceRequest", b =>
-                {
-                    b.HasOne("Smart_Dom.Models.RoomModel", "Room")
-                        .WithMany()
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Smart_Dom.Models.UserModel", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Room");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Smart_Dom.Models.RoomBookingModel", b =>
                 {
                     b.HasOne("Smart_Dom.Models.RoomModel", "Room")
                         .WithMany()

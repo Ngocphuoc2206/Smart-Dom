@@ -2,13 +2,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Smart_Dom.DTOs;
-using Smart_Dom.Interfaces;
 using Smart_Dom.Models;
 using Smart_Dom.Services;
-using System.Threading.Tasks;
-namespace Smart_Dom.Areas.AccountControllers.Controllers
+namespace Smart_Dom.Areas.Account.Controllers
 {
-    [Area("AccountControllers")]
+    [Area("Account")]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : Controller
