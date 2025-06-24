@@ -508,6 +508,7 @@ export default function OwnerDashboard() {
         return;
       }
       await fetchRooms(); // Refresh room list
+      await fetchRoomBookingInfo(); // Refresh booking info
       alert("Xóa phòng thành công!");
     }
   };
@@ -1095,12 +1096,12 @@ export default function OwnerDashboard() {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span
                             className={`px-2 py-1 text-xs rounded-full ${
-                              tenant.status === "active"
+                              tenant.status === "occupied"
                                 ? "bg-green-100 text-green-800"
                                 : "bg-yellow-100 text-yellow-800"
                             }`}
                           >
-                            {tenant.status === "active"
+                            {tenant.status === "occupied"
                               ? "Đang thuê"
                               : "Chờ xác nhận"}
                           </span>

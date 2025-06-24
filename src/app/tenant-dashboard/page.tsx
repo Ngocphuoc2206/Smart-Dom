@@ -203,7 +203,6 @@ export default function TenantDashboard() {
     priority: "medium",
     location: "",
   });
-  const [selectedRoom, setSelectedRoom] = useState<number | null>(null);
 
   // Room search filters
   const [roomFilters, setRoomFilters] = useState({

@@ -99,6 +99,21 @@ export default function BookRoomPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    // Parse start date
+    const startDate = new Date(formData.moveInDate);
+
+    // Tính endDate bằng cách cộng thêm số tháng (contractDuration)
+    const contractMonths = parseInt(formData.contractDuration);
+    const endDate = new Date(startDate); // copy startDate
+    if (formData.contractDuration === "6") {
+      endDate.setMonth(endDate.getMonth() + 6);
+    } else if (formData.contractDuration === "12") {
+      endDate.setMonth(endDate.getMonth() + 12);
+    } else if (formData.contractDuration === "24") {
+      endDate.setMonth(endDate.getMonth() + 24);
+    }
+
     try {
       const response = await fetch(
         "https://localhost:7257/api/RoomBooking/create",
@@ -121,6 +136,25 @@ export default function BookRoomPage() {
         throw new Error("Lỗi đặt phòng");
       }
 
+      const responseContract = await fetch(
+        "https://localhost:7257/api/Contract/create",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userId: user?.idUser,
+            roomId: room?.id,
+            startDate: startDate.toISOString(),
+            endDate: endDate.toISOString(),
+            depositAmount: room?.price ? room.price / 2 : 0, // Giả sử tiền cọc là 50% giá phòng
+          }),
+        }
+      );
+      if (!responseContract.ok) {
+        const errorText = await responseContract.text();
+        console.error("Lỗi từ server:", errorText);
+        throw new Error("Lỗi tạo hợp đồng");
+      }
       setStep(3);
     } catch (err) {
       console.error("Lỗi khi gửi yêu cầu:", err);
