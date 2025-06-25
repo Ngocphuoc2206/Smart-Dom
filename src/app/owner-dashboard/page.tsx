@@ -591,10 +591,22 @@ export default function OwnerDashboard() {
     }
   };
 
-  const handleDeleteTenant = (tenantId: string) => {
-    if (confirm("Bạn có chắc chắn muốn xóa khách thuê này?")) {
-      console.log("Deleting tenant:", tenantId);
+  const handleDeleteTenant = async (tenantId: string) => {
+    if (confirm("Bạn có chắc chắn muốn xóa khách thuê này?" + tenantId)) {
+      const url = `https://localhost:7257/api/User/delete/${tenantId}`;
+      const response = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        alert("Có lỗi xảy ra khi xóa khách thuê!");
+        return;
+      }
       alert("Xóa khách thuê thành công!");
+      fetchRooms(); // Refresh room list
+      fetchRoomBookingInfo(); // Refresh booking info
     }
   };
 
@@ -963,7 +975,10 @@ export default function OwnerDashboard() {
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {room.fullName || "-"}
+                          {room.roomBookingStatus === "cancelled" ||
+                          !room.fullName
+                            ? "-"
+                            : room.fullName}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           {room.price.toLocaleString()}đ
@@ -1140,78 +1155,82 @@ export default function OwnerDashboard() {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {roomBookingInfo.map((tenant) => (
-                      <tr key={tenant.id}>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex items-center">
-                            <div className="h-10 w-10 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white font-bold mr-4">
-                              {tenant.fullName.charAt(0)}
-                            </div>
-                            <div>
-                              <div className="text-sm font-medium text-gray-900">
-                                {tenant.fullName}
+                    {roomBookingInfo
+                      .filter(
+                        (tenant) => tenant.roomBookingStatus !== "cancelled"
+                      )
+                      .map((tenant) => (
+                        <tr key={tenant.id}>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="flex items-center">
+                              <div className="h-10 w-10 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white font-bold mr-4">
+                                {tenant.fullName.charAt(0)}
                               </div>
-                              <div className="text-sm text-gray-500">
-                                ID: {tenant.id.toString().padStart(3, "0")}
+                              <div>
+                                <div className="text-sm font-medium text-gray-900">
+                                  {tenant.fullName}
+                                </div>
+                                <div className="text-sm text-gray-500">
+                                  ID: {tenant.id.toString().padStart(3, "0")}
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {tenant.roomNumber}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {tenant.phone}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {formatDate(tenant.desiredStart)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {formatDate(tenant.desiredEnd)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {getDaysLeft(tenant.desiredEnd, tenant.id)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span
-                            className={`px-2 py-1 text-xs rounded-full ${
-                              tenant.status === "occupied"
-                                ? "bg-green-100 text-green-800"
-                                : "bg-yellow-100 text-yellow-800"
-                            }`}
-                          >
-                            {tenant.status === "occupied"
-                              ? "Đang thuê"
-                              : "Chờ xác nhận"}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          {tenant.status === "pending" ? (
-                            <button
-                              onClick={() => handleConfirmTenant(tenant.id)}
-                              className="text-indigo-600 hover:text-indigo-900 mr-3"
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            {tenant.roomNumber}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {tenant.phone}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {formatDate(tenant.desiredStart)}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {formatDate(tenant.desiredEnd)}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {getDaysLeft(tenant.desiredEnd, tenant.id)}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span
+                              className={`px-2 py-1 text-xs rounded-full ${
+                                tenant.status === "occupied"
+                                  ? "bg-green-100 text-green-800"
+                                  : "bg-yellow-100 text-yellow-800"
+                              }`}
                             >
-                              Xác nhận
-                            </button>
-                          ) : null}
+                              {tenant.status === "occupied"
+                                ? "Đang thuê"
+                                : "Chờ xác nhận"}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            {tenant.status === "pending" ? (
+                              <button
+                                onClick={() => handleConfirmTenant(tenant.id)}
+                                className="text-indigo-600 hover:text-indigo-900 mr-3"
+                              >
+                                Xác nhận
+                              </button>
+                            ) : null}
 
-                          <button
-                            onClick={() => openTenantModal(tenant)}
-                            className="text-green-600 hover:text-green-900 mr-3"
-                          >
-                            Sửa
-                          </button>
-                          <button
-                            onClick={() =>
-                              handleDeleteTenant(tenant.id.toString())
-                            }
-                            className="text-red-600 hover:text-red-900"
-                          >
-                            Xóa
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
+                            <button
+                              onClick={() => openTenantModal(tenant)}
+                              className="text-green-600 hover:text-green-900 mr-3"
+                            >
+                              Sửa
+                            </button>
+                            <button
+                              onClick={() =>
+                                handleDeleteTenant(tenant.userId.toString())
+                              }
+                              className="text-red-600 hover:text-red-900"
+                            >
+                              Xóa
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>
