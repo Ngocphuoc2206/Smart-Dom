@@ -14,7 +14,7 @@ namespace Smart_Dom.Models
         public DateTime EndDate { get; set; }
 
         [Required]
-        public float DepositAmount { get; set; }
+        public int DepositAmount { get; set; }
 
         public string? Status { get; set; }
 
@@ -27,5 +27,10 @@ namespace Smart_Dom.Models
         public int RoomId { get; set; }
         [ForeignKey("RoomId")]
         public RoomModel? Room { get; set; }
+
+        [Required]
+        public int DurationContractID { get; set; }
+        [ForeignKey("DurationContractID")]
+        public DurationContractModel? DurationContract { get; set; }
     }
 }

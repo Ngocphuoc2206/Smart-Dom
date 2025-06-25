@@ -27,7 +27,7 @@ namespace Smart_Dom.Models
         public DateTime DesiredEnd { get; set; }
 
         [Required]
-        public string Status { get; set; } = "Pending";
+        public string Status { get; set; } = "pending";
 
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace Smart_Dom.DTOs
+﻿namespace Smart_Dom.DTOs.User
 {
-    public class AccountRegisterDTO
+    public class AccountRegisterUserDTO
     {
         public string FullName { get; set; }
         public string Email { get; set; } // Email == UserName

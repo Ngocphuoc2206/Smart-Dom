@@ -1,4 +1,4 @@
-﻿namespace Smart_Dom.DTOs
+﻿namespace Smart_Dom.DTOs.Room
 {
     public class RoomDTO
     {

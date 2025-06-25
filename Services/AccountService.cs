@@ -1,4 +1,4 @@
-﻿using Smart_Dom.DTOs;
+﻿using Smart_Dom.DTOs.User;
 using Smart_Dom.Interfaces;
 using Smart_Dom.Models;
 using Smart_Dom.Repositories;
@@ -18,7 +18,7 @@ namespace Smart_Dom.Services
             _context = context;
             _logger = logger;
         }
-        public async Task RegisterAccountAsync(AccountRegisterDTO account)
+        public async Task RegisterAccountAsync(AccountRegisterUserDTO account)
         {
             using var transaction = await _context.Database.BeginTransactionAsync();
             try
@@ -68,12 +68,12 @@ namespace Smart_Dom.Services
             return await _accountRepository.GetAllAsync();
         }
 
-        public Task UpdateAccountAsync(int id, AccountRegisterDTO account)
+        public Task UpdateAccountAsync(int id, AccountRegisterUserDTO account)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<AccountRegisterDTO>> GetAllUsersInFormationAsync()
+        public async Task<IEnumerable<AccountRegisterUserDTO>> GetAllUsersInFormationAsync()
         {
             return await _accountRepository.GetAllUsersInFormationAsync();
         }

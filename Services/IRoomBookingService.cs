@@ -11,6 +11,7 @@ namespace Smart_Dom.Services
         Task<IEnumerable<RoomBookingModel>> GetBookingsByRoomIdAsync(int roomId);
         Task<IEnumerable<RoomBookingViewModel>> GetRoomAllInformation();
         Task AddBookingAsync(CreateRoomBookingDTO booking);
+        Task AddBookingTenantAsync(RoomBookingViewModel booking);
         Task UpdateBookingAsync(RoomBookingModel booking);
         Task DeleteBookingAsync(int id);
     }

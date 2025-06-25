@@ -9,14 +9,16 @@ namespace Smart_Dom.Services
     {
         private readonly IRoomBookingRepository _bookingRepository;
         private readonly IRoomRepository _roomRepository;
+        private readonly IUserRepository _userRepository;
         private readonly AppDBContext _context;
         private readonly ILogger<RoomBookingService> _logger;
-        public RoomBookingService(IRoomBookingRepository bookingRepository, ILogger<RoomBookingService> logger, AppDBContext context, IRoomRepository roomRepository)
+        public RoomBookingService(IRoomBookingRepository bookingRepository, ILogger<RoomBookingService> logger, AppDBContext context, IRoomRepository roomRepository, IUserRepository userRepository)
         {
             _bookingRepository = bookingRepository;
             _context = context;
             _logger = logger;
             _roomRepository = roomRepository;
+            _userRepository = userRepository;
         }
         public async Task AddBookingAsync(CreateRoomBookingDTO booking)
         {
@@ -50,11 +52,11 @@ namespace Smart_Dom.Services
                         UserId = booking.UserId,
                         DesiredStart = booking.DesiredStart,
                         DesiredEnd = booking.DesiredStart.AddDays(booking.ContractDuration),
-                        Status = "Pending" // Default status, can be changed later
+                        Status = "pending" // Default status, can be changed later
                     };
                 _logger.LogInformation($"Adding new booking for room {booking.RoomId} by user {booking.UserId}");
                 //Update Room Status
-                existingRoom.Status = "Pending";
+                existingRoom.Status = "pending";
                 await _bookingRepository.AddBookingAsync(newBooking);
                 await _context.SaveChangesAsync();
                 await _roomRepository.UpdateAsync(existingRoom);
@@ -67,6 +69,22 @@ namespace Smart_Dom.Services
                 _logger.LogError(ex, "Error adding booking");
                 throw new Exception("Error adding booking", ex);
             }
+        }
+
+        public async Task AddBookingTenantAsync(RoomBookingViewModel booking)
+        {
+            var newUser = new UserModel
+            {
+                FullName = booking.FullName,
+                Email = booking.Email,
+                Phone = booking.Phone,
+                IDCard = booking.NumberID,
+                EmergencyContact = booking.EmergencyContact,
+                EmergencyPhone = booking.EmergencyPhone
+            };
+
+            //Find room by room number
+            var room = await _roomRepository.GetByRoomNumberAsync(booking.RoomNumber);
         }
 
         public Task DeleteBookingAsync(int id)

@@ -40,7 +40,7 @@ namespace Smart_Dom.Areas.Contract.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateContractDTO contractDto)
         {
-            _logger.LogInformation("Creating a new contract");
+            _logger.LogInformation("Creating a new contract" + contractDto.DurationContractID);
             if (!ModelState.IsValid)
             {
                 _logger.LogWarning("Invalid model state for contract creation");

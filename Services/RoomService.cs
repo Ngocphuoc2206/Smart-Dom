@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Smart_Dom.DTOs;
+using Smart_Dom.DTOs.Room;
 using Smart_Dom.Interfaces;
 using Smart_Dom.Models;
 using Smart_Dom.Repositories;
@@ -78,6 +78,11 @@ namespace Smart_Dom.Services
         public async Task<RoomModel?> GetRoomByIdAsync(int id)
         {
             return await _roomRepository.GetByIdAsync(id);
+        }
+
+        public async Task<RoomModel?> GetRoomByRoomNumberAsync(int roomNumber)
+        {
+            return await _roomRepository.GetByRoomNumberAsync(roomNumber);
         }
 
         public async Task UpdateRoom(RoomModel room)

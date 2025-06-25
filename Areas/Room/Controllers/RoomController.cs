@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Smart_Dom.DTOs;
+using Smart_Dom.DTOs.Room;
 using Smart_Dom.Models;
 using Smart_Dom.Services;
 using System.Threading.Tasks;

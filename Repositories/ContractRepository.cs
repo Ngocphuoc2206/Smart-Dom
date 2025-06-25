@@ -40,6 +40,11 @@ namespace Smart_Dom.Repositories
             return await _context.Contracts.FirstOrDefaultAsync(c => c.ID == id);
         }
 
+        public async Task<ContractModel> GetByRoomIdAsync(int roomId)
+        {
+            return await _context.Contracts.FirstOrDefaultAsync(c => c.RoomId == roomId);
+        }
+
         public async Task<ContractModel?> GetByUserIdAsync(int userId)
         {
             return await _context.Contracts.FirstOrDefaultAsync(c => c.IDUser == userId);
@@ -50,9 +55,10 @@ namespace Smart_Dom.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public Task UpdateAsync(ContractModel contract)
+        public async Task UpdateAsync(ContractModel contract)
         {
-            throw new NotImplementedException();
+            _context.Contracts.Update(contract);
+            await SaveChangesAsync();
         }
     }
 }

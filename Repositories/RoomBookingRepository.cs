@@ -15,7 +15,7 @@ namespace Smart_Dom.Repositories
         public async Task AddBookingAsync(RoomBookingModel booking)
         {
             await _context.RoomBookings.AddAsync(booking);
-            SaveChangesAsync().Wait();
+            await SaveChangesAsync();
         }
 
         public async Task DeleteBookingAsync(int id)
@@ -58,15 +58,28 @@ namespace Smart_Dom.Repositories
             var bookingRoom = from rb in _context.RoomBookings
                               join u in _context.Users on rb.UserId equals u.ID
                               join r in _context.Rooms on rb.RoomId equals r.ID
+                              join c in _context.Contracts on new { RoomId = rb.RoomId, UserId = u.ID }
+                              equals new { RoomId = c.RoomId, UserId = c.IDUser } into contractGroup
+                              from c in contractGroup.DefaultIfEmpty() // Ensure 'c' is in scope here
+                              join dc in _context.DurationContracts on c.DurationContractID equals dc.ID into durationGroup
+                              from dc in durationGroup.DefaultIfEmpty() // Ensure 'dc' is in scope here
                               select new RoomBookingViewModel
                               {
                                   Id = rb.Id,
                                   FullName = u.FullName,
                                   Phone = u.Phone,
                                   RoomNumber = r.RoomNumber,
-                                  DesiredStart = rb.DesiredStart, // Keep as DateTime
-                                  DesiredEnd = rb.DesiredEnd, // Keep as DateTime
-                                  Status = r.Status
+                                  Email = u.Email,
+                                  price = r.Price,
+                                  NumberID = u.IDCard,
+                                  UserId = u.ID,
+                                  DesiredStart = rb.DesiredStart,
+                                  DepositAmount = c.DepositAmount,
+                                  DesiredEnd = rb.DesiredEnd,
+                                  Status = r.Status,
+                                  EmergencyContact = u.EmergencyContact,
+                                  EmergencyPhone = u.EmergencyPhone,
+                                  DurationContract = dc.Duration
                               };
             return await bookingRoom.ToListAsync();
         }

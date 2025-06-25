@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Smart_Dom.DTOs.RoomBooking;
+using Smart_Dom.Models;
 using Smart_Dom.Services;
 namespace Smart_Dom.Areas.RoomBooking.Controllers
 {
@@ -11,11 +12,17 @@ namespace Smart_Dom.Areas.RoomBooking.Controllers
         private readonly ILogger<RoomBookingController> _logger;
         private readonly IRoomBookingService _roomBookingService;
         private readonly IRoomService _roomService;
-        public RoomBookingController(ILogger<RoomBookingController> logger, IRoomBookingService roomBookingService, IRoomService roomService)
+        private readonly IContractService _contractService;
+        private readonly ICheckInHistoryService _checkInHistoryService;
+        private readonly IUserService _userService;
+        public RoomBookingController(ILogger<RoomBookingController> logger, IRoomBookingService roomBookingService, IRoomService roomService, IContractService contractService, ICheckInHistoryService checkInHistoryService, IUserService userService)
         {
             _logger = logger;
             _roomBookingService = roomBookingService;
             _roomService = roomService;
+            _contractService = contractService;
+            _checkInHistoryService = checkInHistoryService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -73,7 +80,7 @@ namespace Smart_Dom.Areas.RoomBooking.Controllers
                 return NotFound($"Room with ID {existingBooking.RoomId} not found");
             }
             existingBooking.Status = "overdue"; // Ensure the ID is set correctly
-            room.Status = "inactive"; // Update room status to inactive
+            room.Status = "available"; // Update room status to inactive
             await _roomBookingService.UpdateBookingAsync(existingBooking);
             await _roomService.UpdateRoom(room);
             return Ok();
@@ -108,10 +115,30 @@ namespace Smart_Dom.Areas.RoomBooking.Controllers
                 _logger.LogWarning($"Room with ID {booking.RoomId} not found for booking confirmation");
                 return NotFound($"Room with ID {booking.RoomId} not found");
             }
+
+            var contract = await _contractService.GetContractByUserIdAsync(booking.UserId);
+            if (contract == null)
+            {
+                _logger.LogWarning($"No contract found for user ID {booking.UserId}");
+                return NotFound($"No contract found for user ID {booking.UserId}");
+            }
+
+            contract.Status = "paid";
             booking.Status = "occupied";
             room.Status = "occupied";
+
+            var checkInHistory = new CheckInHistoryModel
+            {
+                CheckInTime = booking.DesiredStart,
+                CheckOutTime = booking.DesiredEnd,
+                RoomId = booking.RoomId,
+                UserId = booking.UserId
+            };
+
             await _roomBookingService.UpdateBookingAsync(booking);
             await _roomService.UpdateRoom(room);
+            await _contractService.UpdateContractByUserIDAsync(booking.UserId, contract);
+            await _checkInHistoryService.CreateCheckInHistoryAsync(checkInHistory);
             return Ok();
         }
 

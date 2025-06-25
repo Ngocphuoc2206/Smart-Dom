@@ -35,6 +35,7 @@ namespace Smart_Dom.Models
         public DbSet<ContractModel> Contracts { get; set; } = null!;
         public DbSet<MaintenanceRequest> MaintenanceRequests { get; set; } = null!;
         public DbSet<RoomBookingModel> RoomBookings { get; set; } = null!;
+        public DbSet<DurationContractModel> DurationContracts { get; set; } = null!;
 
     }
 }

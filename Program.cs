@@ -25,6 +25,8 @@ namespace Smart_Dom
             builder.Services.AddScoped<IRoomRepository, RoomRepository>();
             builder.Services.AddScoped<IRoomBookingRepository, RoomBookingRepository>();
             builder.Services.AddScoped<IContractRepository, ContractRepository>();
+            builder.Services.AddScoped<ICheckInHistoryRepository, CheckInHistoryRepository>();
+            builder.Services.AddScoped<IDurationContractRepository, DurationContractRepository>();
 
             //Cấu hình Services
             builder.Services.AddScoped<IAccountService, AccountService>();
@@ -32,6 +34,8 @@ namespace Smart_Dom
             builder.Services.AddScoped<IRoomService, RoomService>();
             builder.Services.AddScoped<IRoomBookingService, RoomBookingService>();
             builder.Services.AddScoped<IContractService, ContractService>();
+            builder.Services.AddScoped<ICheckInHistoryService, CheckInHistoryService>();
+            builder.Services.AddScoped<IDurationContracService, DurationContractService>();
 
             //Cấu hình cors nhúng nextjs
             builder.Services.AddCors(options =>

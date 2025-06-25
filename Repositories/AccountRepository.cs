@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Smart_Dom.DTOs;
+using Smart_Dom.DTOs.User;
 using Smart_Dom.Interfaces;
 using Smart_Dom.Models;
 
@@ -38,7 +38,7 @@ namespace Smart_Dom.Repositories
             return await _context.Accounts.ToListAsync();
         }
 
-        public async Task<IEnumerable<AccountRegisterDTO>> GetAllUsersInFormationAsync()
+        public async Task<IEnumerable<AccountRegisterUserDTO>> GetAllUsersInFormationAsync()
         {
             var accounts = await (from a in _context.Accounts
                            join u in _context.Users on a.UserId equals u.ID
@@ -52,7 +52,7 @@ namespace Smart_Dom.Repositories
                                phone = u.Phone,
                                dob = u.DOB.ToString("yyyy-MM-dd"), // Format date to string
                            }).ToListAsync();
-            return (IEnumerable<AccountRegisterDTO>)accounts;
+            return (IEnumerable<AccountRegisterUserDTO>)accounts;
         }
 
         public async Task<AccountModel?> GetByIdAsync(int id)

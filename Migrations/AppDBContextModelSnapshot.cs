@@ -90,8 +90,11 @@ namespace Smart_Dom.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<float>("DepositAmount")
-                        .HasColumnType("real");
+                    b.Property<int>("DepositAmount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DurationContractID")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
@@ -110,11 +113,32 @@ namespace Smart_Dom.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("DurationContractID");
+
                     b.HasIndex("IDUser");
 
                     b.HasIndex("RoomId");
 
                     b.ToTable("Contracts");
+                });
+
+            modelBuilder.Entity("Smart_Dom.Models.DurationContract", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("DurationContracts");
                 });
 
             modelBuilder.Entity("Smart_Dom.Models.InvoiceModel", b =>
@@ -287,7 +311,6 @@ namespace Smart_Dom.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
@@ -295,17 +318,22 @@ namespace Smart_Dom.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("EmergencyContact")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("EmergencyPhone")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
                     b.Property<string>("FullName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Gender")
-                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
@@ -314,7 +342,6 @@ namespace Smart_Dom.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
@@ -355,6 +382,12 @@ namespace Smart_Dom.Migrations
 
             modelBuilder.Entity("Smart_Dom.Models.ContractModel", b =>
                 {
+                    b.HasOne("Smart_Dom.Models.DurationContract", "DurationContract")
+                        .WithMany()
+                        .HasForeignKey("DurationContractID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Smart_Dom.Models.UserModel", "User")
                         .WithMany()
                         .HasForeignKey("IDUser")
@@ -366,6 +399,8 @@ namespace Smart_Dom.Migrations
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("DurationContract");
 
                     b.Navigation("Room");
 

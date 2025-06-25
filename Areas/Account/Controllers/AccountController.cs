@@ -1,7 +1,7 @@
 ﻿using BCrypt.Net;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Smart_Dom.DTOs;
+using Smart_Dom.DTOs.User;
 using Smart_Dom.Models;
 using Smart_Dom.Services;
 namespace Smart_Dom.Areas.Account.Controllers
@@ -32,7 +32,7 @@ namespace Smart_Dom.Areas.Account.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] AccountRegisterDTO account)
+        public async Task<IActionResult> Register([FromBody] AccountRegisterUserDTO account)
         {
             _logger.LogInformation("Creating a new account");
             // Validate the model state
@@ -54,7 +54,7 @@ namespace Smart_Dom.Areas.Account.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginModelDTO model)
+        public async Task<IActionResult> Login([FromBody] LoginModelUserDTO model)
         {
             _logger.LogInformation("User login attempt for email: {Email}", model.Email);
             var account = await _accountService.GetAccountByUsernameAsync(model.Email);

@@ -19,7 +19,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "Smart_Dom.DTOs.LoginModelDTO",
+        "Type": "Smart_Dom.DTOs.User.LoginModelUserDTO",
         "IsRequired": true
       }
     ],
@@ -35,7 +35,7 @@
     "Parameters": [
       {
         "Name": "account",
-        "Type": "Smart_Dom.DTOs.AccountRegisterDTO",
+        "Type": "Smart_Dom.DTOs.User.AccountRegisterUserDTO",
         "IsRequired": true
       }
     ],
@@ -84,6 +84,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Smart_Dom.Areas.DurationContract.Controllers.DurationContractController",
+    "Method": "Get",
+    "RelativePath": "api/DurationContract",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Smart_Dom.Areas.Room.Controllers.RoomController",
     "Method": "Get",
     "RelativePath": "api/Room",
@@ -119,7 +129,7 @@
     "Parameters": [
       {
         "Name": "room",
-        "Type": "Smart_Dom.DTOs.RoomDTO",
+        "Type": "Smart_Dom.DTOs.Room.RoomDTO",
         "IsRequired": true
       }
     ],
@@ -156,7 +166,7 @@
       },
       {
         "Name": "room",
-        "Type": "Smart_Dom.DTOs.RoomDTO",
+        "Type": "Smart_Dom.DTOs.Room.RoomDTO",
         "IsRequired": true
       }
     ],
@@ -244,6 +254,69 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.User.Controllers.UserController",
+    "Method": "CreateUser",
+    "RelativePath": "api/User/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "Smart_Dom.DTOs.User.EditUserDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.User.Controllers.UserController",
+    "Method": "GetAllUsers",
+    "RelativePath": "api/User/GetAllUsers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.User.Controllers.UserController",
+    "Method": "GetUserById",
+    "RelativePath": "api/User/GetUserById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.User.Controllers.UserController",
+    "Method": "UpdateUser",
+    "RelativePath": "api/User/update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "user",
+        "Type": "Smart_Dom.DTOs.User.EditUserDTO",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   }
 ]
