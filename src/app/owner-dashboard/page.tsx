@@ -6,6 +6,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { getRoom } from "../hooks/useRoom";
 import { getRoomBookingInfo } from "../hooks/useRoomBookingInfo";
+import { getDurationContract } from "../hooks/useDurationContract";
 
 // Mock data
 
@@ -185,6 +186,12 @@ const mockConversations = [
   },
 ];
 
+interface DurationContract {
+  id: number;
+  price: number;
+  duration: number; // e.g., "1 month", "3 months"
+}
+
 export default function OwnerDashboard() {
   const [activeTab, setActiveTab] = useState("overview");
   const { logout } = useAuth();
@@ -192,6 +199,9 @@ export default function OwnerDashboard() {
   const router = useRouter();
   const [rooms, setRooms] = useState<any[]>([]);
   const [roomBookingInfo, setRoomBookingInfo] = useState<any[]>([]);
+  const [contractOptions, setContractOptions] = useState<DurationContract[]>(
+    []
+  );
 
   const handleLogout = () => {
     logout();
@@ -201,6 +211,7 @@ export default function OwnerDashboard() {
   useEffect(() => {
     getRoom().then(setRooms);
     getRoomBookingInfo().then(setRoomBookingInfo);
+    getDurationContract().then(setContractOptions);
   }, []);
 
   // Modal states
@@ -237,12 +248,14 @@ export default function OwnerDashboard() {
     name: "",
     email: "",
     phone: "",
+    price: "",
     idCard: "",
     room: "",
     startDate: "",
     deposit: "",
     emergencyContact: "",
     emergencyPhone: "",
+    durationContract: "",
   });
 
   const [billForm, setBillForm] = useState({
@@ -337,21 +350,26 @@ export default function OwnerDashboard() {
     if (tenant) {
       setEditingTenant(tenant);
       setTenantForm({
-        name: tenant.name,
+        name: tenant.fullName,
         email: tenant.email || "",
         phone: tenant.phone,
-        idCard: tenant.idCard || "",
-        room: tenant.room,
-        startDate: tenant.startDate,
-        deposit: tenant.deposit?.toString() || "",
+        price: tenant.price?.toString() || "",
+        idCard: tenant.numberID || "",
+        room: tenant.roomNumber || "",
+        startDate: tenant.desiredStart
+          ? formatToInputDate(tenant.desiredStart)
+          : "",
+        deposit: tenant.depositAmount?.toString() || "",
         emergencyContact: tenant.emergencyContact || "",
         emergencyPhone: tenant.emergencyPhone || "",
+        durationContract: tenant.durationContract || "",
       });
     } else {
       setEditingTenant(null);
       setTenantForm({
         name: "",
         email: "",
+        price: "",
         phone: "",
         idCard: "",
         room: "",
@@ -359,6 +377,7 @@ export default function OwnerDashboard() {
         deposit: "",
         emergencyContact: "",
         emergencyPhone: "",
+        durationContract: "",
       });
     }
     setShowTenantModal(true);
@@ -431,6 +450,12 @@ export default function OwnerDashboard() {
     return `${day}-${month}-${year}`;
   };
 
+  const formatToInputDate = (dateStr: string) => {
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return ""; // nếu không hợp lệ
+    return d.toISOString().split("T")[0]; // yyyy-MM-dd
+  };
+
   // Form submit handlers
   const handleRoomSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -463,18 +488,71 @@ export default function OwnerDashboard() {
       return;
     }
     await fetchRooms(); // Refresh room list
+    await fetchRoomBookingInfo(); // Refresh booking info
     setShowRoomModal(false);
     alert(
       editingRoom ? "Cập nhật phòng thành công!" : "Thêm phòng mới thành công!"
     );
   };
 
-  const handleTenantSubmit = (e: React.FormEvent) => {
+  const handleTenantSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     console.log(
       editingTenant ? "Updating tenant:" : "Creating tenant:",
       tenantForm
     );
+
+    const url = editingTenant
+      ? `https://localhost:7257/api/User/update/${editingTenant.userId}`
+      : `https://localhost:7257/api/User/create/`;
+
+    const method = editingTenant ? "PUT" : "POST";
+
+    try {
+      const response = await fetch(url, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: editingTenant ? editingTenant.userId : 0,
+          fullName: tenantForm.name,
+          email: tenantForm.email,
+          phone: tenantForm.phone,
+          numberID: tenantForm.idCard,
+          roomNumber: tenantForm.room,
+          desiredStart: tenantForm.startDate
+            ? new Date(tenantForm.startDate).toISOString()
+            : null,
+          depositAmount: parseInt(tenantForm.deposit),
+          emergencyContact: tenantForm.emergencyContact,
+          emergencyPhone: tenantForm.emergencyPhone,
+          durationContract: tenantForm.durationContract,
+        }),
+      });
+
+      if (!response.ok) {
+        alert(
+          editingTenant
+            ? "Có lỗi xảy ra khi cập nhật khách thuê!"
+            : "Có lỗi xảy ra khi thêm khách thuê mới!"
+        );
+        return;
+      }
+    } catch (error) {
+      console.error("Error submitting tenant form:", error);
+      alert(
+        editingTenant
+          ? "Có lỗi xảy ra khi cập nhật khách thuê!"
+          : "Có lỗi xảy ra khi thêm khách thuê mới!"
+      );
+      return;
+    }
+
+    // Sau khi thành công
+    await fetchRooms();
+    await fetchRoomBookingInfo();
     setShowTenantModal(false);
     alert(
       editingTenant
@@ -581,6 +659,7 @@ export default function OwnerDashboard() {
         throw new Error("Xác nhận không thành công");
       }
       alert("Xác nhận thành công!");
+      fetchRooms(); // Cập nhật danh sách phòng
       fetchRoomBookingInfo(); // hoặc cập nhật state thủ công
     } catch (error) {
       console.error("Xác nhận thất bại:", error);
@@ -858,7 +937,7 @@ export default function OwnerDashboard() {
                         Khách thuê
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Giá thuê
+                        Giá thuê nhà/tháng
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Diện tích
@@ -1107,7 +1186,7 @@ export default function OwnerDashboard() {
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          {tenant.status === "Pending" ? (
+                          {tenant.status === "pending" ? (
                             <button
                               onClick={() => handleConfirmTenant(tenant.id)}
                               className="text-indigo-600 hover:text-indigo-900 mr-3"
@@ -2005,7 +2084,7 @@ export default function OwnerDashboard() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Giá thuê (VNĐ) *
+                    Giá thuê nhà 1 tháng *
                   </label>
                   <input
                     type="number"
@@ -2018,6 +2097,7 @@ export default function OwnerDashboard() {
                     required
                   />
                 </div>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Diện tích (m²) *
@@ -2227,11 +2307,11 @@ export default function OwnerDashboard() {
                     required
                   >
                     <option value="">Chọn phòng</option>
-                    <option value="101">Phòng 101</option>
-                    <option value="102">Phòng 102</option>
-                    <option value="103">Phòng 103</option>
-                    <option value="201">Phòng 201</option>
-                    <option value="202">Phòng 202</option>
+                    {rooms.map((room) => (
+                      <option key={room.id} value={room.roomNumber}>
+                        Phòng {room.roomNumber}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div>
@@ -2250,6 +2330,29 @@ export default function OwnerDashboard() {
                     className="form-input w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
                     required
                   />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Hợp đồng*
+                  </label>
+                  <select
+                    value={tenantForm.durationContract}
+                    onChange={(e) =>
+                      setTenantForm({
+                        ...tenantForm,
+                        durationContract: e.target.value,
+                      })
+                    }
+                    className="form-input w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+                    required
+                  >
+                    <option value="">Chọn loại hợp đồng</option>
+                    {contractOptions.map((opt) => (
+                      <option key={opt.id} value={opt.duration}>
+                        {opt.duration} tháng
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">

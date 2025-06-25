@@ -14,6 +14,7 @@ import {
 import "@/app/hooks/useRoomID"; // Custom hook to fetch room ID if needed
 import { getRoomID } from "@/app/hooks/useRoomID";
 import { useAuth } from "@/contexts/AuthContext";
+import { getDurationContract } from "../hooks/useDurationContract";
 const mockRoom = {
   id: 2,
   number: "202",
@@ -49,6 +50,12 @@ interface BookingForm {
   notes: string;
 }
 
+interface DurationContract {
+  id: number;
+  price: number;
+  duration: number; // e.g., "1 month", "3 months"
+}
+
 export default function BookRoomPage() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<BookingForm>({
@@ -57,7 +64,7 @@ export default function BookRoomPage() {
     email: "",
     idNumber: "",
     moveInDate: "",
-    contractDuration: "12",
+    contractDuration: "6",
     notes: "",
   });
   const searchParams = useSearchParams();
@@ -67,6 +74,9 @@ export default function BookRoomPage() {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [contractOptions, setContractOptions] = useState<DurationContract[]>(
+    []
+  );
 
   useEffect(() => {
     if (!roomId) {
@@ -81,6 +91,7 @@ export default function BookRoomPage() {
       }
 
       setRoom(data);
+      getDurationContract().then(setContractOptions);
     });
   }, [roomId]);
 
@@ -99,6 +110,9 @@ export default function BookRoomPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    const durationContractID = contractOptions.find(
+      (opt) => opt.duration === parseInt(formData.contractDuration)
+    );
 
     // Parse start date
     const startDate = new Date(formData.moveInDate);
@@ -147,6 +161,7 @@ export default function BookRoomPage() {
             startDate: startDate.toISOString(),
             endDate: endDate.toISOString(),
             depositAmount: room?.price ? room.price / 2 : 0, // Giả sử tiền cọc là 50% giá phòng
+            durationContractID: durationContractID?.id,
           }),
         }
       );
@@ -461,9 +476,11 @@ export default function BookRoomPage() {
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 >
-                  <option value="6">6 tháng</option>
-                  <option value="12">12 tháng</option>
-                  <option value="24">24 tháng</option>
+                  {contractOptions.map((opt) => (
+                    <option key={opt.id} value={opt.duration}>
+                      {opt.duration} tháng
+                    </option>
+                  ))}
                 </select>
               </div>
 

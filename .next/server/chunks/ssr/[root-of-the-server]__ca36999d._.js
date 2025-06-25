@@ -46,6 +46,28 @@ async function getRoomID(id) {
     }
 }
 }}),
+"[project]/src/app/hooks/useDurationContract.tsx [app-ssr] (ecmascript)": ((__turbopack_context__) => {
+"use strict";
+
+var { g: global, __dirname } = __turbopack_context__;
+{
+__turbopack_context__.s({
+    "getDurationContract": (()=>getDurationContract)
+});
+async function getDurationContract() {
+    try {
+        const res = await fetch("https://localhost:7257/api/DurationContract");
+        if (!res.ok) {
+            throw new Error("Network response was not ok");
+        }
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.error("Lỗi khi lấy danh sách đăng ký:", error);
+        return []; // fallback
+    }
+}
+}}),
 "[project]/src/app/book-room/page.tsx [app-ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
@@ -65,7 +87,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$heroicons$
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$heroicons$2f$react$2f$24$2f$outline$2f$esm$2f$CheckCircleIcon$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircleIcon$3e$__ = __turbopack_context__.i("[project]/node_modules/@heroicons/react/24/outline/esm/CheckCircleIcon.js [app-ssr] (ecmascript) <export default as CheckCircleIcon>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$hooks$2f$useRoomID$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/hooks/useRoomID.tsx [app-ssr] (ecmascript)"); // Custom hook to fetch room ID if needed
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$contexts$2f$AuthContext$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/contexts/AuthContext.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$hooks$2f$useDurationContract$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/hooks/useDurationContract.tsx [app-ssr] (ecmascript)");
 "use client";
+;
 ;
 ;
 ;
@@ -122,6 +146,7 @@ function BookRoomPage() {
                 data.amenities = data.amenities.split(",").map((s)=>s.trim());
             }
             setRoom(data);
+            (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$hooks$2f$useDurationContract$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getDurationContract"])().then(setContractOptions);
         });
     }, [
         roomId
@@ -136,6 +161,7 @@ function BookRoomPage() {
     const handleSubmit = async (e)=>{
         e.preventDefault();
         setIsSubmitting(true);
+        const durationContractID = contractOptions.find((opt)=>opt.duration === parseInt(formData.contractDuration));
         // Parse start date
         const startDate = new Date(formData.moveInDate);
         // Tính endDate bằng cách cộng thêm số tháng (contractDuration)
@@ -177,7 +203,8 @@ function BookRoomPage() {
                     roomId: room?.id,
                     startDate: startDate.toISOString(),
                     endDate: endDate.toISOString(),
-                    depositAmount: room?.price ? room.price / 2 : 0
+                    depositAmount: room?.price ? room.price / 2 : 0,
+                    durationContractID: durationContractID?.id
                 })
             });
             if (!responseContract.ok) {
@@ -208,7 +235,7 @@ function BookRoomPage() {
                         className: "h-16 w-16 text-green-500 mx-auto mb-4"
                     }, void 0, false, {
                         fileName: "[project]/src/app/book-room/page.tsx",
-                        lineNumber: 194,
+                        lineNumber: 199,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -216,7 +243,7 @@ function BookRoomPage() {
                         children: "Đặt phòng thành công!"
                     }, void 0, false, {
                         fileName: "[project]/src/app/book-room/page.tsx",
-                        lineNumber: 195,
+                        lineNumber: 200,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -228,7 +255,7 @@ function BookRoomPage() {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/book-room/page.tsx",
-                        lineNumber: 198,
+                        lineNumber: 203,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -239,7 +266,7 @@ function BookRoomPage() {
                                 children: "Mã đặt phòng"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                lineNumber: 203,
+                                lineNumber: 208,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -250,13 +277,13 @@ function BookRoomPage() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                lineNumber: 204,
+                                lineNumber: 209,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/book-room/page.tsx",
-                        lineNumber: 202,
+                        lineNumber: 207,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -268,7 +295,7 @@ function BookRoomPage() {
                                 children: "Quay về Dashboard"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                lineNumber: 207,
+                                lineNumber: 212,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -277,24 +304,24 @@ function BookRoomPage() {
                                 children: "Về trang chủ"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                lineNumber: 213,
+                                lineNumber: 218,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/book-room/page.tsx",
-                        lineNumber: 206,
+                        lineNumber: 211,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/book-room/page.tsx",
-                lineNumber: 193,
+                lineNumber: 198,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/book-room/page.tsx",
-            lineNumber: 192,
+            lineNumber: 197,
             columnNumber: 7
         }, this);
     }
@@ -321,12 +348,12 @@ function BookRoomPage() {
                                                 children: "🏠"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 234,
+                                                lineNumber: 239,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/book-room/page.tsx",
-                                            lineNumber: 233,
+                                            lineNumber: 238,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -334,18 +361,18 @@ function BookRoomPage() {
                                             children: "Đặt phòng trọ"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/book-room/page.tsx",
-                                            lineNumber: 236,
+                                            lineNumber: 241,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/book-room/page.tsx",
-                                    lineNumber: 232,
+                                    lineNumber: 237,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                lineNumber: 231,
+                                lineNumber: 236,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -354,23 +381,23 @@ function BookRoomPage() {
                                 children: "← Quay lại"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                lineNumber: 241,
+                                lineNumber: 246,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/book-room/page.tsx",
-                        lineNumber: 230,
+                        lineNumber: 235,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/book-room/page.tsx",
-                    lineNumber: 229,
+                    lineNumber: 234,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/book-room/page.tsx",
-                lineNumber: 228,
+                lineNumber: 233,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -389,14 +416,14 @@ function BookRoomPage() {
                                             children: "1"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/book-room/page.tsx",
-                                            lineNumber: 256,
+                                            lineNumber: 261,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: `w-16 h-1 ${step >= 2 ? "bg-green-600" : "bg-gray-300"}`
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/book-room/page.tsx",
-                                            lineNumber: 265,
+                                            lineNumber: 270,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -404,14 +431,14 @@ function BookRoomPage() {
                                             children: "2"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/book-room/page.tsx",
-                                            lineNumber: 270,
+                                            lineNumber: 275,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: `w-16 h-1 ${step >= 3 ? "bg-green-600" : "bg-gray-300"}`
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/book-room/page.tsx",
-                                            lineNumber: 279,
+                                            lineNumber: 284,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -419,18 +446,18 @@ function BookRoomPage() {
                                             children: "3"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/book-room/page.tsx",
-                                            lineNumber: 284,
+                                            lineNumber: 289,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/book-room/page.tsx",
-                                    lineNumber: 255,
+                                    lineNumber: 260,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                lineNumber: 254,
+                                lineNumber: 259,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -442,38 +469,38 @@ function BookRoomPage() {
                                             children: "Thông tin phòng"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/book-room/page.tsx",
-                                            lineNumber: 297,
+                                            lineNumber: 302,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             children: "Thông tin cá nhân"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/book-room/page.tsx",
-                                            lineNumber: 298,
+                                            lineNumber: 303,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             children: "Hoàn thành"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/book-room/page.tsx",
-                                            lineNumber: 299,
+                                            lineNumber: 304,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/book-room/page.tsx",
-                                    lineNumber: 296,
+                                    lineNumber: 301,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                lineNumber: 295,
+                                lineNumber: 300,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/book-room/page.tsx",
-                        lineNumber: 253,
+                        lineNumber: 258,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -487,7 +514,7 @@ function BookRoomPage() {
                                         children: "Thông tin phòng"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                        lineNumber: 307,
+                                        lineNumber: 312,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -500,12 +527,12 @@ function BookRoomPage() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/book-room/page.tsx",
-                                            lineNumber: 312,
+                                            lineNumber: 317,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                        lineNumber: 311,
+                                        lineNumber: 316,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -519,7 +546,7 @@ function BookRoomPage() {
                                                         children: "Số phòng:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 319,
+                                                        lineNumber: 324,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -527,13 +554,13 @@ function BookRoomPage() {
                                                         children: room?.roomNumber
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 320,
+                                                        lineNumber: 325,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 318,
+                                                lineNumber: 323,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -544,7 +571,7 @@ function BookRoomPage() {
                                                         children: "Diện tích:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 323,
+                                                        lineNumber: 328,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -555,13 +582,13 @@ function BookRoomPage() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 324,
+                                                        lineNumber: 329,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 322,
+                                                lineNumber: 327,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -572,7 +599,7 @@ function BookRoomPage() {
                                                         children: "Giá thuê:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 327,
+                                                        lineNumber: 332,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -580,13 +607,13 @@ function BookRoomPage() {
                                                         children: room?.price ? `${room.price.toLocaleString()}đ/tháng` : "Chưa có thông tin giá"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 328,
+                                                        lineNumber: 333,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 326,
+                                                lineNumber: 331,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -597,7 +624,7 @@ function BookRoomPage() {
                                                         children: "Tiền cọc:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 335,
+                                                        lineNumber: 340,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -605,13 +632,13 @@ function BookRoomPage() {
                                                         children: room?.price ? `${(room.price / 2).toLocaleString("vi-VN")}đ` : "Chưa có thông tin"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 336,
+                                                        lineNumber: 341,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 334,
+                                                lineNumber: 339,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -622,7 +649,7 @@ function BookRoomPage() {
                                                         children: "Địa chỉ:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 343,
+                                                        lineNumber: 348,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -630,19 +657,19 @@ function BookRoomPage() {
                                                         children: mockRoom.address
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 344,
+                                                        lineNumber: 349,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 342,
+                                                lineNumber: 347,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                        lineNumber: 317,
+                                        lineNumber: 322,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -653,7 +680,7 @@ function BookRoomPage() {
                                                 children: "Tiện nghi"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 351,
+                                                lineNumber: 356,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -663,18 +690,18 @@ function BookRoomPage() {
                                                         children: amenity
                                                     }, index, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 355,
+                                                        lineNumber: 360,
                                                         columnNumber: 21
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 352,
+                                                lineNumber: 357,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                        lineNumber: 350,
+                                        lineNumber: 355,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -685,7 +712,7 @@ function BookRoomPage() {
                                                 children: "Mô tả"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 366,
+                                                lineNumber: 371,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -693,19 +720,19 @@ function BookRoomPage() {
                                                 children: room?.description
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 367,
+                                                lineNumber: 372,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                        lineNumber: 365,
+                                        lineNumber: 370,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                lineNumber: 306,
+                                lineNumber: 311,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -716,7 +743,7 @@ function BookRoomPage() {
                                         children: "Thông tin đặt phòng"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                        lineNumber: 373,
+                                        lineNumber: 378,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -730,7 +757,7 @@ function BookRoomPage() {
                                                         children: "Họ và tên *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 379,
+                                                        lineNumber: 384,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -740,7 +767,7 @@ function BookRoomPage() {
                                                                 className: "h-5 w-5 text-gray-400 absolute left-3 top-3"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                                lineNumber: 383,
+                                                                lineNumber: 388,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -753,19 +780,19 @@ function BookRoomPage() {
                                                                 required: true
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                                lineNumber: 384,
+                                                                lineNumber: 389,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 382,
+                                                        lineNumber: 387,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 378,
+                                                lineNumber: 383,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -775,7 +802,7 @@ function BookRoomPage() {
                                                         children: "Số điện thoại *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 397,
+                                                        lineNumber: 402,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -785,7 +812,7 @@ function BookRoomPage() {
                                                                 className: "h-5 w-5 text-gray-400 absolute left-3 top-3"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                                lineNumber: 401,
+                                                                lineNumber: 406,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -798,19 +825,19 @@ function BookRoomPage() {
                                                                 required: true
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                                lineNumber: 402,
+                                                                lineNumber: 407,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 400,
+                                                        lineNumber: 405,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 396,
+                                                lineNumber: 401,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -820,7 +847,7 @@ function BookRoomPage() {
                                                         children: "Email *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 415,
+                                                        lineNumber: 420,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -830,7 +857,7 @@ function BookRoomPage() {
                                                                 className: "h-5 w-5 text-gray-400 absolute left-3 top-3"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                                lineNumber: 419,
+                                                                lineNumber: 424,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -843,19 +870,19 @@ function BookRoomPage() {
                                                                 required: true
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                                lineNumber: 420,
+                                                                lineNumber: 425,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 418,
+                                                        lineNumber: 423,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 414,
+                                                lineNumber: 419,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -865,7 +892,7 @@ function BookRoomPage() {
                                                         children: "Số CMND/CCCD *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 433,
+                                                        lineNumber: 438,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -878,13 +905,13 @@ function BookRoomPage() {
                                                         required: true
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 436,
+                                                        lineNumber: 441,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 432,
+                                                lineNumber: 437,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -894,7 +921,7 @@ function BookRoomPage() {
                                                         children: "Ngày dự kiến chuyển vào *"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 448,
+                                                        lineNumber: 453,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -904,7 +931,7 @@ function BookRoomPage() {
                                                                 className: "h-5 w-5 text-gray-400 absolute left-3 top-3"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                                lineNumber: 452,
+                                                                lineNumber: 457,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -916,19 +943,19 @@ function BookRoomPage() {
                                                                 required: true
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                                lineNumber: 453,
+                                                                lineNumber: 458,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 451,
+                                                        lineNumber: 456,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 447,
+                                                lineNumber: 452,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -938,7 +965,7 @@ function BookRoomPage() {
                                                         children: "Thời hạn hợp đồng"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 465,
+                                                        lineNumber: 470,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -954,18 +981,18 @@ function BookRoomPage() {
                                                                 ]
                                                             }, opt.id, true, {
                                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                                lineNumber: 475,
+                                                                lineNumber: 480,
                                                                 columnNumber: 21
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 468,
+                                                        lineNumber: 473,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 464,
+                                                lineNumber: 469,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -975,7 +1002,7 @@ function BookRoomPage() {
                                                         children: "Ghi chú"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 483,
+                                                        lineNumber: 488,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -987,13 +1014,13 @@ function BookRoomPage() {
                                                         placeholder: "Thông tin bổ sung (nếu có)"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 486,
+                                                        lineNumber: 491,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 482,
+                                                lineNumber: 487,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1004,7 +1031,7 @@ function BookRoomPage() {
                                                         children: "Lưu ý quan trọng:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 497,
+                                                        lineNumber: 502,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -1019,33 +1046,33 @@ function BookRoomPage() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                                lineNumber: 501,
+                                                                lineNumber: 506,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                                                                 children: "• Chủ trọ sẽ liên hệ xác nhận trong vòng 24h"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                                lineNumber: 508,
+                                                                lineNumber: 513,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                                                                 children: "• Mang theo CMND/CCCD gốc khi ký hợp đồng"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                                lineNumber: 509,
+                                                                lineNumber: 514,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                                        lineNumber: 500,
+                                                        lineNumber: 505,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 496,
+                                                lineNumber: 501,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1059,49 +1086,49 @@ function BookRoomPage() {
                                                             className: "animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/book-room/page.tsx",
-                                                            lineNumber: 524,
+                                                            lineNumber: 529,
                                                             columnNumber: 21
                                                         }, this),
                                                         "Đang gửi yêu cầu..."
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/book-room/page.tsx",
-                                                    lineNumber: 523,
+                                                    lineNumber: 528,
                                                     columnNumber: 19
                                                 }, this) : "Gửi yêu cầu đặt phòng"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                                lineNumber: 513,
+                                                lineNumber: 518,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/book-room/page.tsx",
-                                        lineNumber: 377,
+                                        lineNumber: 382,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/book-room/page.tsx",
-                                lineNumber: 372,
+                                lineNumber: 377,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/book-room/page.tsx",
-                        lineNumber: 304,
+                        lineNumber: 309,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/book-room/page.tsx",
-                lineNumber: 251,
+                lineNumber: 256,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/book-room/page.tsx",
-        lineNumber: 226,
+        lineNumber: 231,
         columnNumber: 5
     }, this);
 }
@@ -1109,4 +1136,4 @@ function BookRoomPage() {
 
 };
 
-//# sourceMappingURL=%5Broot-of-the-server%5D__7a0b7f6d._.js.map
+//# sourceMappingURL=%5Broot-of-the-server%5D__ca36999d._.js.map
