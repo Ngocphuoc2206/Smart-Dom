@@ -49,175 +49,6 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 // Mock data
-const mockAllRooms = [
-    {
-        id: 1,
-        number: "101",
-        price: 3500000,
-        area: 30,
-        amenities: [
-            "Máy lạnh",
-            "Tủ lạnh",
-            "WiFi",
-            "Ban công"
-        ],
-        images: [
-            "room1.jpg"
-        ],
-        status: "occupied",
-        tenant: "Nguyễn Văn A",
-        moveInDate: "2024-01-01"
-    },
-    {
-        id: 2,
-        number: "102",
-        price: 3200000,
-        area: 28,
-        amenities: [
-            "Máy lạnh",
-            "Tủ lạnh",
-            "WiFi"
-        ],
-        images: [
-            "room2.jpg"
-        ],
-        status: "available",
-        tenant: null,
-        moveInDate: null
-    },
-    {
-        id: 3,
-        number: "103",
-        price: 3800000,
-        area: 32,
-        amenities: [
-            "Máy lạnh",
-            "Tủ lạnh",
-            "WiFi",
-            "Bếp riêng"
-        ],
-        images: [
-            "room3.jpg"
-        ],
-        status: "maintenance",
-        tenant: null,
-        moveInDate: null,
-        maintenanceReason: "Sửa chữa hệ thống điện"
-    },
-    {
-        id: 4,
-        number: "201",
-        price: 3600000,
-        area: 30,
-        amenities: [
-            "Máy lạnh",
-            "Tủ lạnh",
-            "WiFi",
-            "Ban công"
-        ],
-        images: [
-            "room4.jpg"
-        ],
-        status: "occupied",
-        tenant: "Trần Thị B",
-        moveInDate: "2023-12-15"
-    },
-    {
-        id: 5,
-        number: "202",
-        price: 3500000,
-        area: 30,
-        amenities: [
-            "Máy lạnh",
-            "Tủ lạnh",
-            "WiFi",
-            "Ban công"
-        ],
-        images: [
-            "room5.jpg"
-        ],
-        status: "available",
-        tenant: null,
-        moveInDate: null
-    },
-    {
-        id: 6,
-        number: "203",
-        price: 3700000,
-        area: 31,
-        amenities: [
-            "Máy lạnh",
-            "Tủ lạnh",
-            "WiFi",
-            "Ban công",
-            "Máy giặt"
-        ],
-        images: [
-            "room6.jpg"
-        ],
-        status: "available",
-        tenant: null,
-        moveInDate: null
-    },
-    {
-        id: 7,
-        number: "301",
-        price: 4000000,
-        area: 35,
-        amenities: [
-            "Máy lạnh",
-            "Tủ lạnh",
-            "WiFi",
-            "Ban công",
-            "Bếp riêng"
-        ],
-        images: [
-            "room7.jpg"
-        ],
-        status: "available",
-        tenant: null,
-        moveInDate: null
-    },
-    {
-        id: 8,
-        number: "302",
-        price: 4200000,
-        area: 36,
-        amenities: [
-            "Máy lạnh",
-            "Tủ lạnh",
-            "WiFi",
-            "Ban công",
-            "Bếp riêng",
-            "Máy giặt"
-        ],
-        images: [
-            "room8.jpg"
-        ],
-        status: "occupied",
-        tenant: "Lê Văn C",
-        moveInDate: "2024-02-01"
-    },
-    {
-        id: 9,
-        number: "303",
-        price: 3900000,
-        area: 34,
-        amenities: [
-            "Máy lạnh",
-            "Tủ lạnh",
-            "WiFi",
-            "Ban công"
-        ],
-        images: [
-            "room9.jpg"
-        ],
-        status: "maintenance",
-        tenant: null,
-        moveInDate: null,
-        maintenanceReason: "Thay thế máy lạnh"
-    }
-];
 const mockMyBills = [
     {
         id: 1,
@@ -285,9 +116,11 @@ function TenantDashboard() {
     const { user } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$contexts$2f$AuthContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"])();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const [rooms, setRooms] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [invoiceTenant, setInvoiceTenant] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "TenantDashboard.useEffect": ()=>{
             (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$hooks$2f$useRoom$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getRoom"])().then(setRooms);
+            getInvoice().then(setInvoiceTenant);
         }
     }["TenantDashboard.useEffect"], []);
     const handleLogout = ()=>{
@@ -410,12 +243,12 @@ function TenantDashboard() {
                                         children: "🏠"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 329,
+                                        lineNumber: 221,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                    lineNumber: 328,
+                                    lineNumber: 220,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -425,7 +258,7 @@ function TenantDashboard() {
                                             children: "SmartDorm"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                            lineNumber: 332,
+                                            lineNumber: 224,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -433,24 +266,24 @@ function TenantDashboard() {
                                             children: "Dashboard Khách thuê"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                            lineNumber: 333,
+                                            lineNumber: 225,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                    lineNumber: 331,
+                                    lineNumber: 223,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                            lineNumber: 327,
+                            lineNumber: 219,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                        lineNumber: 326,
+                        lineNumber: 218,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -497,7 +330,7 @@ function TenantDashboard() {
                                             children: tab.icon
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                            lineNumber: 358,
+                                            lineNumber: 250,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -505,30 +338,30 @@ function TenantDashboard() {
                                             children: tab.label
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                            lineNumber: 365,
+                                            lineNumber: 257,
                                             columnNumber: 17
                                         }, this),
                                         activeTab === tab.id && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "ml-auto w-2 h-2 bg-white rounded-full"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                            lineNumber: 367,
+                                            lineNumber: 259,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, tab.id, true, {
                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                    lineNumber: 349,
+                                    lineNumber: 241,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                            lineNumber: 340,
+                            lineNumber: 232,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                        lineNumber: 339,
+                        lineNumber: 231,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -542,7 +375,7 @@ function TenantDashboard() {
                                         children: user?.name
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 377,
+                                        lineNumber: 269,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -550,13 +383,13 @@ function TenantDashboard() {
                                         children: user?.email
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 378,
+                                        lineNumber: 270,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                lineNumber: 376,
+                                lineNumber: 268,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -568,32 +401,32 @@ function TenantDashboard() {
                                         children: "🚪"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 384,
+                                        lineNumber: 276,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         children: "Đăng xuất"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 387,
+                                        lineNumber: 279,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                lineNumber: 380,
+                                lineNumber: 272,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                        lineNumber: 375,
+                        lineNumber: 267,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                lineNumber: 324,
+                lineNumber: 216,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -638,7 +471,7 @@ function TenantDashboard() {
                                                 ].find((tab)=>tab.id === activeTab)?.label
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 399,
+                                                lineNumber: 291,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -646,13 +479,13 @@ function TenantDashboard() {
                                                 children: "Quản lý thông tin cá nhân và hoạt động thuê trọ"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 411,
+                                                lineNumber: 303,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 398,
+                                        lineNumber: 290,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -662,28 +495,28 @@ function TenantDashboard() {
                                             children: new Date().toLocaleDateString("vi-VN")
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                            lineNumber: 416,
+                                            lineNumber: 308,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 415,
+                                        lineNumber: 307,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                lineNumber: 397,
+                                lineNumber: 289,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                            lineNumber: 396,
+                            lineNumber: 288,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                        lineNumber: 395,
+                        lineNumber: 287,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -708,7 +541,7 @@ function TenantDashboard() {
                                                                     children: "🏠"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 434,
+                                                                    lineNumber: 326,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -718,7 +551,7 @@ function TenantDashboard() {
                                                                             children: "Phòng hiện tại"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 436,
+                                                                            lineNumber: 328,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -727,19 +560,19 @@ function TenantDashboard() {
                                                                             children: "101"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 439,
+                                                                            lineNumber: 331,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 435,
+                                                                    lineNumber: 327,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 433,
+                                                            lineNumber: 325,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -748,18 +581,18 @@ function TenantDashboard() {
                                                             children: "⭐ Đánh giá"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 447,
+                                                            lineNumber: 339,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 432,
+                                                    lineNumber: 324,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 431,
+                                                lineNumber: 323,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -775,7 +608,7 @@ function TenantDashboard() {
                                                                     children: "💳"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 458,
+                                                                    lineNumber: 350,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -785,7 +618,7 @@ function TenantDashboard() {
                                                                             children: "Hóa đơn chưa thanh toán"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 460,
+                                                                            lineNumber: 352,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -793,19 +626,19 @@ function TenantDashboard() {
                                                                             children: "2"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 463,
+                                                                            lineNumber: 355,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 459,
+                                                                    lineNumber: 351,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 457,
+                                                            lineNumber: 349,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -814,18 +647,18 @@ function TenantDashboard() {
                                                             children: "Lịch sử"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 466,
+                                                            lineNumber: 358,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 456,
+                                                    lineNumber: 348,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 455,
+                                                lineNumber: 347,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -838,7 +671,7 @@ function TenantDashboard() {
                                                             children: "📅"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 476,
+                                                            lineNumber: 368,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -848,7 +681,7 @@ function TenantDashboard() {
                                                                     children: "Hợp đồng còn lại"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 478,
+                                                                    lineNumber: 370,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -856,24 +689,24 @@ function TenantDashboard() {
                                                                     children: "11 tháng"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 481,
+                                                                    lineNumber: 373,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 477,
+                                                            lineNumber: 369,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 475,
+                                                    lineNumber: 367,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 474,
+                                                lineNumber: 366,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -886,7 +719,7 @@ function TenantDashboard() {
                                                             children: "⭐"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 489,
+                                                            lineNumber: 381,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -896,7 +729,7 @@ function TenantDashboard() {
                                                                     children: "Đánh giá phòng"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 491,
+                                                                    lineNumber: 383,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -904,30 +737,30 @@ function TenantDashboard() {
                                                                     children: "4.5/5"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 494,
+                                                                    lineNumber: 386,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 490,
+                                                            lineNumber: 382,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 488,
+                                                    lineNumber: 380,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 487,
+                                                lineNumber: 379,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 430,
+                                        lineNumber: 322,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -941,7 +774,7 @@ function TenantDashboard() {
                                                         children: "Hóa đơn cần thanh toán"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 503,
+                                                        lineNumber: 395,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -960,7 +793,7 @@ function TenantDashboard() {
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                                lineNumber: 515,
+                                                                                lineNumber: 407,
                                                                                 columnNumber: 29
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -971,13 +804,13 @@ function TenantDashboard() {
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                                lineNumber: 518,
+                                                                                lineNumber: 410,
                                                                                 columnNumber: 29
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 514,
+                                                                        lineNumber: 406,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -986,24 +819,24 @@ function TenantDashboard() {
                                                                         children: "Thanh toán"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 522,
+                                                                        lineNumber: 414,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 ]
                                                             }, bill.id, true, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 510,
+                                                                lineNumber: 402,
                                                                 columnNumber: 25
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 506,
+                                                        lineNumber: 398,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 502,
+                                                lineNumber: 394,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1014,7 +847,7 @@ function TenantDashboard() {
                                                         children: "Báo cáo sự cố gần đây"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 534,
+                                                        lineNumber: 426,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1030,7 +863,7 @@ function TenantDashboard() {
                                                                                 children: report.issue
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                                lineNumber: 541,
+                                                                                lineNumber: 433,
                                                                                 columnNumber: 27
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1038,13 +871,13 @@ function TenantDashboard() {
                                                                                 children: getStatusText(report.status)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                                lineNumber: 542,
+                                                                                lineNumber: 434,
                                                                                 columnNumber: 27
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 540,
+                                                                        lineNumber: 432,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1052,18 +885,18 @@ function TenantDashboard() {
                                                                         children: report.response
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 550,
+                                                                        lineNumber: 442,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, report.id, true, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 539,
+                                                                lineNumber: 431,
                                                                 columnNumber: 23
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 537,
+                                                        lineNumber: 429,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1072,19 +905,19 @@ function TenantDashboard() {
                                                         children: "+ Báo cáo sự cố mới"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 556,
+                                                        lineNumber: 448,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 533,
+                                                lineNumber: 425,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 501,
+                                        lineNumber: 393,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1095,7 +928,7 @@ function TenantDashboard() {
                                                 children: "Thao tác nhanh"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 567,
+                                                lineNumber: 459,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1110,7 +943,7 @@ function TenantDashboard() {
                                                                 children: "💬"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 575,
+                                                                lineNumber: 467,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1118,13 +951,13 @@ function TenantDashboard() {
                                                                 children: "Tin nhắn"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 576,
+                                                                lineNumber: 468,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 571,
+                                                        lineNumber: 463,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1136,7 +969,7 @@ function TenantDashboard() {
                                                                 children: "🔔"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 582,
+                                                                lineNumber: 474,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1144,13 +977,13 @@ function TenantDashboard() {
                                                                 children: "Thông báo"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 583,
+                                                                lineNumber: 475,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 578,
+                                                        lineNumber: 470,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1162,7 +995,7 @@ function TenantDashboard() {
                                                                 children: "📊"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 589,
+                                                                lineNumber: 481,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1170,13 +1003,13 @@ function TenantDashboard() {
                                                                 children: "Lịch sử"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 590,
+                                                                lineNumber: 482,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 585,
+                                                        lineNumber: 477,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1188,7 +1021,7 @@ function TenantDashboard() {
                                                                 children: "⭐"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 596,
+                                                                lineNumber: 488,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1196,13 +1029,13 @@ function TenantDashboard() {
                                                                 children: "Viết đánh giá"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 597,
+                                                                lineNumber: 489,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 592,
+                                                        lineNumber: 484,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1214,7 +1047,7 @@ function TenantDashboard() {
                                                                 children: "📝"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 603,
+                                                                lineNumber: 495,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1222,31 +1055,31 @@ function TenantDashboard() {
                                                                 children: "Đánh giá của tôi"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 604,
+                                                                lineNumber: 496,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 599,
+                                                        lineNumber: 491,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 570,
+                                                lineNumber: 462,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 566,
+                                        lineNumber: 458,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                lineNumber: 428,
+                                lineNumber: 320,
                                 columnNumber: 13
                             }, this),
                             activeTab === "search" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1263,7 +1096,7 @@ function TenantDashboard() {
                                                         children: "Danh sách phòng trọ"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 617,
+                                                        lineNumber: 509,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1277,13 +1110,13 @@ function TenantDashboard() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 620,
+                                                        lineNumber: 512,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 616,
+                                                lineNumber: 508,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1297,7 +1130,7 @@ function TenantDashboard() {
                                                                 children: rooms.filter((r)=>r.status === "available").length
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 628,
+                                                                lineNumber: 520,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1305,13 +1138,13 @@ function TenantDashboard() {
                                                                 children: "Phòng trống"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 631,
+                                                                lineNumber: 523,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 627,
+                                                        lineNumber: 519,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1322,7 +1155,7 @@ function TenantDashboard() {
                                                                 children: rooms.filter((r)=>r.status === "occupied").length
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 634,
+                                                                lineNumber: 526,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1330,13 +1163,13 @@ function TenantDashboard() {
                                                                 children: "Đã thuê"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 637,
+                                                                lineNumber: 529,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 633,
+                                                        lineNumber: 525,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1347,7 +1180,7 @@ function TenantDashboard() {
                                                                 children: rooms.filter((r)=>r.status === "maintenance").length
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 640,
+                                                                lineNumber: 532,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1355,13 +1188,13 @@ function TenantDashboard() {
                                                                 children: "Bảo trì"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 643,
+                                                                lineNumber: 535,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 639,
+                                                        lineNumber: 531,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1372,7 +1205,7 @@ function TenantDashboard() {
                                                                 children: rooms.length
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 646,
+                                                                lineNumber: 538,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1380,19 +1213,19 @@ function TenantDashboard() {
                                                                 children: "Tổng phòng"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 649,
+                                                                lineNumber: 541,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 645,
+                                                        lineNumber: 537,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 626,
+                                                lineNumber: 518,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1405,7 +1238,7 @@ function TenantDashboard() {
                                                                 children: "Trạng thái"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 656,
+                                                                lineNumber: 548,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -1418,7 +1251,7 @@ function TenantDashboard() {
                                                                         children: "Tất cả"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 666,
+                                                                        lineNumber: 558,
                                                                         columnNumber: 23
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1426,7 +1259,7 @@ function TenantDashboard() {
                                                                         children: "Phòng trống"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 667,
+                                                                        lineNumber: 559,
                                                                         columnNumber: 23
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1434,7 +1267,7 @@ function TenantDashboard() {
                                                                         children: "Đã thuê"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 668,
+                                                                        lineNumber: 560,
                                                                         columnNumber: 23
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1442,19 +1275,19 @@ function TenantDashboard() {
                                                                         children: "Bảo trì"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 669,
+                                                                        lineNumber: 561,
                                                                         columnNumber: 23
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 659,
+                                                                lineNumber: 551,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 655,
+                                                        lineNumber: 547,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1464,7 +1297,7 @@ function TenantDashboard() {
                                                                 children: "Giá từ"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 673,
+                                                                lineNumber: 565,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1475,13 +1308,13 @@ function TenantDashboard() {
                                                                 placeholder: "2,000,000"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 676,
+                                                                lineNumber: 568,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 672,
+                                                        lineNumber: 564,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1491,7 +1324,7 @@ function TenantDashboard() {
                                                                 children: "Giá đến"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 687,
+                                                                lineNumber: 579,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1502,13 +1335,13 @@ function TenantDashboard() {
                                                                 placeholder: "5,000,000"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 690,
+                                                                lineNumber: 582,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 686,
+                                                        lineNumber: 578,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1518,7 +1351,7 @@ function TenantDashboard() {
                                                                 children: "Diện tích tối thiểu"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 701,
+                                                                lineNumber: 593,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1529,13 +1362,13 @@ function TenantDashboard() {
                                                                 placeholder: "25"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 704,
+                                                                lineNumber: 596,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 700,
+                                                        lineNumber: 592,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1545,7 +1378,7 @@ function TenantDashboard() {
                                                                 children: "Tìm kiếm"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 715,
+                                                                lineNumber: 607,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1556,13 +1389,13 @@ function TenantDashboard() {
                                                                 placeholder: "Số phòng, tiện nghi..."
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 718,
+                                                                lineNumber: 610,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 714,
+                                                        lineNumber: 606,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1579,24 +1412,24 @@ function TenantDashboard() {
                                                             children: "Xóa bộ lọc"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 729,
+                                                            lineNumber: 621,
                                                             columnNumber: 21
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 728,
+                                                        lineNumber: 620,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 654,
+                                                lineNumber: 546,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 615,
+                                        lineNumber: 507,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1615,7 +1448,7 @@ function TenantDashboard() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 755,
+                                                                lineNumber: 647,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1625,18 +1458,18 @@ function TenantDashboard() {
                                                                     children: getStatusText(room.status)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 760,
+                                                                    lineNumber: 652,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 759,
+                                                                lineNumber: 651,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 754,
+                                                        lineNumber: 646,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1653,7 +1486,7 @@ function TenantDashboard() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 771,
+                                                                        lineNumber: 663,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1667,7 +1500,7 @@ function TenantDashboard() {
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                                lineNumber: 775,
+                                                                                lineNumber: 667,
                                                                                 columnNumber: 27
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1675,19 +1508,19 @@ function TenantDashboard() {
                                                                                 children: "/tháng"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                                lineNumber: 778,
+                                                                                lineNumber: 670,
                                                                                 columnNumber: 27
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 774,
+                                                                        lineNumber: 666,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 770,
+                                                                lineNumber: 662,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1699,7 +1532,7 @@ function TenantDashboard() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 782,
+                                                                lineNumber: 674,
                                                                 columnNumber: 23
                                                             }, this),
                                                             room.status === "occupied" && room.tenant && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1713,7 +1546,7 @@ function TenantDashboard() {
                                                                                 children: "Khách thuê:"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                                lineNumber: 790,
+                                                                                lineNumber: 682,
                                                                                 columnNumber: 29
                                                                             }, this),
                                                                             " ",
@@ -1721,7 +1554,7 @@ function TenantDashboard() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 789,
+                                                                        lineNumber: 681,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1732,13 +1565,13 @@ function TenantDashboard() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 793,
+                                                                        lineNumber: 685,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 788,
+                                                                lineNumber: 680,
                                                                 columnNumber: 25
                                                             }, this),
                                                             room.status === "maintenance" && room.maintenanceReason && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1751,7 +1584,7 @@ function TenantDashboard() {
                                                                             children: "Lý do bảo trì:"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 804,
+                                                                            lineNumber: 696,
                                                                             columnNumber: 31
                                                                         }, this),
                                                                         " ",
@@ -1759,12 +1592,12 @@ function TenantDashboard() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 803,
+                                                                    lineNumber: 695,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 802,
+                                                                lineNumber: 694,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1775,7 +1608,7 @@ function TenantDashboard() {
                                                                         children: "Tiện nghi:"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 813,
+                                                                        lineNumber: 705,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1785,18 +1618,18 @@ function TenantDashboard() {
                                                                                 children: amenity
                                                                             }, index, false, {
                                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                                lineNumber: 819,
+                                                                                lineNumber: 711,
                                                                                 columnNumber: 31
                                                                             }, this))
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 816,
+                                                                        lineNumber: 708,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 812,
+                                                                lineNumber: 704,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1809,7 +1642,7 @@ function TenantDashboard() {
                                                                             children: "Đặt phòng"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 833,
+                                                                            lineNumber: 725,
                                                                             columnNumber: 29
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1818,7 +1651,7 @@ function TenantDashboard() {
                                                                             children: "Xem chi tiết"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 839,
+                                                                            lineNumber: 731,
                                                                             columnNumber: 29
                                                                         }, this)
                                                                     ]
@@ -1830,7 +1663,7 @@ function TenantDashboard() {
                                                                             children: "Xem chi tiết"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 848,
+                                                                            lineNumber: 740,
                                                                             columnNumber: 29
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1839,7 +1672,7 @@ function TenantDashboard() {
                                                                             children: "Đã thuê"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 854,
+                                                                            lineNumber: 746,
                                                                             columnNumber: 29
                                                                         }, this)
                                                                     ]
@@ -1851,7 +1684,7 @@ function TenantDashboard() {
                                                                             children: "Xem chi tiết"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 863,
+                                                                            lineNumber: 755,
                                                                             columnNumber: 29
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1860,31 +1693,31 @@ function TenantDashboard() {
                                                                             children: "Bảo trì"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 869,
+                                                                            lineNumber: 761,
                                                                             columnNumber: 29
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 830,
+                                                                lineNumber: 722,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 769,
+                                                        lineNumber: 661,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, room.id, true, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 750,
+                                                lineNumber: 642,
                                                 columnNumber: 19
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 748,
+                                        lineNumber: 640,
                                         columnNumber: 15
                                     }, this),
                                     filteredRooms.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1895,7 +1728,7 @@ function TenantDashboard() {
                                                 children: "🔍"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 886,
+                                                lineNumber: 778,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -1903,7 +1736,7 @@ function TenantDashboard() {
                                                 children: "Không tìm thấy phòng nào"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 887,
+                                                lineNumber: 779,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1911,7 +1744,7 @@ function TenantDashboard() {
                                                 children: "Thử điều chỉnh bộ lọc để tìm phòng phù hợp"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 890,
+                                                lineNumber: 782,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1926,19 +1759,19 @@ function TenantDashboard() {
                                                 children: "Xóa tất cả bộ lọc"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 893,
+                                                lineNumber: 785,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 885,
+                                        lineNumber: 777,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                lineNumber: 613,
+                                lineNumber: 505,
                                 columnNumber: 13
                             }, this),
                             activeTab === "bills" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1949,7 +1782,7 @@ function TenantDashboard() {
                                         children: "Hóa đơn của tôi"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 915,
+                                        lineNumber: 807,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1966,7 +1799,7 @@ function TenantDashboard() {
                                                                 children: "Loại hóa đơn"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 923,
+                                                                lineNumber: 815,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1974,7 +1807,7 @@ function TenantDashboard() {
                                                                 children: "Tháng"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 926,
+                                                                lineNumber: 818,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1982,7 +1815,7 @@ function TenantDashboard() {
                                                                 children: "Số tiền"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 929,
+                                                                lineNumber: 821,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1990,7 +1823,7 @@ function TenantDashboard() {
                                                                 children: "Hạn thanh toán"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 932,
+                                                                lineNumber: 824,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1998,7 +1831,7 @@ function TenantDashboard() {
                                                                 children: "Trạng thái"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 935,
+                                                                lineNumber: 827,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2006,18 +1839,18 @@ function TenantDashboard() {
                                                                 children: "Thao tác"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 938,
+                                                                lineNumber: 830,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 922,
+                                                        lineNumber: 814,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 921,
+                                                    lineNumber: 813,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -2029,7 +1862,7 @@ function TenantDashboard() {
                                                                     children: bill.type
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 946,
+                                                                    lineNumber: 838,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2037,7 +1870,7 @@ function TenantDashboard() {
                                                                     children: bill.month
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 949,
+                                                                    lineNumber: 841,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2048,7 +1881,7 @@ function TenantDashboard() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 952,
+                                                                    lineNumber: 844,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2056,7 +1889,7 @@ function TenantDashboard() {
                                                                     children: bill.dueDate
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 955,
+                                                                    lineNumber: 847,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2066,12 +1899,12 @@ function TenantDashboard() {
                                                                         children: getStatusText(bill.status)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 959,
+                                                                        lineNumber: 851,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 958,
+                                                                    lineNumber: 850,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2082,7 +1915,7 @@ function TenantDashboard() {
                                                                         children: "Thanh toán"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 969,
+                                                                        lineNumber: 861,
                                                                         columnNumber: 29
                                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                                                         href: `/receipt/${bill.id}`,
@@ -2090,40 +1923,40 @@ function TenantDashboard() {
                                                                         children: "Xem biên lai"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 976,
+                                                                        lineNumber: 868,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 967,
+                                                                    lineNumber: 859,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, bill.id, true, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 945,
+                                                            lineNumber: 837,
                                                             columnNumber: 23
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 943,
+                                                    lineNumber: 835,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                            lineNumber: 920,
+                                            lineNumber: 812,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 919,
+                                        lineNumber: 811,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                lineNumber: 914,
+                                lineNumber: 806,
                                 columnNumber: 13
                             }, this),
                             activeTab === "contract" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2134,7 +1967,7 @@ function TenantDashboard() {
                                         children: "Hợp đồng thuê phòng"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 995,
+                                        lineNumber: 887,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2149,7 +1982,7 @@ function TenantDashboard() {
                                                             children: "Thông tin hợp đồng"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1002,
+                                                            lineNumber: 894,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2162,7 +1995,7 @@ function TenantDashboard() {
                                                                             children: "Phòng số:"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1007,
+                                                                            lineNumber: 899,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2170,13 +2003,13 @@ function TenantDashboard() {
                                                                             children: mockContract.roomNumber
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1010,
+                                                                            lineNumber: 902,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1006,
+                                                                    lineNumber: 898,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2186,7 +2019,7 @@ function TenantDashboard() {
                                                                             children: "Ngày bắt đầu:"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1015,
+                                                                            lineNumber: 907,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2194,13 +2027,13 @@ function TenantDashboard() {
                                                                             children: mockContract.startDate
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1018,
+                                                                            lineNumber: 910,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1014,
+                                                                    lineNumber: 906,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2210,7 +2043,7 @@ function TenantDashboard() {
                                                                             children: "Ngày kết thúc:"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1023,
+                                                                            lineNumber: 915,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2218,13 +2051,13 @@ function TenantDashboard() {
                                                                             children: mockContract.endDate
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1026,
+                                                                            lineNumber: 918,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1022,
+                                                                    lineNumber: 914,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2234,7 +2067,7 @@ function TenantDashboard() {
                                                                             children: "Tiền thuê hàng tháng:"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1031,
+                                                                            lineNumber: 923,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2245,13 +2078,13 @@ function TenantDashboard() {
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1034,
+                                                                            lineNumber: 926,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1030,
+                                                                    lineNumber: 922,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2261,7 +2094,7 @@ function TenantDashboard() {
                                                                             children: "Tiền cọc:"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1039,
+                                                                            lineNumber: 931,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2272,13 +2105,13 @@ function TenantDashboard() {
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1042,
+                                                                            lineNumber: 934,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1038,
+                                                                    lineNumber: 930,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2288,7 +2121,7 @@ function TenantDashboard() {
                                                                             children: "Trạng thái:"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1047,
+                                                                            lineNumber: 939,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2296,25 +2129,25 @@ function TenantDashboard() {
                                                                             children: getStatusText(mockContract.status)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1050,
+                                                                            lineNumber: 942,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1046,
+                                                                    lineNumber: 938,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1005,
+                                                            lineNumber: 897,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 1001,
+                                                    lineNumber: 893,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2324,7 +2157,7 @@ function TenantDashboard() {
                                                             children: "Thao tác"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1061,
+                                                            lineNumber: 953,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2335,7 +2168,7 @@ function TenantDashboard() {
                                                                     children: "Tải hợp đồng PDF"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1065,
+                                                                    lineNumber: 957,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2343,7 +2176,7 @@ function TenantDashboard() {
                                                                     children: "Yêu cầu gia hạn"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1068,
+                                                                    lineNumber: 960,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2351,36 +2184,36 @@ function TenantDashboard() {
                                                                     children: "Yêu cầu trả phòng"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1071,
+                                                                    lineNumber: 963,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1064,
+                                                            lineNumber: 956,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 1060,
+                                                    lineNumber: 952,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                            lineNumber: 1000,
+                                            lineNumber: 892,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 999,
+                                        lineNumber: 891,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                lineNumber: 994,
+                                lineNumber: 886,
                                 columnNumber: 13
                             }, this),
                             activeTab === "reports" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2394,7 +2227,7 @@ function TenantDashboard() {
                                                 children: "Báo cáo sự cố"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 1085,
+                                                lineNumber: 977,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2406,20 +2239,20 @@ function TenantDashboard() {
                                                         children: "+"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 1092,
+                                                        lineNumber: 984,
                                                         columnNumber: 19
                                                     }, this),
                                                     "Báo cáo sự cố mới"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 1088,
+                                                lineNumber: 980,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 1084,
+                                        lineNumber: 976,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2436,7 +2269,7 @@ function TenantDashboard() {
                                                                 children: "Vấn đề"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1101,
+                                                                lineNumber: 993,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2444,7 +2277,7 @@ function TenantDashboard() {
                                                                 children: "Ngày báo cáo"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1104,
+                                                                lineNumber: 996,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2452,7 +2285,7 @@ function TenantDashboard() {
                                                                 children: "Mức độ"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1107,
+                                                                lineNumber: 999,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2460,7 +2293,7 @@ function TenantDashboard() {
                                                                 children: "Trạng thái"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1110,
+                                                                lineNumber: 1002,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2468,18 +2301,18 @@ function TenantDashboard() {
                                                                 children: "Phản hồi"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1113,
+                                                                lineNumber: 1005,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 1100,
+                                                        lineNumber: 992,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 1099,
+                                                    lineNumber: 991,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -2491,7 +2324,7 @@ function TenantDashboard() {
                                                                     children: report.issue
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1121,
+                                                                    lineNumber: 1013,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2499,7 +2332,7 @@ function TenantDashboard() {
                                                                     children: report.date
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1124,
+                                                                    lineNumber: 1016,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2509,12 +2342,12 @@ function TenantDashboard() {
                                                                         children: report.priority === "high" ? "Cao" : report.priority === "medium" ? "Trung bình" : "Thấp"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 1128,
+                                                                        lineNumber: 1020,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1127,
+                                                                    lineNumber: 1019,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2524,12 +2357,12 @@ function TenantDashboard() {
                                                                         children: getStatusText(report.status)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 1145,
+                                                                        lineNumber: 1037,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1144,
+                                                                    lineNumber: 1036,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2537,35 +2370,35 @@ function TenantDashboard() {
                                                                     children: report.response || "Chưa có phản hồi"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1153,
+                                                                    lineNumber: 1045,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, report.id, true, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1120,
+                                                            lineNumber: 1012,
                                                             columnNumber: 23
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 1118,
+                                                    lineNumber: 1010,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                            lineNumber: 1098,
+                                            lineNumber: 990,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 1097,
+                                        lineNumber: 989,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                lineNumber: 1083,
+                                lineNumber: 975,
                                 columnNumber: 13
                             }, this),
                             activeTab === "profile" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2576,7 +2409,7 @@ function TenantDashboard() {
                                         children: "Hồ sơ cá nhân"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 1166,
+                                        lineNumber: 1058,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2594,7 +2427,7 @@ function TenantDashboard() {
                                                                 children: "A"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1175,
+                                                                lineNumber: 1067,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -2602,7 +2435,7 @@ function TenantDashboard() {
                                                                 children: user?.name
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1178,
+                                                                lineNumber: 1070,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2610,7 +2443,7 @@ function TenantDashboard() {
                                                                 children: "Khách thuê"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1181,
+                                                                lineNumber: 1073,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2620,14 +2453,14 @@ function TenantDashboard() {
                                                                         className: "w-2 h-2 bg-green-500 rounded-full mr-2"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 1183,
+                                                                        lineNumber: 1075,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     "Đang thuê phòng 101"
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1182,
+                                                                lineNumber: 1074,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2635,23 +2468,23 @@ function TenantDashboard() {
                                                                 children: "Chỉnh sửa ảnh đại diện"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1186,
+                                                                lineNumber: 1078,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 1174,
+                                                        lineNumber: 1066,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 1173,
+                                                    lineNumber: 1065,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 1172,
+                                                lineNumber: 1064,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2667,7 +2500,7 @@ function TenantDashboard() {
                                                                     children: "Thông tin cá nhân"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1197,
+                                                                    lineNumber: 1089,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2675,13 +2508,13 @@ function TenantDashboard() {
                                                                     children: "Chỉnh sửa"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1200,
+                                                                    lineNumber: 1092,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1196,
+                                                            lineNumber: 1088,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2694,7 +2527,7 @@ function TenantDashboard() {
                                                                             children: "Họ và tên"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1207,
+                                                                            lineNumber: 1099,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2704,13 +2537,13 @@ function TenantDashboard() {
                                                                             readOnly: true
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1210,
+                                                                            lineNumber: 1102,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1206,
+                                                                    lineNumber: 1098,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2720,7 +2553,7 @@ function TenantDashboard() {
                                                                             children: "Email"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1218,
+                                                                            lineNumber: 1110,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2730,13 +2563,13 @@ function TenantDashboard() {
                                                                             readOnly: true
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1221,
+                                                                            lineNumber: 1113,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1217,
+                                                                    lineNumber: 1109,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2746,7 +2579,7 @@ function TenantDashboard() {
                                                                             children: "Số điện thoại"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1229,
+                                                                            lineNumber: 1121,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2756,13 +2589,13 @@ function TenantDashboard() {
                                                                             readOnly: true
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1232,
+                                                                            lineNumber: 1124,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1228,
+                                                                    lineNumber: 1120,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2772,7 +2605,7 @@ function TenantDashboard() {
                                                                             children: "CCCD/CMND"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1240,
+                                                                            lineNumber: 1132,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2782,13 +2615,13 @@ function TenantDashboard() {
                                                                             readOnly: true
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1243,
+                                                                            lineNumber: 1135,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1239,
+                                                                    lineNumber: 1131,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2798,7 +2631,7 @@ function TenantDashboard() {
                                                                             children: "Ngày sinh"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1251,
+                                                                            lineNumber: 1143,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2808,13 +2641,13 @@ function TenantDashboard() {
                                                                             readOnly: true
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1254,
+                                                                            lineNumber: 1146,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1250,
+                                                                    lineNumber: 1142,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2824,7 +2657,7 @@ function TenantDashboard() {
                                                                             children: "Giới tính"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1262,
+                                                                            lineNumber: 1154,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -2834,18 +2667,18 @@ function TenantDashboard() {
                                                                                 children: user?.gender
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                                lineNumber: 1269,
+                                                                                lineNumber: 1161,
                                                                                 columnNumber: 27
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1265,
+                                                                            lineNumber: 1157,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1261,
+                                                                    lineNumber: 1153,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2856,7 +2689,7 @@ function TenantDashboard() {
                                                                             children: "Địa chỉ thường trú"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1273,
+                                                                            lineNumber: 1165,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2866,36 +2699,36 @@ function TenantDashboard() {
                                                                             readOnly: true
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                            lineNumber: 1276,
+                                                                            lineNumber: 1168,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                    lineNumber: 1272,
+                                                                    lineNumber: 1164,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1205,
+                                                            lineNumber: 1097,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 1195,
+                                                    lineNumber: 1087,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 1194,
+                                                lineNumber: 1086,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 1170,
+                                        lineNumber: 1062,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2906,7 +2739,7 @@ function TenantDashboard() {
                                                 children: "Thông tin thuê trọ"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 1290,
+                                                lineNumber: 1182,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2920,7 +2753,7 @@ function TenantDashboard() {
                                                                 children: "🏠"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1295,
+                                                                lineNumber: 1187,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2928,7 +2761,7 @@ function TenantDashboard() {
                                                                 children: "Phòng hiện tại"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1296,
+                                                                lineNumber: 1188,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2936,13 +2769,13 @@ function TenantDashboard() {
                                                                 children: "Phòng 101"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1299,
+                                                                lineNumber: 1191,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 1294,
+                                                        lineNumber: 1186,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2953,7 +2786,7 @@ function TenantDashboard() {
                                                                 children: "📅"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1302,
+                                                                lineNumber: 1194,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2961,7 +2794,7 @@ function TenantDashboard() {
                                                                 children: "Ngày bắt đầu thuê"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1303,
+                                                                lineNumber: 1195,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2969,13 +2802,13 @@ function TenantDashboard() {
                                                                 children: "01/01/2024"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1306,
+                                                                lineNumber: 1198,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 1301,
+                                                        lineNumber: 1193,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2986,7 +2819,7 @@ function TenantDashboard() {
                                                                 children: "💰"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1311,
+                                                                lineNumber: 1203,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2994,7 +2827,7 @@ function TenantDashboard() {
                                                                 children: "Tiền thuê/tháng"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1312,
+                                                                lineNumber: 1204,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3002,25 +2835,25 @@ function TenantDashboard() {
                                                                 children: "3,500,000đ"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1315,
+                                                                lineNumber: 1207,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 1310,
+                                                        lineNumber: 1202,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 1293,
+                                                lineNumber: 1185,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 1289,
+                                        lineNumber: 1181,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3034,7 +2867,7 @@ function TenantDashboard() {
                                                         children: "Liên hệ khẩn cấp"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 1325,
+                                                        lineNumber: 1217,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3042,13 +2875,13 @@ function TenantDashboard() {
                                                         children: "Chỉnh sửa"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 1328,
+                                                        lineNumber: 1220,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 1324,
+                                                lineNumber: 1216,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3061,7 +2894,7 @@ function TenantDashboard() {
                                                                 children: "Tên người liên hệ"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1334,
+                                                                lineNumber: 1226,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -3071,13 +2904,13 @@ function TenantDashboard() {
                                                                 readOnly: true
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1337,
+                                                                lineNumber: 1229,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 1333,
+                                                        lineNumber: 1225,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3087,7 +2920,7 @@ function TenantDashboard() {
                                                                 children: "Số điện thoại"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1345,
+                                                                lineNumber: 1237,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -3097,25 +2930,25 @@ function TenantDashboard() {
                                                                 readOnly: true
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1348,
+                                                                lineNumber: 1240,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 1344,
+                                                        lineNumber: 1236,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 1332,
+                                                lineNumber: 1224,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 1323,
+                                        lineNumber: 1215,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3126,7 +2959,7 @@ function TenantDashboard() {
                                                 children: "Cài đặt tài khoản"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 1360,
+                                                lineNumber: 1252,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3142,7 +2975,7 @@ function TenantDashboard() {
                                                                         children: "Thông báo email"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 1366,
+                                                                        lineNumber: 1258,
                                                                         columnNumber: 23
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3150,13 +2983,13 @@ function TenantDashboard() {
                                                                         children: "Nhận thông báo về hóa đơn và sự cố"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 1369,
+                                                                        lineNumber: 1261,
                                                                         columnNumber: 23
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1365,
+                                                                lineNumber: 1257,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -3168,26 +3001,26 @@ function TenantDashboard() {
                                                                         defaultChecked: true
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 1374,
+                                                                        lineNumber: 1266,
                                                                         columnNumber: 23
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                         className: "w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 1379,
+                                                                        lineNumber: 1271,
                                                                         columnNumber: 23
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1373,
+                                                                lineNumber: 1265,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 1364,
+                                                        lineNumber: 1256,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3200,7 +3033,7 @@ function TenantDashboard() {
                                                                         children: "Thông báo SMS"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 1384,
+                                                                        lineNumber: 1276,
                                                                         columnNumber: 23
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3208,13 +3041,13 @@ function TenantDashboard() {
                                                                         children: "Nhận tin nhắn về thanh toán"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 1387,
+                                                                        lineNumber: 1279,
                                                                         columnNumber: 23
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1383,
+                                                                lineNumber: 1275,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -3225,26 +3058,26 @@ function TenantDashboard() {
                                                                         className: "sr-only peer"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 1392,
+                                                                        lineNumber: 1284,
                                                                         columnNumber: 23
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                         className: "w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                        lineNumber: 1393,
+                                                                        lineNumber: 1285,
                                                                         columnNumber: 23
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                                lineNumber: 1391,
+                                                                lineNumber: 1283,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 1382,
+                                                        lineNumber: 1274,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3254,42 +3087,42 @@ function TenantDashboard() {
                                                             children: "Đổi mật khẩu"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1397,
+                                                            lineNumber: 1289,
                                                             columnNumber: 21
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                        lineNumber: 1396,
+                                                        lineNumber: 1288,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                lineNumber: 1363,
+                                                lineNumber: 1255,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                        lineNumber: 1359,
+                                        lineNumber: 1251,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                lineNumber: 1165,
+                                lineNumber: 1057,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                        lineNumber: 425,
+                        lineNumber: 317,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                lineNumber: 393,
+                lineNumber: 285,
                 columnNumber: 7
             }, this),
             showReportModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3305,7 +3138,7 @@ function TenantDashboard() {
                                     children: "Báo cáo sự cố mới"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                    lineNumber: 1413,
+                                    lineNumber: 1305,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3313,13 +3146,13 @@ function TenantDashboard() {
                                     children: "Mô tả chi tiết vấn đề bạn gặp phải"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                    lineNumber: 1416,
+                                    lineNumber: 1308,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                            lineNumber: 1412,
+                            lineNumber: 1304,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -3336,7 +3169,7 @@ function TenantDashboard() {
                                                     children: "Loại sự cố *"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 1423,
+                                                    lineNumber: 1315,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -3353,7 +3186,7 @@ function TenantDashboard() {
                                                             children: "Chọn loại sự cố"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1434,
+                                                            lineNumber: 1326,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -3361,7 +3194,7 @@ function TenantDashboard() {
                                                             children: "Máy lạnh không hoạt động"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1435,
+                                                            lineNumber: 1327,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -3369,7 +3202,7 @@ function TenantDashboard() {
                                                             children: "Vòi nước bị rò rỉ"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1438,
+                                                            lineNumber: 1330,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -3377,7 +3210,7 @@ function TenantDashboard() {
                                                             children: "Bóng đèn hỏng"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1439,
+                                                            lineNumber: 1331,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -3385,7 +3218,7 @@ function TenantDashboard() {
                                                             children: "Ổ cắm điện hỏng"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1440,
+                                                            lineNumber: 1332,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -3393,7 +3226,7 @@ function TenantDashboard() {
                                                             children: "Cửa sổ/cửa ra vào hỏng"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1441,
+                                                            lineNumber: 1333,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -3401,7 +3234,7 @@ function TenantDashboard() {
                                                             children: "Internet không hoạt động"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1444,
+                                                            lineNumber: 1336,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -3409,7 +3242,7 @@ function TenantDashboard() {
                                                             children: "Vấn đề vệ sinh"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1447,
+                                                            lineNumber: 1339,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -3417,19 +3250,19 @@ function TenantDashboard() {
                                                             children: "Khác"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1448,
+                                                            lineNumber: 1340,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 1426,
+                                                    lineNumber: 1318,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                            lineNumber: 1422,
+                                            lineNumber: 1314,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3439,7 +3272,7 @@ function TenantDashboard() {
                                                     children: "Vị trí"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 1453,
+                                                    lineNumber: 1345,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -3453,13 +3286,13 @@ function TenantDashboard() {
                                                     placeholder: "VD: Phòng ngủ, Phòng tắm, Ban công..."
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 1456,
+                                                    lineNumber: 1348,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                            lineNumber: 1452,
+                                            lineNumber: 1344,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3469,7 +3302,7 @@ function TenantDashboard() {
                                                     children: "Mức độ ưu tiên"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 1468,
+                                                    lineNumber: 1360,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -3485,7 +3318,7 @@ function TenantDashboard() {
                                                             children: "Thấp - Không ảnh hưởng nhiều"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1478,
+                                                            lineNumber: 1370,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -3493,7 +3326,7 @@ function TenantDashboard() {
                                                             children: "Trung bình - Cần xử lý sớm"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1479,
+                                                            lineNumber: 1371,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -3501,19 +3334,19 @@ function TenantDashboard() {
                                                             children: "Cao - Cần xử lý ngay"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                            lineNumber: 1480,
+                                                            lineNumber: 1372,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 1471,
+                                                    lineNumber: 1363,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                            lineNumber: 1467,
+                                            lineNumber: 1359,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3523,7 +3356,7 @@ function TenantDashboard() {
                                                     children: "Mô tả chi tiết *"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 1485,
+                                                    lineNumber: 1377,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -3538,19 +3371,19 @@ function TenantDashboard() {
                                                     required: true
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                                    lineNumber: 1488,
+                                                    lineNumber: 1380,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                            lineNumber: 1484,
+                                            lineNumber: 1376,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                    lineNumber: 1421,
+                                    lineNumber: 1313,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3563,7 +3396,7 @@ function TenantDashboard() {
                                             children: "Hủy"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                            lineNumber: 1505,
+                                            lineNumber: 1397,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3572,40 +3405,40 @@ function TenantDashboard() {
                                             children: "Gửi báo cáo"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                            lineNumber: 1512,
+                                            lineNumber: 1404,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                                    lineNumber: 1504,
+                                    lineNumber: 1396,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                            lineNumber: 1420,
+                            lineNumber: 1312,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                    lineNumber: 1411,
+                    lineNumber: 1303,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-                lineNumber: 1410,
+                lineNumber: 1302,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/tenant-dashboard/page.tsx",
-        lineNumber: 322,
+        lineNumber: 214,
         columnNumber: 5
     }, this);
 }
-_s(TenantDashboard, "mnx4GuFqV6Q34LR4UhKXW2VA1Hc=", false, function() {
+_s(TenantDashboard, "pBWOcTm9rmt1KY1hrEtva3d5NRA=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$contexts$2f$AuthContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"],
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$contexts$2f$AuthContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"],

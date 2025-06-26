@@ -5,118 +5,9 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { getRoom } from "@/app/hooks/useRoom";
+import { getInvoice } from "../hooks/useInvoice";
 
 // Mock data
-const mockAllRooms = [
-  {
-    id: 1,
-    number: "101",
-    price: 3500000,
-    area: 30,
-    amenities: ["Máy lạnh", "Tủ lạnh", "WiFi", "Ban công"],
-    images: ["room1.jpg"],
-    status: "occupied", // occupied, available, maintenance
-    tenant: "Nguyễn Văn A",
-    moveInDate: "2024-01-01",
-  },
-  {
-    id: 2,
-    number: "102",
-    price: 3200000,
-    area: 28,
-    amenities: ["Máy lạnh", "Tủ lạnh", "WiFi"],
-    images: ["room2.jpg"],
-    status: "available",
-    tenant: null,
-    moveInDate: null,
-  },
-  {
-    id: 3,
-    number: "103",
-    price: 3800000,
-    area: 32,
-    amenities: ["Máy lạnh", "Tủ lạnh", "WiFi", "Bếp riêng"],
-    images: ["room3.jpg"],
-    status: "maintenance",
-    tenant: null,
-    moveInDate: null,
-    maintenanceReason: "Sửa chữa hệ thống điện",
-  },
-  {
-    id: 4,
-    number: "201",
-    price: 3600000,
-    area: 30,
-    amenities: ["Máy lạnh", "Tủ lạnh", "WiFi", "Ban công"],
-    images: ["room4.jpg"],
-    status: "occupied",
-    tenant: "Trần Thị B",
-    moveInDate: "2023-12-15",
-  },
-  {
-    id: 5,
-    number: "202",
-    price: 3500000,
-    area: 30,
-    amenities: ["Máy lạnh", "Tủ lạnh", "WiFi", "Ban công"],
-    images: ["room5.jpg"],
-    status: "available",
-    tenant: null,
-    moveInDate: null,
-  },
-  {
-    id: 6,
-    number: "203",
-    price: 3700000,
-    area: 31,
-    amenities: ["Máy lạnh", "Tủ lạnh", "WiFi", "Ban công", "Máy giặt"],
-    images: ["room6.jpg"],
-    status: "available",
-    tenant: null,
-    moveInDate: null,
-  },
-  {
-    id: 7,
-    number: "301",
-    price: 4000000,
-    area: 35,
-    amenities: ["Máy lạnh", "Tủ lạnh", "WiFi", "Ban công", "Bếp riêng"],
-    images: ["room7.jpg"],
-    status: "available",
-    tenant: null,
-    moveInDate: null,
-  },
-  {
-    id: 8,
-    number: "302",
-    price: 4200000,
-    area: 36,
-    amenities: [
-      "Máy lạnh",
-      "Tủ lạnh",
-      "WiFi",
-      "Ban công",
-      "Bếp riêng",
-      "Máy giặt",
-    ],
-    images: ["room8.jpg"],
-    status: "occupied",
-    tenant: "Lê Văn C",
-    moveInDate: "2024-02-01",
-  },
-  {
-    id: 9,
-    number: "303",
-    price: 3900000,
-    area: 34,
-    amenities: ["Máy lạnh", "Tủ lạnh", "WiFi", "Ban công"],
-    images: ["room9.jpg"],
-    status: "maintenance",
-    tenant: null,
-    moveInDate: null,
-    maintenanceReason: "Thay thế máy lạnh",
-  },
-];
 
 const mockMyBills = [
   {
@@ -187,9 +78,11 @@ export default function TenantDashboard() {
   const { user } = useAuth();
   const router = useRouter();
   const [rooms, setRooms] = useState<any[]>([]);
+  const [invoiceTenant, setInvoiceTenant] = useState<any[]>([]);
 
   useEffect(() => {
     getRoom().then(setRooms);
+    getInvoice().then(setInvoiceTenant);
   }, []);
 
   const handleLogout = () => {
@@ -212,6 +105,21 @@ export default function TenantDashboard() {
     minArea: "",
     searchTerm: "",
   });
+
+  function formatDate(dateString: string) {
+    const date = new Date(dateString);
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // tháng bắt đầu từ 0
+    const year = date.getFullYear();
+    return `${month}/${year}`;
+  }
+
+  const formatDateTime = (dateString: any) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Tháng bắt đầu từ 0
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -316,6 +224,23 @@ export default function TenantDashboard() {
     });
     // Show success message (you can implement toast notification here)
     alert("Báo cáo sự cố đã được gửi thành công!");
+  };
+
+  const translateInvoiceType = (type: string): string => {
+    switch (type) {
+      case "monthly":
+        return "Tiền phòng";
+      case "electric":
+        return "Tiền điện";
+      case "water":
+        return "Tiền nước";
+      case "service":
+        return "Phí dịch vụ";
+      case "other":
+        return "Khác";
+      default:
+        return type; // fallback nếu không khớp
+    }
   };
 
   return (
@@ -941,19 +866,19 @@ export default function TenantDashboard() {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {mockMyBills.map((bill) => (
+                    {invoiceTenant.map((bill) => (
                       <tr key={bill.id}>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {bill.type}
+                          {translateInvoiceType(bill.invoiceType)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {bill.month}
+                          {formatDate(bill.invoiceDateLimit)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {bill.amount.toLocaleString()}đ
+                          {bill.invoiceAmount.toLocaleString()}đ
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {bill.dueDate}
+                          {formatDateTime(bill.invoiceDateLimit)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span

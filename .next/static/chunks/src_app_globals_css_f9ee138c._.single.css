@@ -2739,6 +2739,12 @@
   }
 
   @media (hover: hover) {
+    .hover\:text-purple-900:hover {
+      color: var(--color-purple-900);
+    }
+  }
+
+  @media (hover: hover) {
     .hover\:text-red-500:hover {
       color: var(--color-red-500);
     }

@@ -7,6 +7,11 @@ import { useRouter } from "next/navigation";
 import { getRoom } from "../hooks/useRoom";
 import { getRoomBookingInfo } from "../hooks/useRoomBookingInfo";
 import { getDurationContract } from "../hooks/useDurationContract";
+import { getInvoice } from "../hooks/useInvoice";
+import { NumberDomain } from "recharts/types/util/types";
+import jsPDF from "jspdf";
+import { toast } from "react-toastify";
+import "../../../Roboto-VariableFont_wdth,wght-normal";
 
 // Mock data
 
@@ -203,6 +208,8 @@ export default function OwnerDashboard() {
     []
   );
 
+  const [invoiceTenant, setInvoiceTenant] = useState<any[]>([]);
+
   const handleLogout = () => {
     logout();
     router.push("/");
@@ -212,6 +219,7 @@ export default function OwnerDashboard() {
     getRoom().then(setRooms);
     getRoomBookingInfo().then(setRoomBookingInfo);
     getDurationContract().then(setContractOptions);
+    getInvoice().then(setInvoiceTenant);
   }, []);
 
   // Modal states
@@ -231,6 +239,7 @@ export default function OwnerDashboard() {
   const [selectedConversation, setSelectedConversation] = useState<any>(null);
   const [newMessage, setNewMessage] = useState("");
   const [isExpired, setIsExpired] = useState(false);
+  const [tenants, setTenants] = useState<any>([]);
 
   // Form data
   const [roomForm, setRoomForm] = useState({
@@ -259,6 +268,7 @@ export default function OwnerDashboard() {
   });
 
   const [billForm, setBillForm] = useState({
+    id: 0,
     room: "",
     tenant: "",
     type: "monthly",
@@ -268,6 +278,39 @@ export default function OwnerDashboard() {
     electricUsage: "",
     waterUsage: "",
   });
+
+  const handleViewPDF = (bill: any) => {
+    const doc = new jsPDF();
+
+    // Thiết lập tiêu đề
+    doc.setFontSize(16);
+    doc.setFont("Roboto-Regular");
+    doc.text("HÓA ĐƠN THANH TOÁN", 20, 20);
+
+    // Nội dung hóa đơn
+    doc.setFontSize(12);
+    doc.text(`Phòng: ${bill.roomNumber || "N/A"}`, 20, 40);
+    doc.text(`Khách thuê: ${bill.tenant || "N/A"}`, 20, 50);
+    doc.text(
+      `Loại hóa đơn: ${
+        bill.invoiceType === "monthly" ? "Tiền phòng" : "Tiền điện"
+      }`,
+      20,
+      60
+    );
+    doc.text(`Số tiền: ${bill.invoiceAmount?.toLocaleString()}đ`, 20, 70);
+    doc.text(`Hạn thanh toán: ${formatDate(bill.invoiceDateLimit)}`, 20, 80);
+    doc.text(`Trạng thái: ${getStatusText(bill.status)}`, 20, 90);
+
+    // Tùy chọn: thêm ghi chú, mô tả...
+    if (bill.description) {
+      doc.text("Ghi chú:", 20, 105);
+      doc.text(doc.splitTextToSize(bill.description, 170), 20, 115);
+    }
+
+    // Hiển thị PDF trong tab mới (hoặc có thể dùng doc.save())
+    doc.output("dataurlnewwindow");
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -317,7 +360,6 @@ export default function OwnerDashboard() {
 
   // Modal handlers
   const openRoomModal = (room?: any, roomID?: any) => {
-    alert("Mở modal phòng với ID: " + roomID);
     if (room) {
       setEditingRoom(room);
       setRoomForm({
@@ -383,22 +425,28 @@ export default function OwnerDashboard() {
     setShowTenantModal(true);
   };
 
-  const openBillModal = (bill?: any) => {
+  const openBillModal = (bill?: any, id?: any) => {
+    alert(id);
     if (bill) {
       setEditingBill(bill);
       setBillForm({
-        room: bill.room,
-        tenant: bill.tenant,
-        type: bill.type,
-        amount: bill.amount.toString(),
-        dueDate: bill.dueDate,
+        id: id,
+        room: bill.roomNumber || "",
+        tenant: bill.tenant || "",
+        type: bill.invoiceType || "monthly",
+        amount: (bill.invoiceAmount || "").toString(),
+        dueDate: bill.invoiceDateLimit
+          ? formatToInputDate(bill.invoiceDateLimit)
+          : "",
         description: bill.description || "",
-        electricUsage: bill.electricUsage?.toString() || "",
-        waterUsage: bill.waterUsage?.toString() || "",
+        electricUsage:
+          bill.electricUsage != null ? bill.electricUsage.toString() : "",
+        waterUsage: bill.waterUsage != null ? bill.waterUsage.toString() : "",
       });
     } else {
       setEditingBill(null);
       setBillForm({
+        id: 0,
         room: "",
         tenant: "",
         type: "monthly",
@@ -424,6 +472,10 @@ export default function OwnerDashboard() {
   const fetchRoomBookingInfo = async () => {
     const data = await getRoomBookingInfo();
     setRoomBookingInfo(data);
+  };
+  const fetchBill = async () => {
+    const data = await getInvoice();
+    setInvoiceTenant(data);
   };
 
   const fetchExpiredStatus = async (id: number) => {
@@ -489,6 +541,7 @@ export default function OwnerDashboard() {
     }
     await fetchRooms(); // Refresh room list
     await fetchRoomBookingInfo(); // Refresh booking info
+    await fetchBill();
     setShowRoomModal(false);
     alert(
       editingRoom ? "Cập nhật phòng thành công!" : "Thêm phòng mới thành công!"
@@ -553,6 +606,7 @@ export default function OwnerDashboard() {
     // Sau khi thành công
     await fetchRooms();
     await fetchRoomBookingInfo();
+    await fetchBill();
     setShowTenantModal(false);
     alert(
       editingTenant
@@ -561,15 +615,51 @@ export default function OwnerDashboard() {
     );
   };
 
-  const handleBillSubmit = (e: React.FormEvent) => {
+  const handleBillSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(editingBill ? "Updating bill:" : "Creating bill:", billForm);
-    setShowBillModal(false);
-    alert(
-      editingBill
-        ? "Cập nhật hóa đơn thành công!"
-        : "Tạo hóa đơn mới thành công!"
-    );
+
+    const url = editingBill
+      ? `https://localhost:7257/api/Invoice/update/${editingBill.id}`
+      : `https://localhost:7257/api/Invoice/create`;
+    const method = editingBill ? "PUT" : "POST";
+    try {
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          roomNumber: parseInt(billForm.room),
+          tenant: billForm.tenant || "",
+          invoiceType: billForm.type || "",
+          totalAmount: parseFloat(billForm.amount),
+          invoiceDateLimit: billForm.dueDate
+            ? new Date(billForm.dueDate).toISOString()
+            : "",
+          description: billForm.description || "",
+          electricUsage: parseFloat(billForm.electricUsage),
+          waterUsage: parseFloat(billForm.waterUsage),
+          note: billForm.description || "",
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Xác nhận không thành công");
+        return;
+      }
+      alert("Xác nhận thành công!");
+      fetchRooms(); // Cập nhật danh sách phòng
+      fetchRoomBookingInfo(); // hoặc cập nhật state thủ công
+      fetchBill();
+      setShowBillModal(false);
+      alert(
+        editingBill
+          ? "Cập nhật hóa đơn thành công!"
+          : "Tạo hóa đơn mới thành công!"
+      );
+    } catch (error) {
+      console.error("Xác nhận thất bại:", error);
+      alert("Xác nhận thất bại!");
+    }
   };
 
   const handleDeleteRoom = async (roomId: string) => {
@@ -587,6 +677,7 @@ export default function OwnerDashboard() {
       }
       await fetchRooms(); // Refresh room list
       await fetchRoomBookingInfo(); // Refresh booking info
+      fetchBill();
       alert("Xóa phòng thành công!");
     }
   };
@@ -607,6 +698,7 @@ export default function OwnerDashboard() {
       alert("Xóa khách thuê thành công!");
       fetchRooms(); // Refresh room list
       fetchRoomBookingInfo(); // Refresh booking info
+      fetchBill();
     }
   };
 
@@ -673,6 +765,7 @@ export default function OwnerDashboard() {
       alert("Xác nhận thành công!");
       fetchRooms(); // Cập nhật danh sách phòng
       fetchRoomBookingInfo(); // hoặc cập nhật state thủ công
+      fetchBill();
     } catch (error) {
       console.error("Xác nhận thất bại:", error);
       alert("Xác nhận thất bại!");
@@ -691,6 +784,27 @@ export default function OwnerDashboard() {
       fetchExpiredStatus(id); // Fetch expired status if needed
     }
     return diff > 0 ? `${diff} ngày` : "Hết hạn";
+  };
+
+  const handleReminder = async (bill: any) => {
+    const res = await fetch("/api/notifications", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: bill.userId, // lấy từ contract
+        message: `Bạn có hóa đơn ${
+          bill.invoiceType === "monthly" ? "tiền phòng" : "tiền điện"
+        } ${bill.invoiceAmount.toLocaleString()}đ cần thanh toán trước ${formatDate(
+          bill.invoiceDateLimit
+        )}`,
+      }),
+    });
+
+    if (res.ok) {
+      toast.success("Đã gửi nhắc nhở thanh toán!");
+    } else {
+      toast.error("Gửi nhắc nhở thất bại.");
+    }
   };
 
   return (
@@ -1054,22 +1168,24 @@ export default function OwnerDashboard() {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {mockBills.map((bill) => (
+                    {invoiceTenant.map((bill) => (
                       <tr key={bill.id}>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {bill.room}
+                          {bill.roomNumber}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           {bill.tenant}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {bill.type === "monthly" ? "Tiền phòng" : "Tiền điện"}
+                          {bill.invoiceType === "monthly"
+                            ? "Tiền phòng"
+                            : "Tiền điện"}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {bill.amount.toLocaleString()}đ
+                          {bill.invoiceAmount.toLocaleString()}đ
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {bill.dueDate}
+                          {formatDate(bill.invoiceDateLimit)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span
@@ -1082,19 +1198,20 @@ export default function OwnerDashboard() {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                           <button
-                            onClick={() => openBillModal(bill)}
-                            className="text-blue-600 hover:text-blue-900 mr-3"
+                            onClick={() => handleViewPDF(bill)}
+                            className="text-purple-600 hover:text-purple-900 mr-3"
                           >
-                            Xem
+                            Xem PDF
                           </button>
+
                           <button
-                            onClick={() => openBillModal(bill)}
+                            onClick={() => openBillModal(bill, bill.id)}
                             className="text-green-600 hover:text-green-900 mr-3"
                           >
                             Sửa
                           </button>
                           <button
-                            onClick={() => alert("Đã gửi nhắc nhở thanh toán!")}
+                            onClick={() => handleReminder(bill)}
                             className="text-orange-600 hover:text-orange-900"
                           >
                             Nhắc nhở
@@ -2462,39 +2579,65 @@ export default function OwnerDashboard() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Phòng *
                   </label>
-                  <select
-                    value={billForm.room}
-                    onChange={(e) =>
-                      setBillForm({ ...billForm, room: e.target.value })
-                    }
-                    className="form-input w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
-                    required
-                  >
-                    <option value="">Chọn phòng</option>
-                    <option value="101">Phòng 101</option>
-                    <option value="102">Phòng 102</option>
-                    <option value="103">Phòng 103</option>
-                    <option value="201">Phòng 201</option>
-                    <option value="202">Phòng 202</option>
-                  </select>
+                  {editingBill ? (
+                    <input
+                      type="text"
+                      value={`Phòng ${billForm.room}`}
+                      readOnly
+                      className="form-input w-full bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-gray-900"
+                    />
+                  ) : (
+                    <select
+                      value={billForm.room}
+                      onChange={(e) =>
+                        setBillForm({ ...billForm, room: e.target.value })
+                      }
+                      className="form-input w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+                      required
+                    >
+                      <option value="">Chọn phòng</option>
+                      {rooms.map((room) => (
+                        <option key={room.id} value={room.roomNumber}>
+                          Phòng {room.roomNumber}
+                        </option>
+                      ))}
+                    </select>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Khách thuê *
                   </label>
-                  <select
-                    value={billForm.tenant}
-                    onChange={(e) =>
-                      setBillForm({ ...billForm, tenant: e.target.value })
-                    }
-                    className="form-input w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
-                    required
-                  >
-                    <option value="">Chọn khách thuê</option>
-                    <option value="Nguyễn Văn A">Nguyễn Văn A</option>
-                    <option value="Trần Thị B">Trần Thị B</option>
-                    <option value="Lê Văn C">Lê Văn C</option>
-                  </select>
+                  {editingBill ? (
+                    <input
+                      type="text"
+                      value={billForm.tenant}
+                      readOnly
+                      className="form-input w-full bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 text-gray-900"
+                    />
+                  ) : (
+                    <select
+                      value={billForm.tenant}
+                      onChange={(e) =>
+                        setBillForm({ ...billForm, tenant: e.target.value })
+                      }
+                      className="form-input w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+                      required
+                      disabled={!billForm.room}
+                    >
+                      <option value="">Chọn khách thuê</option>
+                      {roomBookingInfo
+                        .filter(
+                          (info) =>
+                            String(info.roomNumber) === String(billForm.room)
+                        )
+                        .map((info) => (
+                          <option key={info.userId} value={info.fullName}>
+                            {info.fullName}
+                          </option>
+                        ))}
+                    </select>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
