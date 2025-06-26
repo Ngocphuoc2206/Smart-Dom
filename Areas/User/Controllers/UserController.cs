@@ -8,7 +8,7 @@ namespace Smart_Dom.Areas.User.Controllers
     [Area("User")]
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController: Controller
+    public class UserController : Controller
     {
         private readonly IUserService _userService;
         private readonly IContractService _contractService;
@@ -102,6 +102,27 @@ namespace Smart_Dom.Areas.User.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error updating user");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            _logger.LogInformation("Deleting user with ID: {Id}", id);
+            try
+            {
+                await _userService.DeleteUserAsync(id);
+                return Ok($"User with ID {id} deleted successfully.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                _logger.LogError(ex, "User not found for deletion");
+                return NotFound($"User with ID {id} not found.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting user");
                 return StatusCode(500, "Internal server error");
             }
         }

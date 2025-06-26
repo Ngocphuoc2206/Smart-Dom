@@ -47,9 +47,9 @@ namespace Smart_Dom.Repositories
             return (IEnumerable<CheckInHistoryModel>)await _context.CheckInHistories.FirstOrDefaultAsync(c => c.RoomId == roomId);
         }
 
-        public async Task<IEnumerable<CheckInHistoryModel>> GetCheckInTimesByUserIdAsync(int userId)
+        public async Task<CheckInHistoryModel> GetCheckInTimesByUserIdAsync(int userId)
         {
-            return (IEnumerable<CheckInHistoryModel>)await _context.CheckInHistories.FirstOrDefaultAsync(c => c.UserId == userId);
+            return await _context.CheckInHistories.FirstOrDefaultAsync(c => c.UserId == userId);
         }
 
         public async Task<bool> SaveChangesAsync()
@@ -59,7 +59,8 @@ namespace Smart_Dom.Repositories
 
         public Task UpdateCheckInHistoryAsync(CheckInHistoryModel checkInHistory)
         {
-            throw new NotImplementedException();
+            _context.CheckInHistories.Update(checkInHistory);
+            return SaveChangesAsync();
         }
     }
 }

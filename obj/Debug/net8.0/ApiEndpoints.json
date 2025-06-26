@@ -94,6 +94,53 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Smart_Dom.Areas.Invoice.Controllers.InvoiceController",
+    "Method": "Get",
+    "RelativePath": "api/Invoice",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.Invoice.Controllers.InvoiceController",
+    "Method": "Create",
+    "RelativePath": "api/Invoice/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "invoice",
+        "Type": "Smart_Dom.DTOs.Invoice.CreateInvoice",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.Invoice.Controllers.InvoiceController",
+    "Method": "UpdateBill",
+    "RelativePath": "api/Invoice/update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "invoice",
+        "Type": "Smart_Dom.DTOs.Invoice.EditInvoice",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Smart_Dom.Areas.Room.Controllers.RoomController",
     "Method": "Get",
     "RelativePath": "api/Room",
@@ -267,6 +314,22 @@
       {
         "Name": "user",
         "Type": "Smart_Dom.DTOs.User.EditUserDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.User.Controllers.UserController",
+    "Method": "DeleteUser",
+    "RelativePath": "api/User/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

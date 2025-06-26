@@ -7,8 +7,8 @@ namespace Smart_Dom.Interfaces
     {
         Task<IEnumerable<RoomBookingModel>> GetAllBookingsAsync();
         Task<RoomBookingModel?> GetBookingByIdAsync(int id);
-        Task<IEnumerable<RoomBookingModel>> GetBookingsByUserIdAsync(int userId);
-        Task<IEnumerable<RoomBookingModel>> GetBookingsByRoomIdAsync(int roomId);
+        Task<RoomBookingModel> GetBookingsByUserIdAsync(int userId);
+        Task<RoomBookingModel> GetBookingsByRoomIdAsync(int roomId);
         Task<IEnumerable<RoomBookingViewModel>> GetRoomAllInformation();
         Task AddBookingAsync(RoomBookingModel booking);
         Task UpdateBooking(RoomBookingModel booking);

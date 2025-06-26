@@ -16,6 +16,7 @@
         public DateTime DesiredStart { get; set; }
         public DateTime DesiredEnd { get; set; }
         public string? Status { get; set; }
+        public string? RoomBookingStatus { get; set; } // Status of the booking (e.g., pending, confirmed, cancelled)
         public int DurationContract { get; set; } // Duration of the contract in months
     }
 

@@ -9,14 +9,9 @@ namespace Smart_Dom.Models
         public int Id { get; set; }
 
         [Required]
-        public int IDUser { get; set; }
-        [ForeignKey("IDUser")]
-        public UserModel? User { get; set; }
-
-        [Required]
-        public int IDRoom { get; set; }
-        [ForeignKey("IDRoom")]
-        public RoomModel? Room { get; set; }
+        public int ContractID { get; set; }
+        [ForeignKey("ContractID")]
+        public ContractModel? Contract { get; set; }
 
         [Required]
         public string InvoiceType { get; set; } // e.g., "Tiền phòng", "Tiền điện", "Tiền nước", "Phí dịch vụ", "Khác" 

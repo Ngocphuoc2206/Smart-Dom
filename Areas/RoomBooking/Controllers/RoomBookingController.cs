@@ -132,7 +132,8 @@ namespace Smart_Dom.Areas.RoomBooking.Controllers
                 CheckInTime = booking.DesiredStart,
                 CheckOutTime = booking.DesiredEnd,
                 RoomId = booking.RoomId,
-                UserId = booking.UserId
+                UserId = booking.UserId,
+                Status = "checked-in"
             };
 
             await _roomBookingService.UpdateBookingAsync(booking);

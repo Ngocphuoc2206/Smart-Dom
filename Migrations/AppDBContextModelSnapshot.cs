@@ -70,6 +70,9 @@ namespace Smart_Dom.Migrations
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -122,7 +125,7 @@ namespace Smart_Dom.Migrations
                     b.ToTable("Contracts");
                 });
 
-            modelBuilder.Entity("Smart_Dom.Models.DurationContract", b =>
+            modelBuilder.Entity("Smart_Dom.Models.DurationContractModel", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -149,14 +152,11 @@ namespace Smart_Dom.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ContractID")
+                        .HasColumnType("int");
+
                     b.Property<float>("ElectricUsage")
                         .HasColumnType("real");
-
-                    b.Property<int>("IDRoom")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IDUser")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("InvoiceDateLimit")
                         .HasColumnType("datetime2");
@@ -181,9 +181,7 @@ namespace Smart_Dom.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IDRoom");
-
-                    b.HasIndex("IDUser");
+                    b.HasIndex("ContractID");
 
                     b.ToTable("Invoices");
                 });
@@ -229,6 +227,35 @@ namespace Smart_Dom.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("MaintenanceRequests");
+                });
+
+            modelBuilder.Entity("Smart_Dom.Models.NotificationModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("Smart_Dom.Models.RoomBookingModel", b =>
@@ -382,7 +409,7 @@ namespace Smart_Dom.Migrations
 
             modelBuilder.Entity("Smart_Dom.Models.ContractModel", b =>
                 {
-                    b.HasOne("Smart_Dom.Models.DurationContract", "DurationContract")
+                    b.HasOne("Smart_Dom.Models.DurationContractModel", "DurationContract")
                         .WithMany()
                         .HasForeignKey("DurationContractID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -409,21 +436,13 @@ namespace Smart_Dom.Migrations
 
             modelBuilder.Entity("Smart_Dom.Models.InvoiceModel", b =>
                 {
-                    b.HasOne("Smart_Dom.Models.RoomModel", "Room")
+                    b.HasOne("Smart_Dom.Models.ContractModel", "Contract")
                         .WithMany()
-                        .HasForeignKey("IDRoom")
+                        .HasForeignKey("ContractID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Smart_Dom.Models.UserModel", "User")
-                        .WithMany()
-                        .HasForeignKey("IDUser")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Room");
-
-                    b.Navigation("User");
+                    b.Navigation("Contract");
                 });
 
             modelBuilder.Entity("Smart_Dom.Models.MaintenanceRequest", b =>
@@ -441,6 +460,17 @@ namespace Smart_Dom.Migrations
                         .IsRequired();
 
                     b.Navigation("Room");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Smart_Dom.Models.NotificationModel", b =>
+                {
+                    b.HasOne("Smart_Dom.Models.UserModel", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

@@ -35,17 +35,17 @@ namespace Smart_Dom.Repositories
             return await _context.Contracts.ToListAsync();
         }
 
-        public async Task<ContractModel?> GetByIdAsync(int id)
+        public async Task<ContractModel?> GetByIdAsync(int? id)
         {
             return await _context.Contracts.FirstOrDefaultAsync(c => c.ID == id);
         }
 
-        public async Task<ContractModel> GetByRoomIdAsync(int roomId)
+        public async Task<ContractModel> GetByRoomIdAsync(int? roomId)
         {
             return await _context.Contracts.FirstOrDefaultAsync(c => c.RoomId == roomId);
         }
 
-        public async Task<ContractModel?> GetByUserIdAsync(int userId)
+        public async Task<ContractModel?> GetByUserIdAsync(int? userId)
         {
             return await _context.Contracts.FirstOrDefaultAsync(c => c.IDUser == userId);
         }

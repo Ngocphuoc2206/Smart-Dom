@@ -22,5 +22,6 @@ namespace Smart_Dom.Models
         public DateTime CheckInTime { get; set; }
         [DataType(DataType.Date)]
         public DateTime CheckOutTime { get; set; }
+        public string? Status { get; set; } // e.g., "checked-in", "checked-out", "cancelled"
     }
 }

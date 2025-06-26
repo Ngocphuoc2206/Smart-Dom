@@ -11,6 +11,7 @@
         public string? Available { get; set; }
         public string? Description { get; set; }
         public string? Status { get; set; } // Assuming status is a string, e.g., "Available", "Occupied"
+        public string? RoomBookingStatus { get; set; } // Status of the booking (e.g., pending, confirmed, cancelled)
         public List<string>? Amenities { get; set; }
     }
 }

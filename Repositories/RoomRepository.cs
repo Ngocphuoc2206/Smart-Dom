@@ -56,6 +56,7 @@ namespace Smart_Dom.Repositories
                             FullName = u.FullName != null ? u.FullName : null,
                             Description = r.Description,
                             Status = r.Status,
+                            RoomBookingStatus = h.Status,
                             Amenities = r.Amenities != null ? r.Amenities.Split(new[] { ',' }, StringSplitOptions.None).ToList() : new List<string>() // Fix for CS0854
                         };
 
@@ -67,7 +68,7 @@ namespace Smart_Dom.Repositories
             return await _context.Rooms.FindAsync(id);
         }
 
-        public async Task<RoomModel?> GetByRoomNumberAsync(int roomNumber)
+        public async Task<RoomModel?> GetByRoomNumberAsync(int? roomNumber)
         {
             return await _context.Rooms
                 .FirstOrDefaultAsync(r => r.RoomNumber == roomNumber);

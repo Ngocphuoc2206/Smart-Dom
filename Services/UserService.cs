@@ -12,10 +12,14 @@ namespace Smart_Dom.Services
         private readonly IRoomRepository _roomRepository;
         private readonly IRoomBookingRepository _roomBookingRepository;
         private readonly IContractRepository _contractRepository;
+        private readonly ICheckInHistoryRepository _checkInHistoryRepository;
         private readonly IDurationContractRepository _durationContractRepository;
         private readonly ILogger<UserService> _logger;
         private readonly AppDBContext _context;
-        public UserService(IUserRepository userRepository, ILogger<UserService> logger, AppDBContext context, IRoomRepository roomRepository, IContractRepository contractRepository, IDurationContractRepository durationContractRepository, IRoomBookingRepository roomBookingRepository)
+        public UserService(IUserRepository userRepository, ILogger<UserService> logger, AppDBContext context, 
+            IRoomRepository roomRepository, IContractRepository contractRepository, 
+            IDurationContractRepository durationContractRepository, IRoomBookingRepository roomBookingRepository, 
+            ICheckInHistoryRepository checkInHistoryRepository)
         {
             _userRepository = userRepository;
             _logger = logger;
@@ -24,6 +28,7 @@ namespace Smart_Dom.Services
             _contractRepository = contractRepository;
             _durationContractRepository = durationContractRepository;
             _roomBookingRepository = roomBookingRepository;
+            _checkInHistoryRepository = checkInHistoryRepository;
         }
         public Task<UserModel?> AuthenticateUserAsync(string username, string password)
         {
@@ -84,6 +89,16 @@ namespace Smart_Dom.Services
                     DurationContractID = durationContract.ID
                 };
                 await _contractRepository.CreateAsync(newContract);
+
+                var newCheckInHistory = new CheckInHistoryModel
+                {
+                    UserId = newUser.ID,
+                    RoomId = room.ID,
+                    CheckInTime = user.DesiredStart,
+                    CheckOutTime = user.DesiredStart.AddMonths(user.DurationContract),
+                    Status = "checked-in",
+                };
+                await _checkInHistoryRepository.CreateCheckInHistoryAsync(newCheckInHistory);
                 await transaction.CommitAsync();
             }
             catch
@@ -96,7 +111,58 @@ namespace Smart_Dom.Services
 
         public async Task DeleteUserAsync(int id)
         {
-            await _userRepository.DeleteAsync(id);
+            _logger.LogInformation("Deleting user with ID: {Id}", id);
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                //update the checkin history status to cancelled
+                var checkInHistory = await _checkInHistoryRepository.GetCheckInTimesByUserIdAsync(id);
+                if (checkInHistory == null)
+                {
+                    _logger.LogWarning("No check-in history found for user with ID {Id}.", id);
+                    throw new KeyNotFoundException($"No check-in history found for user with ID {id}.");
+                }
+                checkInHistory.Status = "cancelled";
+                await _checkInHistoryRepository.UpdateCheckInHistoryAsync(checkInHistory);
+
+                //Update the room status
+                var roomBooking = await _roomBookingRepository.GetBookingsByUserIdAsync(id);
+                if (roomBooking == null)
+                {
+                    _logger.LogWarning("No room booking found for user with ID {Id}.", id);
+                    throw new KeyNotFoundException($"No room booking found for user with ID {id}.");
+                }
+                roomBooking.Status = "cancelled";
+                await _roomBookingRepository.UpdateBooking(roomBooking);
+                //update the room status to available
+                var room = await _roomRepository.GetByIdAsync(roomBooking.RoomId);
+                if (room == null)
+                {
+                    _logger.LogWarning("No room found with ID {RoomId}.", roomBooking.RoomId);
+                    throw new KeyNotFoundException($"No room found with ID {roomBooking.RoomId}.");
+                }
+                room.Status = "available";
+                await _roomRepository.UpdateAsync(room);
+
+                //Update the contrract status
+                var contract = await _contractRepository.GetByUserIdAsync(id);
+                if (contract == null)
+                {
+                    _logger.LogWarning("No contract found for user with ID {Id}.", id);
+                    throw new KeyNotFoundException($"No contract found for user with ID {id}.");
+                }
+                contract.Status = "cancelled";
+                await _contractRepository.UpdateAsync(contract);
+                await transaction.CommitAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while deleting user with ID {Id}.", id);
+                await transaction.RollbackAsync();
+                throw;
+            }
+
+            //await _userRepository.DeleteAsync(id);
         }
 
         public async Task<IEnumerable<UserModel>> GetAllUsersAsync()

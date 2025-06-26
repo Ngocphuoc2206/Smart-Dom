@@ -39,18 +39,14 @@ namespace Smart_Dom.Repositories
             return await _context.RoomBookings.FirstOrDefaultAsync(b => b.Id == id);
         }
 
-        public async Task<IEnumerable<RoomBookingModel>> GetBookingsByRoomIdAsync(int roomId)
+        public async Task<RoomBookingModel> GetBookingsByRoomIdAsync(int roomId)
         {
-            return await _context.RoomBookings
-                .Where(b => b.RoomId == roomId)
-                .ToListAsync();
+            return await _context.RoomBookings.FirstOrDefaultAsync(b => b.RoomId == roomId);
         }
 
-        public async Task<IEnumerable<RoomBookingModel>> GetBookingsByUserIdAsync(int userId)
+        public async Task<RoomBookingModel> GetBookingsByUserIdAsync(int userId)
         {
-            return await _context.RoomBookings
-                .Where(b => b.UserId == userId)
-                .ToListAsync();
+            return await _context.RoomBookings.FirstOrDefaultAsync(b => b.UserId == userId);
         }
 
         public async Task<IEnumerable<RoomBookingViewModel>> GetRoomAllInformation()
@@ -77,6 +73,7 @@ namespace Smart_Dom.Repositories
                                   DepositAmount = c.DepositAmount,
                                   DesiredEnd = rb.DesiredEnd,
                                   Status = r.Status,
+                                  RoomBookingStatus = rb.Status,
                                   EmergencyContact = u.EmergencyContact,
                                   EmergencyPhone = u.EmergencyPhone,
                                   DurationContract = dc.Duration

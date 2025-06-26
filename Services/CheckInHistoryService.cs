@@ -58,7 +58,7 @@ namespace Smart_Dom.Services
             return await _checkInHistoryRepository.GetCheckInTimesByRoomIdAsync(roomId);
         }
 
-        public async Task<IEnumerable<CheckInHistoryModel>> GetCheckInTimesByUserIdAsync(int userId)
+        public async Task<CheckInHistoryModel> GetCheckInTimesByUserIdAsync(int userId)
         {
             return await _checkInHistoryRepository.GetCheckInTimesByUserIdAsync(userId);
         }
