@@ -1,4 +1,5 @@
-﻿using Smart_Dom.Models;
+﻿using Smart_Dom.DTOs.Notification;
+using Smart_Dom.Models;
 using System.Threading.Tasks;
 
 namespace Smart_Dom.Services
@@ -6,10 +7,10 @@ namespace Smart_Dom.Services
     public interface INotificationService
     {
         Task<IEnumerable<NotificationModel>> GetAllNotificationAsync();
-        Task<NotificationModel?> GetByIdAsync(int id);
-        Task<NotificationModel?> GetByUserIdAsync(int userId);
-        Task CreateAsync(NotificationModel account);
-        Task DeleteAsync(int id);
-        Task UpdateAsync(NotificationModel account);
+        Task<NotificationModel?> GetNotiByIdAsync(int id);
+        Task<NotificationModel?> GetNotiByUserIdAsync(int userId);
+        Task CreateNotiAsync(CreateNotificationDTO account);
+        Task DeleteNotiAsync(int id);
+        Task UpdateNotiAsync(CreateNotificationDTO account);
     }
 }

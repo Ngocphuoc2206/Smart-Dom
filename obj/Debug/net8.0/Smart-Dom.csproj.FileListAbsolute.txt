@@ -298,3 +298,4 @@ C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\refin
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\Smart-Dom.pdb
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\Smart-Dom.genruntimeconfig.cache
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\ref\Smart-Dom.dll
+C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

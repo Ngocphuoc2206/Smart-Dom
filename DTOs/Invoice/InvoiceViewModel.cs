@@ -3,6 +3,7 @@
     public class InvoiceViewModel
     {
         public int Id { get; set; }
+        public int UserId { get; set; }
         public int RoomNumber { get; set; }
         public string? Tenant { get; set; }
         public string? InvoiceType { get; set; }

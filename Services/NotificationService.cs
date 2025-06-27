@@ -1,4 +1,5 @@
-﻿using Smart_Dom.Interfaces;
+﻿using Smart_Dom.DTOs.Notification;
+using Smart_Dom.Interfaces;
 using Smart_Dom.Models;
 
 namespace Smart_Dom.Services
@@ -7,16 +8,42 @@ namespace Smart_Dom.Services
     {
         private readonly INotificationRepository _notificationRepository;
         private readonly ILogger<NotificationService> _logger;
+        private readonly AppDBContext _appDBContext;
 
-        public NotificationService(INotificationRepository notificationRepository, ILogger<NotificationService> logger)
+        public NotificationService(INotificationRepository notificationRepository, ILogger<NotificationService> logger, AppDBContext appDBContext)
         {
             _notificationRepository = notificationRepository;
             _logger = logger;
+            _appDBContext = appDBContext;
         }
 
-        public Task CreateNotiAsync(NotificationModel account)
+        public async Task CreateNotiAsync(CreateNotificationDTO account)
         {
-            throw new NotImplementedException();
+            _logger.LogInformation("Create Notification");
+            if (account == null)
+            {
+                throw new ArgumentNullException("Cannot be null");
+            }
+            using var transaction = await _appDBContext.Database.BeginTransactionAsync();
+            try
+            {               
+                var notifycation = new NotificationModel()
+                {
+                    Title = account.Title,
+                    Message = account.Message,
+                    UserId = account.UserId,
+                    IsRead = false,
+                    CreatedAt = DateTime.Now,
+                };
+                await _notificationRepository.CreateAsync(notifycation);
+                await transaction.CommitAsync();
+            }
+            catch (Exception ex) 
+            {
+                await transaction.RollbackAsync();
+                _logger.LogError(ex, "Error creating Notification");
+                throw;
+            }
         }
 
         public Task DeleteNotiAsync(int id)
@@ -39,7 +66,7 @@ namespace Smart_Dom.Services
             return await _notificationRepository.GetByUserIdAsync(userId);
         }
 
-        public Task UpdateNotiAsync(NotificationModel account)
+        public Task UpdateNotiAsync(CreateNotificationDTO account)
         {
             throw new NotImplementedException();
         }

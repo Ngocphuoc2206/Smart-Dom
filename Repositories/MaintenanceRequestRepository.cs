@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Smart_Dom.DTOs.MaintenanceRequest;
 using Smart_Dom.Interfaces;
 using Smart_Dom.Models;
 
@@ -11,50 +12,85 @@ namespace Smart_Dom.Repositories
         {
             _context = context;
         }
-        public Task CreateRequestAsync(MaintenanceRequest request)
+        public async Task CreateRequestAsync(MaintenanceRequestModel request)
         {
-            throw new NotImplementedException();
+            await _context.MaintenanceRequests.AddAsync(request);
+            await SaveChangesAsync();
         }
 
-        public Task DeleteRequestAsync(int id)
+        public async Task DeleteRequestAsync(int id)
         {
-            throw new NotImplementedException();
+            var existMaintenanceRequest = await _context.MaintenanceRequests.FirstOrDefaultAsync(x => x.Id == id);
+            if (existMaintenanceRequest != null)
+            {
+                _context.MaintenanceRequests.Remove(existMaintenanceRequest);
+                await SaveChangesAsync();
+            }
+            else
+            {
+                throw new InvalidOperationException("Error Delete Maintenance Request");
+            }
         }
 
-        public async Task<IEnumerable<MaintenanceRequest>> GetAllRequestsAsync()
+        public async Task<IEnumerable<MaintenanceRequestViewModel>> GetAllInfoRequestsAsync()
+        {
+            var requests = from rq in _context.MaintenanceRequests
+                           join r in _context.Rooms on rq.RoomId equals r.ID
+                           join u in _context.Users on rq.UserId equals u.ID
+                           select new MaintenanceRequestViewModel
+                           {
+                               ID = rq.Id,
+                               CreateAt = rq.RequestDate,
+                               RoomNumber = r.RoomNumber,
+                               Tenant = u.FullName,
+                               IncidentType = rq.IncidentType,
+                               PriorityLevel = rq.PriorityLevel,
+                               Description = rq.Description,
+                               Status = rq.Status
+                           };
+            return await requests.ToListAsync();
+        }
+
+        public async Task<IEnumerable<MaintenanceRequestModel>> GetAllRequestsAsync()
         {
             return await _context.MaintenanceRequests.ToListAsync();
         }
 
-        public Task<MaintenanceRequest> GetRequestByIdAsync(int id)
+        public Task<MaintenanceRequestModel> GetRequestByIdAsync(int id)
         {
             return _context.MaintenanceRequests
                 .FirstOrDefaultAsync(r => r.Id == id);
         }
 
-        public Task<IEnumerable<MaintenanceRequest>> GetRequestsByPropertyIdAsync(int propertyId)
+        public async Task<IEnumerable<MaintenanceRequestModel>> GetRequestsByPriorityLevelAsync(string priorityLevel)
         {
-            throw new NotImplementedException();
+            return await _context.MaintenanceRequests.Where(i => i.PriorityLevel == priorityLevel).ToListAsync();
         }
 
-        public Task<IEnumerable<MaintenanceRequest>> GetRequestsByStatusAsync(string status)
+        public async Task<IEnumerable<MaintenanceRequestModel>> GetRequestsByRoomIdAsync(int roomId)
         {
-            throw new NotImplementedException();
+            return await _context.MaintenanceRequests.Where(i => i.RoomId == roomId).ToListAsync();
         }
 
-        public Task<IEnumerable<MaintenanceRequest>> GetRequestsByUserIdAsync(int userId)
+        public async Task<IEnumerable<MaintenanceRequestModel>> GetRequestsByStatusAsync(string status)
         {
-            throw new NotImplementedException();
+            return await _context.MaintenanceRequests.Where(i => i.Status == status).ToListAsync();
         }
 
-        public Task<bool> SaveChangesAsync()
+        public async Task<IEnumerable<MaintenanceRequestModel>> GetRequestsByUserIdAsync(int userId)
         {
-            throw new NotImplementedException();
+            return await _context.MaintenanceRequests.Where(i => i.UserId == userId).ToListAsync();
         }
 
-        public Task UpdateRequestAsync(MaintenanceRequest request)
+        public async Task<bool> SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task UpdateRequestAsync(MaintenanceRequestModel request)
+        {
+            _context.MaintenanceRequests.Update(request);
+            await _context.SaveChangesAsync();
         }
     }
 }

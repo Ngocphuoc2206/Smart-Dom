@@ -245,6 +245,10 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\f172a529-ccb5-47cc-be21-76e449e19e17_R.jpg",
+      "PackagePath": "staticwebassets\\uploads\\f172a529-ccb5-47cc-be21-76e449e19e17_R.jpg"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Smart-Dom.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },

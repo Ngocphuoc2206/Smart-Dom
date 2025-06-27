@@ -186,7 +186,7 @@ namespace Smart_Dom.Migrations
                     b.ToTable("Invoices");
                 });
 
-            modelBuilder.Entity("Smart_Dom.Models.MaintenanceRequest", b =>
+            modelBuilder.Entity("Smart_Dom.Models.MaintenanceRequestModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -195,10 +195,6 @@ namespace Smart_Dom.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Feedback")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -214,8 +210,19 @@ namespace Smart_Dom.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("RequestDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ResponeFromOwners")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -248,6 +255,10 @@ namespace Smart_Dom.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -256,6 +267,28 @@ namespace Smart_Dom.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("Smart_Dom.Models.ReviewImageModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoomReviewId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomReviewId");
+
+                    b.ToTable("ReviewsImages");
                 });
 
             modelBuilder.Entity("Smart_Dom.Models.RoomBookingModel", b =>
@@ -327,6 +360,59 @@ namespace Smart_Dom.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("Smart_Dom.Models.RoomReviewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AmenitiesRating")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CleanlinessRating")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ExperienceComment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HostAttitudeRating")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsAnonymous")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LocationRating")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OverallRating")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ResponseDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ResponseFromOwner")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ValueForMoneyRating")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("RoomReviews");
                 });
 
             modelBuilder.Entity("Smart_Dom.Models.UserModel", b =>
@@ -445,7 +531,7 @@ namespace Smart_Dom.Migrations
                     b.Navigation("Contract");
                 });
 
-            modelBuilder.Entity("Smart_Dom.Models.MaintenanceRequest", b =>
+            modelBuilder.Entity("Smart_Dom.Models.MaintenanceRequestModel", b =>
                 {
                     b.HasOne("Smart_Dom.Models.RoomModel", "Room")
                         .WithMany()
@@ -475,6 +561,17 @@ namespace Smart_Dom.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Smart_Dom.Models.ReviewImageModel", b =>
+                {
+                    b.HasOne("Smart_Dom.Models.RoomReviewModel", "RoomReview")
+                        .WithMany("Images")
+                        .HasForeignKey("RoomReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RoomReview");
+                });
+
             modelBuilder.Entity("Smart_Dom.Models.RoomBookingModel", b =>
                 {
                     b.HasOne("Smart_Dom.Models.RoomModel", "Room")
@@ -492,6 +589,22 @@ namespace Smart_Dom.Migrations
                     b.Navigation("Room");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Smart_Dom.Models.RoomReviewModel", b =>
+                {
+                    b.HasOne("Smart_Dom.Models.UserModel", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Smart_Dom.Models.RoomReviewModel", b =>
+                {
+                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }

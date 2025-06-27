@@ -141,6 +141,126 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Smart_Dom.Areas.MaintenanceRequest.Controllers.MaintenanceRequestController",
+    "Method": "Get",
+    "RelativePath": "api/MaintenanceRequest",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.MaintenanceRequest.Controllers.MaintenanceRequestController",
+    "Method": "Create",
+    "RelativePath": "api/MaintenanceRequest/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "maintenanceRequest",
+        "Type": "Smart_Dom.DTOs.MaintenanceRequest.CreateMaintenanceRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.MaintenanceRequest.Controllers.MaintenanceRequestController",
+    "Method": "NotifyTenant",
+    "RelativePath": "api/MaintenanceRequest/notify/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.MaintenanceRequest.Controllers.MaintenanceRequestController",
+    "Method": "GetInfo",
+    "RelativePath": "api/MaintenanceRequest/tenant",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.MaintenanceRequest.Controllers.MaintenanceRequestController",
+    "Method": "UpdateResponse",
+    "RelativePath": "api/MaintenanceRequest/update/response/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "updateResponse",
+        "Type": "Smart_Dom.DTOs.MaintenanceRequest.UpdateStatusRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.MaintenanceRequest.Controllers.MaintenanceRequestController",
+    "Method": "UpdateStatus",
+    "RelativePath": "api/MaintenanceRequest/update/status/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "updateStatus",
+        "Type": "Smart_Dom.DTOs.MaintenanceRequest.UpdateStatusRequestDTO",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.Notification.Controllers.NotificationController",
+    "Method": "Get",
+    "RelativePath": "api/Notification",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.Notification.Controllers.NotificationController",
+    "Method": "Create",
+    "RelativePath": "api/Notification/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "notification",
+        "Type": "Smart_Dom.DTOs.Notification.CreateNotificationDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Smart_Dom.Areas.Room.Controllers.RoomController",
     "Method": "Get",
     "RelativePath": "api/Room",
@@ -297,6 +417,129 @@
     "ContainingType": "Smart_Dom.Areas.RoomBooking.Controllers.RoomBookingController",
     "Method": "GetAllTenant",
     "RelativePath": "api/RoomBooking/tenant",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.RoomReview.Controllers.RoomReviewController",
+    "Method": "GetAll",
+    "RelativePath": "api/RoomReview",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.RoomReview.Controllers.RoomReviewController",
+    "Method": "CreateReview",
+    "RelativePath": "api/RoomReview/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "OverallRating",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "CleanlinessRating",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "AmenitiesRating",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "LocationRating",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "ValueForMoneyRating",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "HostAttitudeRating",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "ExperienceComment",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "IsAnonymous",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "Images",
+        "Type": "System.Collections.Generic.List\u00601[[Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.RoomReview.Controllers.RoomReviewController",
+    "Method": "UpdateResponseOwner",
+    "RelativePath": "api/RoomReview/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Smart_Dom.Areas.RoomReview.Controllers.CreateResposeRoomReview",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.RoomReview.Controllers.RoomReviewController",
+    "Method": "Delete",
+    "RelativePath": "api/RoomReview/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.RoomReview.Controllers.RoomReviewController",
+    "Method": "GetAllInfo",
+    "RelativePath": "api/RoomReview/all",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

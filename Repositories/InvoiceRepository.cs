@@ -44,6 +44,7 @@ namespace Smart_Dom.Repositories
                            select new InvoiceViewModel()
                            { 
                                 Id = i.Id,
+                                UserId = ct.IDUser,
                                 RoomNumber = r.RoomNumber,
                                 Tenant = u.FullName,
                                 InvoiceAmount = i.TotalAmount,

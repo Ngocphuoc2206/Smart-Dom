@@ -1,16 +1,19 @@
-﻿using Smart_Dom.Models;
+﻿using Smart_Dom.DTOs.MaintenanceRequest;
+using Smart_Dom.Models;
 
 namespace Smart_Dom.Interfaces
 {
     public interface IMaintenanceRequestRepository
     {
-        Task<IEnumerable<MaintenanceRequest>> GetAllRequestsAsync();
-        Task<MaintenanceRequest> GetRequestByIdAsync(int id);
-        Task<IEnumerable<MaintenanceRequest>> GetRequestsByUserIdAsync(int userId);
-        Task<IEnumerable<MaintenanceRequest>> GetRequestsByPropertyIdAsync(int propertyId);
-        Task<IEnumerable<MaintenanceRequest>> GetRequestsByStatusAsync(string status);
-        Task CreateRequestAsync(MaintenanceRequest request);
-        Task UpdateRequestAsync(MaintenanceRequest request);
+        Task<IEnumerable<MaintenanceRequestModel>> GetAllRequestsAsync();
+        Task<IEnumerable<MaintenanceRequestViewModel>> GetAllInfoRequestsAsync();
+        Task<MaintenanceRequestModel> GetRequestByIdAsync(int id);
+        Task<IEnumerable<MaintenanceRequestModel>> GetRequestsByUserIdAsync(int userId);
+        Task<IEnumerable<MaintenanceRequestModel>> GetRequestsByRoomIdAsync(int roomId);
+        Task<IEnumerable<MaintenanceRequestModel>> GetRequestsByPriorityLevelAsync(string priorityLevel);
+        Task<IEnumerable<MaintenanceRequestModel>> GetRequestsByStatusAsync(string status);
+        Task CreateRequestAsync(MaintenanceRequestModel request);
+        Task UpdateRequestAsync(MaintenanceRequestModel request);
         Task DeleteRequestAsync(int id);
         Task<bool> SaveChangesAsync();
     }
