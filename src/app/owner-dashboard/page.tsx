@@ -11,7 +11,10 @@ import { getInvoice } from "../hooks/useInvoice";
 import { NumberDomain } from "recharts/types/util/types";
 import jsPDF from "jspdf";
 import { toast } from "react-toastify";
+import { getMaintenanceRequest } from "../hooks/useMaintenanceRequest";
+import { getMaintenanceRequestInfo } from "../hooks/useMaintenanceRequestInfo";
 import "../../../Roboto-VariableFont_wdth,wght-normal";
+import { stringify } from "querystring";
 
 // Mock data
 
@@ -197,6 +200,18 @@ interface DurationContract {
   duration: number; // e.g., "1 month", "3 months"
 }
 
+export interface Report {
+  id: number;
+  incidentType: string; // Vấn đề
+  roomNumber: string; // Phòng
+  tenant: string; // Khách thuê
+  createAt: string; // Ngày báo cáo (ISO date string)
+  priority: "high" | "medium" | "low"; // Mức độ ưu tiên
+  status: string; // Trạng thái xử lý
+  description?: string; // Mô tả chi tiết
+  response?: string; // Phản hồi từ quản lý (tùy chọn)
+}
+
 export default function OwnerDashboard() {
   const [activeTab, setActiveTab] = useState("overview");
   const { logout } = useAuth();
@@ -207,7 +222,10 @@ export default function OwnerDashboard() {
   const [contractOptions, setContractOptions] = useState<DurationContract[]>(
     []
   );
-
+  const [maintenanceRequest, setMaintenanceRequest] = useState<any[]>([]);
+  const [maintenanceRequestInfo, setMaintenanceRequestInfo] = useState<any[]>(
+    []
+  );
   const [invoiceTenant, setInvoiceTenant] = useState<any[]>([]);
 
   const handleLogout = () => {
@@ -220,6 +238,8 @@ export default function OwnerDashboard() {
     getRoomBookingInfo().then(setRoomBookingInfo);
     getDurationContract().then(setContractOptions);
     getInvoice().then(setInvoiceTenant);
+    getMaintenanceRequest().then(setMaintenanceRequest);
+    getMaintenanceRequestInfo().then(setMaintenanceRequestInfo);
   }, []);
 
   // Modal states
@@ -233,13 +253,13 @@ export default function OwnerDashboard() {
   const [editingRoom, setEditingRoom] = useState<any>(null);
   const [editingTenant, setEditingTenant] = useState<any>(null);
   const [editingBill, setEditingBill] = useState<any>(null);
-  const [selectedReport, setSelectedReport] = useState<any>(null);
   const [selectedReview, setSelectedReview] = useState<any>(null);
   const [responseText, setResponseText] = useState("");
   const [selectedConversation, setSelectedConversation] = useState<any>(null);
   const [newMessage, setNewMessage] = useState("");
   const [isExpired, setIsExpired] = useState(false);
   const [tenants, setTenants] = useState<any>([]);
+  const [selectedReport, setSelectedReport] = useState<Report | null>(null);
 
   // Form data
   const [roomForm, setRoomForm] = useState({
@@ -324,6 +344,8 @@ export default function OwnerDashboard() {
         return "bg-green-100 text-green-800";
       case "pending":
         return "bg-yellow-100 text-yellow-800";
+      case "pending processing":
+        return "bg-yellow-100 text-yellow-800"; // 👈 Thêm dòng này
       case "overdue":
         return "bg-red-100 text-red-800";
       case "in-progress":
@@ -351,10 +373,29 @@ export default function OwnerDashboard() {
         return "Quá hạn";
       case "in-progress":
         return "Đang xử lý";
+      case "pending processing":
+        return "Chờ xử lý";
       case "completed":
         return "Hoàn thành";
       default:
         return status;
+    }
+  };
+
+  const translateInvoiceType = (type: string): string => {
+    switch (type) {
+      case "monthly":
+        return "Tiền phòng";
+      case "electric":
+        return "Tiền điện";
+      case "water":
+        return "Tiền nước";
+      case "service":
+        return "Phí dịch vụ";
+      case "other":
+        return "Khác";
+      default:
+        return type; // fallback nếu không khớp
     }
   };
 
@@ -476,6 +517,11 @@ export default function OwnerDashboard() {
   const fetchBill = async () => {
     const data = await getInvoice();
     setInvoiceTenant(data);
+  };
+
+  const fetchMaintenanceRequestInfo = async () => {
+    const data = await getMaintenanceRequestInfo();
+    setMaintenanceRequestInfo(data);
   };
 
   const fetchExpiredStatus = async (id: number) => {
@@ -644,7 +690,6 @@ export default function OwnerDashboard() {
       });
       if (!response.ok) {
         throw new Error("Xác nhận không thành công");
-        return;
       }
       alert("Xác nhận thành công!");
       fetchRooms(); // Cập nhật danh sách phòng
@@ -702,13 +747,53 @@ export default function OwnerDashboard() {
     }
   };
 
-  const handleUpdateReportStatus = (reportId: string, newStatus: string) => {
-    console.log("Updating report status:", reportId, newStatus);
+  const handleUpdateReportStatus = async (
+    reportId: string,
+    newStatus: string
+  ) => {
+    const url = `https://localhost:7257/api/MaintenanceRequest/update/status/${reportId}`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        status: newStatus,
+      }),
+    });
+    if (!response.ok) {
+      alert("Có lỗi xảy ra trong quá trình cập nhật trạng thái!");
+      return;
+    }
+    setSelectedReport((prev) => (prev ? { ...prev, status: newStatus } : prev));
+    await fetchMaintenanceRequestInfo();
     alert(
       `Cập nhật trạng thái báo cáo thành "${getStatusText(
         newStatus
       )}" thành công!`
     );
+  };
+
+  const handleSubmitResponseTenant = async (
+    reportId: string,
+    newResponse: string
+  ) => {
+    const url = `https://localhost:7257/api/MaintenanceRequest/update/response/${reportId}`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        response: newResponse,
+      }),
+    });
+    if (!response.ok) {
+      alert("Có lỗi xảy ra trong quá trình cập nhật phản hồi!");
+      return;
+    }
+    await fetchMaintenanceRequestInfo();
+    alert(`Cập nhật phản hồi cho khách hàng thành công!`);
     setShowReportDetailModal(false);
   };
 
@@ -787,14 +872,14 @@ export default function OwnerDashboard() {
   };
 
   const handleReminder = async (bill: any) => {
-    const res = await fetch("/api/notifications", {
+    const res = await fetch(`https://localhost:7257/api/Notification/create`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         userId: bill.userId, // lấy từ contract
-        message: `Bạn có hóa đơn ${
-          bill.invoiceType === "monthly" ? "tiền phòng" : "tiền điện"
-        } ${bill.invoiceAmount.toLocaleString()}đ cần thanh toán trước ${formatDate(
+        message: `Bạn có hóa đơn ${translateInvoiceType(
+          bill.invoiceType
+        )} ${bill.invoiceAmount.toLocaleString()}đ cần thanh toán trước ${formatDate(
           bill.invoiceDateLimit
         )}`,
       }),
@@ -802,9 +887,25 @@ export default function OwnerDashboard() {
 
     if (res.ok) {
       toast.success("Đã gửi nhắc nhở thanh toán!");
+      alert("Đã gửi nhắc nhở thanh toán!");
     } else {
       toast.error("Gửi nhắc nhở thất bại.");
+      alert("Gửi nhắc nhở thất bại.");
     }
+  };
+
+  const handleNotifyTenant = async (reportId: string) => {
+    const response = await fetch(
+      `https://localhost:7257/api/MaintenanceRequest/notify/${reportId}`,
+      { method: "POST" }
+    );
+    if (!response.ok) {
+      alert("Không gửi được thông báo cho khách thuê.");
+      return;
+    }
+
+    alert("Thông báo đã được gửi thành công!");
+    setShowReportDetailModal(false);
   };
 
   return (
@@ -1404,43 +1505,12 @@ export default function OwnerDashboard() {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {[
-                      {
-                        id: 1,
-                        issue: "Máy lạnh không hoạt động",
-                        room: "101",
-                        tenant: "Nguyễn Văn A",
-                        priority: "high",
-                        date: "2024-02-20",
-                        status: "in-progress",
-                        description: "Máy lạnh không thổi lạnh từ 2 ngày nay",
-                      },
-                      {
-                        id: 2,
-                        issue: "Vòi nước bị rò rỉ",
-                        room: "102",
-                        tenant: "Trần Thị B",
-                        priority: "medium",
-                        date: "2024-02-18",
-                        status: "completed",
-                        description: "Vòi lavabo trong phòng tắm bị rò nước",
-                      },
-                      {
-                        id: 3,
-                        issue: "Bóng đèn hỏng",
-                        room: "201",
-                        tenant: "Lê Văn C",
-                        priority: "low",
-                        date: "2024-02-25",
-                        status: "pending",
-                        description: "Bóng đèn phòng ngủ không sáng",
-                      },
-                    ].map((report) => (
+                    {maintenanceRequestInfo.map((report) => (
                       <tr key={report.id}>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div>
                             <div className="text-sm font-medium text-gray-900">
-                              {report.issue}
+                              {report.incidentType}
                             </div>
                             <div className="text-sm text-gray-500 max-w-xs truncate">
                               {report.description}
@@ -1448,7 +1518,7 @@ export default function OwnerDashboard() {
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {report.room}
+                          {report.roomNumber}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           {report.tenant}
@@ -1456,22 +1526,22 @@ export default function OwnerDashboard() {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span
                             className={`px-2 py-1 text-xs rounded-full ${
-                              report.priority === "high"
+                              report.priorityLevel === "high"
                                 ? "bg-red-100 text-red-800"
-                                : report.priority === "medium"
+                                : report.priorityLevel === "medium"
                                 ? "bg-yellow-100 text-yellow-800"
                                 : "bg-green-100 text-green-800"
                             }`}
                           >
-                            {report.priority === "high"
+                            {report.priorityLevel === "high"
                               ? "Cao"
-                              : report.priority === "medium"
+                              : report.priorityLevel === "medium"
                               ? "Trung bình"
                               : "Thấp"}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {report.date}
+                          {formatDate(report.createAt)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span
@@ -1495,7 +1565,7 @@ export default function OwnerDashboard() {
                           >
                             Cập nhật
                           </button>
-                          {report.status === "pending" && (
+                          {report.status === "pending processing" && (
                             <button
                               onClick={() =>
                                 handleUpdateReportStatus(
@@ -2774,14 +2844,14 @@ export default function OwnerDashboard() {
                       Vấn đề
                     </label>
                     <p className="text-gray-900 font-medium">
-                      {selectedReport.issue}
+                      {selectedReport.incidentType}
                     </p>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Phòng
                     </label>
-                    <p className="text-gray-900">{selectedReport.room}</p>
+                    <p className="text-gray-900">{selectedReport.roomNumber}</p>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -2795,7 +2865,9 @@ export default function OwnerDashboard() {
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Ngày báo cáo
                     </label>
-                    <p className="text-gray-900">{selectedReport.date}</p>
+                    <p className="text-gray-900">
+                      {formatDate(selectedReport.createAt)}
+                    </p>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -2848,7 +2920,7 @@ export default function OwnerDashboard() {
                   Cập nhật trạng thái
                 </label>
                 <div className="flex space-x-3">
-                  {selectedReport.status === "pending" && (
+                  {selectedReport.status === "pending processing" && (
                     <button
                       onClick={() =>
                         handleUpdateReportStatus(
@@ -2891,11 +2963,23 @@ export default function OwnerDashboard() {
                 <textarea
                   className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   rows={3}
+                  value={selectedReport.response}
+                  onChange={(e) =>
+                    setSelectedReport((prev) =>
+                      prev ? { ...prev, response: e.target.value } : prev
+                    )
+                  }
                   placeholder="Nhập phản hồi cho khách thuê về tiến độ xử lý..."
+                ></textarea>
+                <button
+                  onClick={() =>
+                    handleSubmitResponseTenant(
+                      selectedReport.id.toString(),
+                      selectedReport?.response ?? ""
+                    )
+                  }
+                  className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
-                  {selectedReport.response || ""}
-                </textarea>
-                <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
                   Gửi phản hồi
                 </button>
               </div>
@@ -2910,8 +2994,7 @@ export default function OwnerDashboard() {
                 </button>
                 <button
                   onClick={() => {
-                    alert("Đã gửi thông báo cho khách thuê!");
-                    setShowReportDetailModal(false);
+                    handleNotifyTenant(selectedReport.id.toString());
                   }}
                   className="flex-1 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors"
                 >

@@ -106,7 +106,7 @@ const mockMyReports = [
     {
         id: 1,
         issue: "Máy lạnh không hoạt động",
-        status: "in-progress",
+        status: " ",
         date: "2024-02-20",
         response: "Đã liên hệ thợ sửa chữa, dự kiến hoàn thành trong 2 ngày.",
         priority: "high"

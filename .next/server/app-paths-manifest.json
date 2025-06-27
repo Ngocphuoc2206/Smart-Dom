@@ -2,6 +2,5 @@
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/owner-dashboard/page": "app/owner-dashboard/page.js",
   "/page": "app/page.js",
-  "/payment/page": "app/payment/page.js",
   "/tenant-dashboard/page": "app/tenant-dashboard/page.js"
 }

@@ -6,6 +6,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { getRoom } from "@/app/hooks/useRoom";
 import { getInvoice } from "../hooks/useInvoice";
+import { getMaintenanceRequest } from "../hooks/useMaintenanceRequest";
 
 // Mock data
 
@@ -40,7 +41,7 @@ const mockMyReports = [
   {
     id: 1,
     issue: "Máy lạnh không hoạt động",
-    status: "in-progress",
+    status: " ",
     date: "2024-02-20",
     response: "Đã liên hệ thợ sửa chữa, dự kiến hoàn thành trong 2 ngày.",
     priority: "high",
@@ -79,10 +80,12 @@ export default function TenantDashboard() {
   const router = useRouter();
   const [rooms, setRooms] = useState<any[]>([]);
   const [invoiceTenant, setInvoiceTenant] = useState<any[]>([]);
+  const [maintenanceRequest, setMaintenanceRequest] = useState<any[]>([]);
 
   useEffect(() => {
     getRoom().then(setRooms);
     getInvoice().then(setInvoiceTenant);
+    getMaintenanceRequest().then(setMaintenanceRequest);
   }, []);
 
   const handleLogout = () => {
@@ -123,17 +126,23 @@ export default function TenantDashboard() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
+      case "occupied":
+        return "bg-green-100 text-green-800";
+      case "available":
+        return "bg-blue-100 text-blue-800";
+      case "maintenance":
+        return "bg-yellow-100 text-yellow-800";
       case "paid":
         return "bg-green-100 text-green-800";
       case "pending":
         return "bg-yellow-100 text-yellow-800";
+      case "pending processing":
+        return "bg-yellow-100 text-yellow-800"; // 👈 Thêm dòng này
       case "overdue":
         return "bg-red-100 text-red-800";
       case "in-progress":
         return "bg-blue-100 text-blue-800";
       case "completed":
-        return "bg-green-100 text-green-800";
-      case "active":
         return "bg-green-100 text-green-800";
       default:
         return "bg-gray-100 text-gray-800";
@@ -158,6 +167,8 @@ export default function TenantDashboard() {
         return "Phòng trống";
       case "occupied":
         return "Đã thuê";
+      case "pending processing":
+        return "Chờ xử lý";
       case "maintenance":
         return "Bảo trì";
       default:
@@ -211,19 +222,54 @@ export default function TenantDashboard() {
     }));
   };
 
-  const handleSubmitReport = (e: React.FormEvent) => {
+  const handleSubmitReport = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate API call
-    console.log("Submitting report:", reportForm);
-    setShowReportModal(false);
-    setReportForm({
-      issue: "",
-      description: "",
-      priority: "medium",
-      location: "",
-    });
-    // Show success message (you can implement toast notification here)
-    alert("Báo cáo sự cố đã được gửi thành công!");
+    const IDRoom = rooms.find(
+      (r) =>
+        r.fullName.trim().toLowerCase() === user?.name?.trim().toLowerCase()
+    )?.id;
+
+    alert(`IDRoom: ${IDRoom} - UserName: ${user?.name}`);
+    try {
+      const response = await fetch(
+        "https://localhost:7257/api/MaintenanceRequest/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: user?.idUser,
+            roomId: IDRoom,
+            incidentType: reportForm.issue,
+            location: reportForm.location,
+            priorityLevel: reportForm.priority,
+            description: reportForm.description,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        // Reset form + đóng modal
+        setShowReportModal(false);
+        setReportForm({
+          issue: "",
+          description: "",
+          priority: "medium",
+          location: "",
+        });
+
+        // Thông báo thành công
+        alert("Báo cáo sự cố đã được gửi thành công!");
+      } else {
+        const error = await response.json();
+        console.error("Lỗi gửi báo cáo:", error);
+        alert("Không thể gửi báo cáo. Vui lòng thử lại.");
+      }
+    } catch (err) {
+      console.error("Lỗi mạng:", err);
+      alert("Lỗi kết nối đến máy chủ!");
+    }
   };
 
   const translateInvoiceType = (type: string): string => {
@@ -1041,27 +1087,27 @@ export default function TenantDashboard() {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {mockMyReports.map((report) => (
+                    {maintenanceRequest.map((report) => (
                       <tr key={report.id}>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {report.issue}
+                          {report.incidentType}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {report.date}
+                          {formatDateTime(report.requestDate)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span
                             className={`px-2 py-1 text-xs rounded-full ${
-                              report.priority === "high"
+                              report.priorityLevel === "high"
                                 ? "bg-red-100 text-red-800"
-                                : report.priority === "medium"
+                                : report.priorityLevel === "medium"
                                 ? "bg-yellow-100 text-yellow-800"
                                 : "bg-green-100 text-green-800"
                             }`}
                           >
-                            {report.priority === "high"
+                            {report.priorityLevel === "high"
                               ? "Cao"
-                              : report.priority === "medium"
+                              : report.priorityLevel === "medium"
                               ? "Trung bình"
                               : "Thấp"}
                           </span>
@@ -1076,7 +1122,7 @@ export default function TenantDashboard() {
                           </span>
                         </td>
                         <td className="px-6 py-4 text-sm text-gray-900 max-w-xs truncate">
-                          {report.response || "Chưa có phản hồi"}
+                          {report.responeFromOwners || "Chưa có phản hồi"}
                         </td>
                       </tr>
                     ))}
