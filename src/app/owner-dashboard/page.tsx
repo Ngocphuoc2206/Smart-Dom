@@ -13,67 +13,13 @@ import jsPDF from "jspdf";
 import { toast } from "react-toastify";
 import { getMaintenanceRequest } from "../hooks/useMaintenanceRequest";
 import { getMaintenanceRequestInfo } from "../hooks/useMaintenanceRequestInfo";
+import { getRoomReview } from "../hooks/useRoomReview";
+import { getContract } from "../hooks/useContract";
+import { getRoomReviewInfo } from "../hooks/useRoomReviewInfo";
 import "../../../Roboto-VariableFont_wdth,wght-normal";
 import { stringify } from "querystring";
 
 // Mock data
-
-const mockBills = [
-  {
-    id: 1,
-    room: "101",
-    tenant: "Nguyễn Văn A",
-    amount: 3500000,
-    type: "monthly",
-    status: "paid",
-    dueDate: "2024-01-25",
-  },
-  {
-    id: 2,
-    room: "201",
-    tenant: "Trần Thị B",
-    amount: 4000000,
-    type: "monthly",
-    status: "pending",
-    dueDate: "2024-01-25",
-  },
-  {
-    id: 3,
-    room: "102",
-    tenant: "Lê Văn C",
-    amount: 500000,
-    type: "electric",
-    status: "overdue",
-    dueDate: "2024-01-20",
-  },
-];
-
-const mockReports = [
-  {
-    id: 1,
-    room: "101",
-    issue: "Máy lạnh không hoạt động",
-    status: "pending",
-    date: "2024-01-15",
-    tenant: "Nguyễn Văn A",
-  },
-  {
-    id: 2,
-    room: "201",
-    issue: "Vòi nước bị rò rỉ",
-    status: "in-progress",
-    date: "2024-01-14",
-    tenant: "Trần Thị B",
-  },
-  {
-    id: 3,
-    room: "103",
-    issue: "Đèn phòng bị hỏng",
-    status: "completed",
-    date: "2024-01-12",
-    tenant: "Lê Văn C",
-  },
-];
 
 const mockConversations = [
   {
@@ -222,11 +168,19 @@ export default function OwnerDashboard() {
   const [contractOptions, setContractOptions] = useState<DurationContract[]>(
     []
   );
+  const [contracts, setContract] = useState<any[]>([]);
   const [maintenanceRequest, setMaintenanceRequest] = useState<any[]>([]);
+  const [roomReviews, setRoomReviews] = useState<any[]>([]);
+  const [roomReviewInfo, setRoomReviewInfo] = useState<any[]>([]);
   const [maintenanceRequestInfo, setMaintenanceRequestInfo] = useState<any[]>(
     []
   );
   const [invoiceTenant, setInvoiceTenant] = useState<any[]>([]);
+  const [avgRating, setAvgRating] = useState(0);
+  const [totalReviews, setTotalReviews] = useState(0);
+  const [weeklyCount, setWeeklyCount] = useState(0);
+  const [positivePercent, setPositivePercent] = useState(0);
+  const [favoriteRoom, setFavoriteRoom] = useState("");
 
   const handleLogout = () => {
     logout();
@@ -240,7 +194,81 @@ export default function OwnerDashboard() {
     getInvoice().then(setInvoiceTenant);
     getMaintenanceRequest().then(setMaintenanceRequest);
     getMaintenanceRequestInfo().then(setMaintenanceRequestInfo);
+    getContract().then(setContract);
+    getRoomReview().then(setRoomReviews);
+    getRoomReviewInfo().then(setRoomReviewInfo);
   }, []);
+
+  useEffect(() => {
+    if (!Array.isArray(roomReviewInfo) || roomReviewInfo.length === 0) {
+      // Nếu không có dữ liệu đánh giá
+      setAvgRating(0);
+      setPositivePercent(0);
+      setTotalReviews(0);
+      setWeeklyCount(0);
+      setFavoriteRoom("Không có");
+      return;
+    }
+
+    // 1. Trung bình đánh giá
+    const avg =
+      roomReviewInfo.reduce((sum, r) => sum + (r.overallRating || 0), 0) /
+      roomReviewInfo.length;
+    setAvgRating(avg);
+
+    //Tính tổng đánh giá
+    const totalReview = roomReviewInfo.length;
+    setTotalReviews(totalReview);
+
+    // 2. Số đánh giá trong 7 ngày gần đây
+    const now = Date.now();
+    const sevenDaysAgo = now - 7 * 24 * 60 * 60 * 1000;
+
+    const weekly = roomReviewInfo.filter((r) => {
+      const created = new Date(r.createAt).getTime();
+      return !isNaN(created) && created >= sevenDaysAgo;
+    }).length;
+    setWeeklyCount(weekly);
+
+    // 3. Tỷ lệ đánh giá tích cực (>= 4 sao)
+    const positives = roomReviewInfo.filter(
+      (r) => typeof r.overallRating === "number" && r.overallRating >= 4
+    ).length;
+    const percent = (positives / roomReviewInfo.length) * 100;
+    setPositivePercent(percent);
+
+    // 4. Phòng được đánh giá nhiều nhất
+    const roomMap: { [roomNumber: number]: number } = {};
+    roomReviewInfo.forEach((r) => {
+      if (r.roomNumber != null) {
+        roomMap[r.roomNumber] = (roomMap[r.roomNumber] || 0) + 1;
+      }
+    });
+
+    const sorted = Object.entries(roomMap).sort((a, b) => b[1] - a[1]);
+    const mostReviewedRoom = sorted.length > 0 ? sorted[0][0] : "Không có";
+    setFavoriteRoom(mostReviewedRoom);
+  }, [roomReviewInfo]); // Chỉ chạy lại khi roomReviewInfo thay đổi
+
+  //Mock Data from API
+  const transformedReviews = roomReviewInfo.map((r) => ({
+    id: r.id,
+    tenant: r.isAnonymous ? "Ẩn danh" : r.fullName,
+    room: r.roomNumber.toString(),
+    rating: r.overallRating,
+    date: new Date(r.createAt).toISOString().split("T")[0], // yyyy-mm-dd
+    review: r.experienceComment,
+    categories: {
+      cleanliness: r.cleanlinessRating,
+      facilities: r.amenitiesRating,
+      location: r.locationRating,
+      value: r.valueForMoneyRating,
+      landlord: r.hostAttitudeRating,
+    },
+    anonymous: r.isAnonymous,
+    response: r.responseFromOwner,
+    responseDate: null,
+  }));
 
   // Modal states
   const [showRoomModal, setShowRoomModal] = useState(false);
@@ -510,6 +538,11 @@ export default function OwnerDashboard() {
     const data = await getRoom();
     setRooms(data);
   };
+
+  const fetchRoomReviewsInfo = async () => {
+    const data = await getRoomReviewInfo();
+    setRoomReviewInfo(data);
+  };
   const fetchRoomBookingInfo = async () => {
     const data = await getRoomBookingInfo();
     setRoomBookingInfo(data);
@@ -774,38 +807,30 @@ export default function OwnerDashboard() {
     );
   };
 
-  const handleSubmitResponseTenant = async (
-    reportId: string,
-    newResponse: string
-  ) => {
-    const url = `https://localhost:7257/api/MaintenanceRequest/update/response/${reportId}`;
-    const response = await fetch(url, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        response: newResponse,
-      }),
-    });
-    if (!response.ok) {
-      alert("Có lỗi xảy ra trong quá trình cập nhật phản hồi!");
-      return;
-    }
-    await fetchMaintenanceRequestInfo();
-    alert(`Cập nhật phản hồi cho khách hàng thành công!`);
-    setShowReportDetailModal(false);
-  };
-
   const openReviewResponseModal = (review: any) => {
     setSelectedReview(review);
     setResponseText(review.response || "");
     setShowReviewResponseModal(true);
   };
 
-  const handleReviewResponse = (e: React.FormEvent) => {
+  const handleReviewResponse = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Responding to review:", selectedReview.id, responseText);
+    alert(responseText);
+    const url = `https://localhost:7257/api/RoomReview/${selectedReview.id}`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        response: responseText,
+      }),
+    });
+    if (!response.ok) {
+      alert("Có lỗi xảy ra trong quá trình cập nhật trạng thái!");
+      return;
+    }
+    fetchRoomReviewsInfo();
     alert("Phản hồi đánh giá thành công!");
     setShowReviewResponseModal(false);
     setResponseText("");
@@ -894,19 +919,41 @@ export default function OwnerDashboard() {
     }
   };
 
-  const handleNotifyTenant = async (reportId: string) => {
-    const response = await fetch(
-      `https://localhost:7257/api/MaintenanceRequest/notify/${reportId}`,
-      { method: "POST" }
-    );
-    if (!response.ok) {
-      alert("Không gửi được thông báo cho khách thuê.");
+  const handleNotifyTenant = async (reportId: string, newResponse: string) => {
+    const url = `https://localhost:7257/api/MaintenanceRequest/update/response/${reportId}`;
+    const res_response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        response: newResponse,
+      }),
+    });
+    if (!res_response.ok) {
+      alert("Có lỗi xảy ra trong quá trình cập nhật phản hồi!");
       return;
     }
 
+    const res_notify = await fetch(
+      `https://localhost:7257/api/MaintenanceRequest/notify/${reportId}`,
+      { method: "POST" }
+    );
+    if (!res_notify.ok) {
+      alert("Không gửi được thông báo cho khách thuê.");
+      return;
+    }
     alert("Thông báo đã được gửi thành công!");
+    await fetchMaintenanceRequestInfo();
     setShowReportDetailModal(false);
   };
+
+  //
+  const totalRoom = rooms.length;
+  const rentedRoom = rooms.filter((r) => r.status == "occupied");
+  const rented = rentedRoom.length;
+  const totalRevenue = rentedRoom.reduce((sum, room) => sum + room.price, 0);
+  const availableRoom = rooms.filter((r) => r.status == "available").length;
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
@@ -1028,7 +1075,9 @@ export default function OwnerDashboard() {
                       <p className="text-sm font-medium text-gray-600">
                         Tổng phòng
                       </p>
-                      <p className="text-2xl font-bold text-gray-900">5</p>
+                      <p className="text-2xl font-bold text-gray-900">
+                        {totalRoom}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -1039,7 +1088,9 @@ export default function OwnerDashboard() {
                       <p className="text-sm font-medium text-gray-600">
                         Đã thuê
                       </p>
-                      <p className="text-2xl font-bold text-green-600">2</p>
+                      <p className="text-2xl font-bold text-green-600">
+                        {rented}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -1050,7 +1101,9 @@ export default function OwnerDashboard() {
                       <p className="text-sm font-medium text-gray-600">
                         Phòng trống
                       </p>
-                      <p className="text-2xl font-bold text-blue-600">2</p>
+                      <p className="text-2xl font-bold text-blue-600">
+                        {availableRoom}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -1061,7 +1114,9 @@ export default function OwnerDashboard() {
                       <p className="text-sm font-medium text-gray-600">
                         Doanh thu tháng
                       </p>
-                      <p className="text-2xl font-bold text-green-600">7.5M</p>
+                      <p className="text-2xl font-bold text-green-600">
+                        {totalRevenue.toLocaleString()}VNĐ
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -1074,7 +1129,7 @@ export default function OwnerDashboard() {
                     Hóa đơn cần xử lý
                   </h3>
                   <div className="space-y-3">
-                    {mockBills
+                    {invoiceTenant
                       .filter((bill) => bill.status !== "paid")
                       .map((bill) => (
                         <div
@@ -1083,10 +1138,10 @@ export default function OwnerDashboard() {
                         >
                           <div>
                             <p className="font-medium">
-                              Phòng {bill.room} - {bill.tenant}
+                              Phòng {bill.roomNumber} - {bill.tenant}
                             </p>
                             <p className="text-sm text-gray-600">
-                              {bill.amount.toLocaleString()}đ
+                              {bill.invoiceAmount.toLocaleString()}đ
                             </p>
                           </div>
                           <span
@@ -1106,7 +1161,7 @@ export default function OwnerDashboard() {
                     Báo cáo sự cố mới
                   </h3>
                   <div className="space-y-3">
-                    {mockReports
+                    {maintenanceRequestInfo
                       .filter((report) => report.status !== "completed")
                       .map((report) => (
                         <div
@@ -1114,9 +1169,11 @@ export default function OwnerDashboard() {
                           className="flex justify-between items-center p-3 bg-gray-50 rounded"
                         >
                           <div>
-                            <p className="font-medium">Phòng {report.room}</p>
+                            <p className="font-medium">
+                              Phòng {report.roomNumber}
+                            </p>
                             <p className="text-sm text-gray-600">
-                              {report.issue}
+                              {report.incidentType}
                             </p>
                           </div>
                           <span
@@ -1800,7 +1857,6 @@ export default function OwnerDashboard() {
                   </select>
                 </div>
               </div>
-
               {/* Review Summary */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div className="bg-gradient-to-r from-yellow-400 to-orange-500 p-6 rounded-2xl text-white">
@@ -1809,13 +1865,17 @@ export default function OwnerDashboard() {
                       <p className="text-yellow-100 text-sm">
                         Đánh giá trung bình
                       </p>
-                      <p className="text-3xl font-bold">4.2</p>
+                      <p className="text-3xl font-bold">
+                        {avgRating.toFixed(1)}
+                      </p>
                       <div className="flex items-center mt-1">
                         {[1, 2, 3, 4, 5].map((star) => (
                           <span
                             key={star}
                             className={`text-lg ${
-                              star <= 4 ? "text-yellow-200" : "text-yellow-400"
+                              star <= Math.round(avgRating)
+                                ? "text-yellow-200"
+                                : "text-yellow-400"
                             }`}
                           >
                             ⭐
@@ -1831,8 +1891,10 @@ export default function OwnerDashboard() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-green-100 text-sm">Tổng đánh giá</p>
-                      <p className="text-3xl font-bold">24</p>
-                      <p className="text-green-100 text-sm">+3 tuần này</p>
+                      <p className="text-3xl font-bold">{totalReviews}</p>
+                      <p className="text-green-100 text-sm">
+                        +{weeklyCount} tuần này
+                      </p>
                     </div>
                     <div className="text-4xl">📝</div>
                   </div>
@@ -1842,7 +1904,9 @@ export default function OwnerDashboard() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-blue-100 text-sm">Đánh giá tích cực</p>
-                      <p className="text-3xl font-bold">87%</p>
+                      <p className="text-3xl font-bold">
+                        {positivePercent.toFixed(0)}%
+                      </p>
                       <p className="text-blue-100 text-sm">4-5 sao</p>
                     </div>
                     <div className="text-4xl">👍</div>
@@ -1855,72 +1919,18 @@ export default function OwnerDashboard() {
                       <p className="text-purple-100 text-sm">
                         Phòng được yêu thích
                       </p>
-                      <p className="text-3xl font-bold">101</p>
-                      <p className="text-purple-100 text-sm">4.8/5 sao</p>
+                      <p className="text-3xl font-bold">{favoriteRoom}</p>
+                      <p className="text-purple-100 text-sm">
+                        Tính theo số lượt đánh giá
+                      </p>
                     </div>
                     <div className="text-4xl">🏆</div>
                   </div>
                 </div>
               </div>
-
               {/* Reviews List */}
               <div className="space-y-4">
-                {[
-                  {
-                    id: 1,
-                    tenant: "Nguyễn Văn A",
-                    room: "101",
-                    rating: 5,
-                    date: "2024-03-01",
-                    review:
-                      "Phòng rất sạch sẽ, tiện nghi đầy đủ. Chủ trọ nhiệt tình, hỗ trợ nhanh chóng khi có vấn đề. Vị trí thuận lợi, gần trường học và chợ. Rất hài lòng!",
-                    categories: {
-                      cleanliness: 5,
-                      facilities: 5,
-                      location: 4,
-                      value: 5,
-                      landlord: 5,
-                    },
-                    anonymous: false,
-                    response:
-                      "Cảm ơn bạn rất nhiều vì đánh giá tích cực! Chúng tôi luôn cố gắng tạo môi trường sống tốt nhất cho các bạn sinh viên. Chúc bạn học tập tốt!",
-                    responseDate: "2024-03-02",
-                  },
-                  {
-                    id: 2,
-                    tenant: "Ẩn danh",
-                    room: "102",
-                    rating: 4,
-                    date: "2024-02-28",
-                    review:
-                      "Phòng khá tốt, giá cả hợp lý. Máy lạnh hoạt động tốt, internet ổn định. Chỉ có điều âm thanh cách âm chưa tốt lắm, đôi khi nghe thấy tiếng ồn từ phòng bên.",
-                    categories: {
-                      cleanliness: 4,
-                      facilities: 4,
-                      location: 4,
-                      value: 4,
-                      landlord: 4,
-                    },
-                    anonymous: true,
-                  },
-                  {
-                    id: 3,
-                    tenant: "Trần Thị B",
-                    room: "201",
-                    rating: 4,
-                    date: "2024-02-25",
-                    review:
-                      "Phòng thoáng mát, view đẹp. Chủ trọ dễ thương, luôn quan tâm đến khách thuê. Khu vực an ninh tốt, có bảo vệ 24/7.",
-                    categories: {
-                      cleanliness: 4,
-                      facilities: 4,
-                      location: 5,
-                      value: 4,
-                      landlord: 5,
-                    },
-                    anonymous: false,
-                  },
-                ].map((review) => (
+                {transformedReviews.map((review) => (
                   <div
                     key={review.id}
                     className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6"
@@ -2915,45 +2925,51 @@ export default function OwnerDashboard() {
               </div>
 
               {/* Status Update */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Cập nhật trạng thái
-                </label>
-                <div className="flex space-x-3">
-                  {selectedReport.status === "pending processing" && (
-                    <button
-                      onClick={() =>
-                        handleUpdateReportStatus(
-                          selectedReport.id.toString(),
-                          "in-progress"
-                        )
-                      }
-                      className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                    >
-                      Bắt đầu xử lý
-                    </button>
-                  )}
-                  {selectedReport.status === "in-progress" && (
-                    <button
-                      onClick={() =>
-                        handleUpdateReportStatus(
-                          selectedReport.id.toString(),
-                          "completed"
-                        )
-                      }
-                      className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
-                    >
-                      Hoàn thành
-                    </button>
-                  )}
-                  {selectedReport.status === "completed" && (
-                    <div className="flex items-center text-green-600">
-                      <span className="mr-2">✅</span>
-                      <span>Đã hoàn thành xử lý</span>
-                    </div>
-                  )}
+              {selectedReport.status !== "completed" ? (
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Cập nhật trạng thái
+                  </label>
+                  <div className="flex space-x-3">
+                    {selectedReport.status === "pending processing" && (
+                      <button
+                        onClick={() =>
+                          handleUpdateReportStatus(
+                            selectedReport.id.toString(),
+                            "in-progress"
+                          )
+                        }
+                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                      >
+                        Bắt đầu xử lý
+                      </button>
+                    )}
+                    {selectedReport.status === "in-progress" && (
+                      <button
+                        onClick={() =>
+                          handleUpdateReportStatus(
+                            selectedReport.id.toString(),
+                            "completed"
+                          )
+                        }
+                        className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                      >
+                        Hoàn thành
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Cập nhật trạng thái
+                  </label>
+                  <div className="flex items-center text-green-600">
+                    <span className="mr-2">✅</span>
+                    <span>Đã hoàn thành xử lý</span>
+                  </div>
+                </div>
+              )}
 
               {/* Response */}
               <div className="mb-6">
@@ -2961,7 +2977,7 @@ export default function OwnerDashboard() {
                   Phản hồi cho khách thuê
                 </label>
                 <textarea
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed"
                   rows={3}
                   value={selectedReport.response}
                   onChange={(e) =>
@@ -2970,18 +2986,8 @@ export default function OwnerDashboard() {
                     )
                   }
                   placeholder="Nhập phản hồi cho khách thuê về tiến độ xử lý..."
+                  disabled={selectedReport.status === "completed"}
                 ></textarea>
-                <button
-                  onClick={() =>
-                    handleSubmitResponseTenant(
-                      selectedReport.id.toString(),
-                      selectedReport?.response ?? ""
-                    )
-                  }
-                  className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  Gửi phản hồi
-                </button>
               </div>
 
               {/* Actions */}
@@ -2994,9 +3000,17 @@ export default function OwnerDashboard() {
                 </button>
                 <button
                   onClick={() => {
-                    handleNotifyTenant(selectedReport.id.toString());
+                    handleNotifyTenant(
+                      selectedReport.id.toString(),
+                      selectedReport?.response ?? ""
+                    );
                   }}
-                  className="flex-1 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors"
+                  disabled={selectedReport.status === "completed"}
+                  className={`flex-1 py-2 rounded-lg transition-colors ${
+                    selectedReport.status === "completed"
+                      ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                      : "bg-green-600 text-white hover:bg-green-700"
+                  }`}
                 >
                   Thông báo khách thuê
                 </button>
@@ -3005,6 +3019,7 @@ export default function OwnerDashboard() {
           </div>
         </div>
       )}
+
       {/* Review Response Modal */}
       {showReviewResponseModal && selectedReview && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">

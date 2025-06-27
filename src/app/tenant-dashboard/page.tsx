@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { getRoom } from "@/app/hooks/useRoom";
 import { getInvoice } from "../hooks/useInvoice";
 import { getMaintenanceRequest } from "../hooks/useMaintenanceRequest";
+import { getRoomReview } from "../hooks/useRoomReview";
+import { getRoomBookingInfo } from "../hooks/useRoomBookingInfo";
 
 // Mock data
 
@@ -80,12 +82,16 @@ export default function TenantDashboard() {
   const router = useRouter();
   const [rooms, setRooms] = useState<any[]>([]);
   const [invoiceTenant, setInvoiceTenant] = useState<any[]>([]);
+  const [RoomReviews, setRoomReviews] = useState<any[]>([]);
   const [maintenanceRequest, setMaintenanceRequest] = useState<any[]>([]);
+  const [roomBookingInfo, setRoomBookingInfo] = useState<any[]>([]);
 
   useEffect(() => {
     getRoom().then(setRooms);
     getInvoice().then(setInvoiceTenant);
     getMaintenanceRequest().then(setMaintenanceRequest);
+    getRoomBookingInfo().then(setRoomBookingInfo);
+    getRoomReview().then(setRoomReviews);
   }, []);
 
   const handleLogout = () => {
@@ -289,6 +295,36 @@ export default function TenantDashboard() {
     }
   };
 
+  const getDaysLeft = (endDate: string | Date): string => {
+    const now = new Date();
+    const end = new Date(endDate);
+    const diff = Math.ceil(
+      (end.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)
+    );
+
+    if (diff <= 0) return "Hết hạn";
+
+    if (diff > 30) {
+      const months = Math.floor(diff / 30); // 30 ngày = 1 tháng (gần đúng)
+      return `${months} tháng`;
+    }
+
+    return `${diff} ngày`;
+  };
+
+  const room = roomBookingInfo.find((r) => r.userId == user?.idUser);
+
+  const roomNumber = room?.roomNumber;
+
+  const daysLeft = getDaysLeft(room?.desiredEnd);
+
+  const review = RoomReviews.find((r) => r.userID == user?.idUser);
+  const overall = review?.overallRating || 0;
+
+  const unpaid_invoice = invoiceTenant.filter(
+    (i) => i.status == "pending"
+  ).length;
+
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
@@ -408,10 +444,10 @@ export default function TenantDashboard() {
                           Phòng hiện tại
                         </p>
                         <Link
-                          href="/room-details/101"
+                          href={`/room-details/${roomNumber}`}
                           className="text-2xl font-bold text-blue-600 hover:text-blue-800"
                         >
-                          101
+                          {roomNumber}
                         </Link>
                       </div>
                     </div>
@@ -431,7 +467,9 @@ export default function TenantDashboard() {
                         <p className="text-sm font-medium text-gray-600">
                           Hóa đơn chưa thanh toán
                         </p>
-                        <p className="text-2xl font-bold text-yellow-600">2</p>
+                        <p className="text-2xl font-bold text-yellow-600">
+                          {unpaid_invoice}
+                        </p>
                       </div>
                     </div>
                     <Link
@@ -450,7 +488,7 @@ export default function TenantDashboard() {
                         Hợp đồng còn lại
                       </p>
                       <p className="text-2xl font-bold text-blue-600">
-                        11 tháng
+                        {daysLeft}
                       </p>
                     </div>
                   </div>
@@ -462,7 +500,9 @@ export default function TenantDashboard() {
                       <p className="text-sm font-medium text-gray-600">
                         Đánh giá phòng
                       </p>
-                      <p className="text-2xl font-bold text-green-600">4.5/5</p>
+                      <p className="text-2xl font-bold text-green-600">
+                        {overall}/5
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -475,7 +515,7 @@ export default function TenantDashboard() {
                     Hóa đơn cần thanh toán
                   </h3>
                   <div className="space-y-3">
-                    {mockMyBills
+                    {invoiceTenant
                       .filter((bill) => bill.status === "pending")
                       .map((bill) => (
                         <div
@@ -484,10 +524,11 @@ export default function TenantDashboard() {
                         >
                           <div>
                             <p className="font-medium">
-                              {bill.type} - {bill.month}
+                              {translateInvoiceType(bill.invoiceType)} -{" "}
+                              {formatDate(bill.invoiceDateLimit)}
                             </p>
                             <p className="text-sm text-gray-600">
-                              {bill.amount.toLocaleString()}đ
+                              {bill.invoiceAmount.toLocaleString()}đ
                             </p>
                           </div>
                           <Link
@@ -506,10 +547,10 @@ export default function TenantDashboard() {
                     Báo cáo sự cố gần đây
                   </h3>
                   <div className="space-y-3">
-                    {mockMyReports.map((report) => (
+                    {maintenanceRequest.map((report) => (
                       <div key={report.id} className="p-3 bg-gray-50 rounded">
                         <div className="flex justify-between items-start mb-2">
-                          <p className="font-medium">{report.issue}</p>
+                          <p className="font-medium">{report.incidentType}</p>
                           <span
                             className={`px-2 py-1 text-xs rounded-full ${getStatusColor(
                               report.status
@@ -519,7 +560,7 @@ export default function TenantDashboard() {
                           </span>
                         </div>
                         <p className="text-sm text-gray-600">
-                          {report.response}
+                          {report.responeFromOwners}
                         </p>
                       </div>
                     ))}

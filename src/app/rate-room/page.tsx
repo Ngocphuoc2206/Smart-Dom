@@ -1,14 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { 
+import { useEffect, useState } from "react";
+import {
   ArrowLeftIcon,
   StarIcon,
   PhotoIcon,
-  CheckCircleIcon
+  CheckCircleIcon,
 } from "@heroicons/react/24/outline";
+import { getRoom } from "@/app/hooks/useRoom";
+import { getRoomBookingInfo } from "../hooks/useRoomBookingInfo";
+import { getContract } from "../hooks/useContract";
+import { getDurationContract } from "../hooks/useDurationContract";
 import { StarIcon as StarSolidIcon } from "@heroicons/react/24/solid";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function RateRoomPage() {
   const [rating, setRating] = useState({
@@ -17,45 +22,117 @@ export default function RateRoomPage() {
     facilities: 0,
     location: 0,
     value: 0,
-    landlord: 0
+    landlord: 0,
   });
-  
+
   const [review, setReview] = useState("");
   const [photos, setPhotos] = useState<File[]>([]);
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [rooms, setRooms] = useState<any[]>([]);
+  const [contracts, setContracts] = useState<any[]>([]);
+  const [durationContracts, setDurationContracts] = useState<any[]>([]);
+  const [roomBookingInfo, setRoomBookingInfo] = useState<any[]>([]);
 
+  const { user } = useAuth();
+
+  useEffect(() => {
+    getRoom().then(setRooms);
+    getRoomBookingInfo().then(setRoomBookingInfo);
+    getContract().then(setContracts);
+    getDurationContract().then(setDurationContracts);
+  }, []);
   const ratingCategories = [
     { key: "overall", label: "Đánh giá tổng thể", icon: "⭐" },
     { key: "cleanliness", label: "Vệ sinh sạch sẽ", icon: "🧹" },
     { key: "facilities", label: "Tiện nghi phòng", icon: "🏠" },
     { key: "location", label: "Vị trí thuận lợi", icon: "📍" },
     { key: "value", label: "Giá trị đồng tiền", icon: "💰" },
-    { key: "landlord", label: "Thái độ chủ trọ", icon: "👤" }
+    { key: "landlord", label: "Thái độ chủ trọ", icon: "👤" },
   ];
 
   const handleStarClick = (category: string, stars: number) => {
-    setRating(prev => ({ ...prev, [category]: stars }));
+    setRating((prev) => ({ ...prev, [category]: stars }));
   };
 
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const newPhotos = Array.from(e.target.files);
-      setPhotos(prev => [...prev, ...newPhotos].slice(0, 5)); // Max 5 photos
+      setPhotos((prev) => [...prev, ...newPhotos].slice(0, 5)); // Max 5 photos
     }
   };
 
   const removePhoto = (index: number) => {
-    setPhotos(prev => prev.filter((_, i) => i !== index));
+    setPhotos((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Submitting review:", { rating, review, photos, isAnonymous });
-    setSubmitted(true);
+
+    if (averageRating === 0) {
+      alert("Vui lòng đánh giá ít nhất một mục.");
+      return;
+    }
+
+    if (review.length < 50) {
+      alert("Vui lòng nhập ít nhất 50 ký tự.");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+
+      // 1. Upload hình ảnh
+      photos.forEach((photo) => {
+        formData.append("Images", photo); // Backend nhận List<IFormFile> Images
+      });
+
+      // 2. Đánh giá chi tiết
+      formData.append("OverallRating", rating.overall.toString());
+      formData.append("CleanlinessRating", rating.cleanliness.toString());
+      formData.append("AmenitiesRating", rating.facilities.toString());
+      formData.append("LocationRating", rating.location.toString());
+      formData.append("ValueForMoneyRating", rating.value.toString());
+      formData.append("HostAttitudeRating", rating.landlord.toString());
+
+      // 3. Nội dung và tuỳ chọn
+      formData.append("ExperienceComment", review);
+      formData.append("IsAnonymous", isAnonymous.toString());
+
+      const response = await fetch(
+        `https://localhost:7257/api/RoomReview/${user?.idUser}`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        const err = await response.text();
+        alert("Lỗi khi gửi đánh giá: " + err);
+      }
+    } catch (error) {
+      console.error("Submit error:", error);
+      alert("Có lỗi khi gửi đánh giá.");
+    }
   };
 
-  const averageRating = Object.values(rating).reduce((sum, val) => sum + val, 0) / Object.values(rating).length;
+  const room = roomBookingInfo.find((r) => r.userId == user?.idUser);
+
+  const roomNumber = room?.roomNumber;
+
+  const contract = contracts.find((c) => c.idUser == user?.idUser);
+  const durationContract = contract
+    ? durationContracts.find((d) => d.id == contract.durationContractID)
+    : undefined;
+
+  const duration = durationContract?.duration || 0; // fallback = 0
+
+  const averageRating =
+    Object.values(rating).reduce((sum, val) => sum + val, 0) /
+    Object.values(rating).length;
 
   if (submitted) {
     return (
@@ -66,7 +143,8 @@ export default function RateRoomPage() {
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Cảm ơn bạn!</h2>
           <p className="text-gray-600 mb-6">
-            Đánh giá của bạn đã được gửi thành công. Điều này sẽ giúp cải thiện chất lượng dịch vụ.
+            Đánh giá của bạn đã được gửi thành công. Điều này sẽ giúp cải thiện
+            chất lượng dịch vụ.
           </p>
           <div className="space-y-3">
             <Link
@@ -94,12 +172,17 @@ export default function RateRoomPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center">
-              <Link href="/tenant-dashboard" className="flex items-center text-gray-600 hover:text-gray-900">
+              <Link
+                href="/tenant-dashboard"
+                className="flex items-center text-gray-600 hover:text-gray-900"
+              >
                 <ArrowLeftIcon className="h-5 w-5 mr-2" />
                 <div className="h-8 w-8 bg-green-600 rounded mr-3 flex items-center justify-center">
                   <span className="text-white font-bold">🏠</span>
                 </div>
-                <span className="text-xl font-bold text-gray-900">SmartDorm</span>
+                <span className="text-xl font-bold text-gray-900">
+                  SmartDorm
+                </span>
               </Link>
               <span className="mx-3 text-gray-400">/</span>
               <span className="text-gray-600">Đánh giá phòng</span>
@@ -113,16 +196,18 @@ export default function RateRoomPage() {
           {/* Header */}
           <div className="bg-gradient-to-r from-green-600 to-emerald-600 text-white p-8">
             <h1 className="text-3xl font-bold mb-2">Đánh giá phòng của bạn</h1>
-            <p className="text-green-100">Chia sẻ trải nghiệm của bạn để giúp cải thiện chất lượng dịch vụ</p>
+            <p className="text-green-100">
+              Chia sẻ trải nghiệm của bạn để giúp cải thiện chất lượng dịch vụ
+            </p>
             <div className="mt-4 bg-white/20 rounded-lg p-4">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-green-100 text-sm">Phòng hiện tại</p>
-                  <p className="text-xl font-bold">Phòng 101</p>
+                  <p className="text-xl font-bold">Phòng {roomNumber}</p>
                 </div>
                 <div>
                   <p className="text-green-100 text-sm">Thời gian thuê</p>
-                  <p className="text-xl font-bold">6 tháng</p>
+                  <p className="text-xl font-bold">{duration} tháng</p>
                 </div>
               </div>
             </div>
@@ -131,13 +216,17 @@ export default function RateRoomPage() {
           <form onSubmit={handleSubmit} className="p-8">
             {/* Rating Categories */}
             <div className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-900 mb-6">Đánh giá chi tiết</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-6">
+                Đánh giá chi tiết
+              </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {ratingCategories.map((category) => (
                   <div key={category.key} className="bg-gray-50 p-4 rounded-xl">
                     <div className="flex items-center mb-3">
                       <span className="text-2xl mr-3">{category.icon}</span>
-                      <span className="font-medium text-gray-900">{category.label}</span>
+                      <span className="font-medium text-gray-900">
+                        {category.label}
+                      </span>
                     </div>
                     <div className="flex space-x-1">
                       {[1, 2, 3, 4, 5].map((star) => (
@@ -147,7 +236,8 @@ export default function RateRoomPage() {
                           onClick={() => handleStarClick(category.key, star)}
                           className="focus:outline-none"
                         >
-                          {star <= rating[category.key as keyof typeof rating] ? (
+                          {star <=
+                          rating[category.key as keyof typeof rating] ? (
                             <StarSolidIcon className="h-6 w-6 text-yellow-400" />
                           ) : (
                             <StarIcon className="h-6 w-6 text-gray-300 hover:text-yellow-400 transition-colors" />
@@ -155,7 +245,8 @@ export default function RateRoomPage() {
                         </button>
                       ))}
                       <span className="ml-2 text-sm text-gray-600">
-                        {rating[category.key as keyof typeof rating] > 0 && `${rating[category.key as keyof typeof rating]}/5`}
+                        {rating[category.key as keyof typeof rating] > 0 &&
+                          `${rating[category.key as keyof typeof rating]}/5`}
                       </span>
                     </div>
                   </div>
@@ -168,7 +259,9 @@ export default function RateRoomPage() {
               <div className="mb-8 bg-blue-50 p-6 rounded-xl">
                 <div className="flex items-center justify-center">
                   <div className="text-center">
-                    <p className="text-sm text-blue-600 mb-2">Đánh giá tổng thể</p>
+                    <p className="text-sm text-blue-600 mb-2">
+                      Đánh giá tổng thể
+                    </p>
                     <div className="flex items-center justify-center mb-2">
                       <span className="text-3xl font-bold text-blue-600 mr-2">
                         {averageRating.toFixed(1)}
@@ -178,17 +271,24 @@ export default function RateRoomPage() {
                           <StarSolidIcon
                             key={star}
                             className={`h-6 w-6 ${
-                              star <= Math.round(averageRating) ? 'text-yellow-400' : 'text-gray-300'
+                              star <= Math.round(averageRating)
+                                ? "text-yellow-400"
+                                : "text-gray-300"
                             }`}
                           />
                         ))}
                       </div>
                     </div>
                     <p className="text-sm text-blue-600">
-                      {averageRating >= 4.5 ? 'Xuất sắc' :
-                       averageRating >= 4 ? 'Rất tốt' :
-                       averageRating >= 3 ? 'Tốt' :
-                       averageRating >= 2 ? 'Trung bình' : 'Cần cải thiện'}
+                      {averageRating >= 4.5
+                        ? "Xuất sắc"
+                        : averageRating >= 4
+                        ? "Rất tốt"
+                        : averageRating >= 3
+                        ? "Tốt"
+                        : averageRating >= 2
+                        ? "Trung bình"
+                        : "Cần cải thiện"}
                     </p>
                   </div>
                 </div>
@@ -219,7 +319,9 @@ export default function RateRoomPage() {
               </label>
               <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center">
                 <PhotoIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600 mb-4">Thêm hình ảnh về phòng để đánh giá thêm sinh động</p>
+                <p className="text-gray-600 mb-4">
+                  Thêm hình ảnh về phòng để đánh giá thêm sinh động
+                </p>
                 <input
                   type="file"
                   multiple
@@ -234,9 +336,11 @@ export default function RateRoomPage() {
                 >
                   Chọn hình ảnh
                 </label>
-                <p className="text-sm text-gray-500 mt-2">Tối đa 5 hình ảnh, mỗi hình dưới 5MB</p>
+                <p className="text-sm text-gray-500 mt-2">
+                  Tối đa 5 hình ảnh, mỗi hình dưới 5MB
+                </p>
               </div>
-              
+
               {photos.length > 0 && (
                 <div className="mt-4 grid grid-cols-2 md:grid-cols-5 gap-4">
                   {photos.map((photo, index) => (
@@ -268,7 +372,9 @@ export default function RateRoomPage() {
                   onChange={(e) => setIsAnonymous(e.target.checked)}
                   className="mr-3 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
                 />
-                <span className="text-gray-700">Đánh giá ẩn danh (không hiển thị tên của bạn)</span>
+                <span className="text-gray-700">
+                  Đánh giá ẩn danh (không hiển thị tên của bạn)
+                </span>
               </label>
             </div>
 

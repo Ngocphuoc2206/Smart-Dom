@@ -59,6 +59,7 @@ function RateRoomPage() {
     const [photos, setPhotos] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [isAnonymous, setIsAnonymous] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [submitted, setSubmitted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [rooms, setRooms] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const ratingCategories = [
         {
             key: "overall",
@@ -132,12 +133,12 @@ function RateRoomPage() {
                             className: "h-8 w-8 text-green-600"
                         }, void 0, false, {
                             fileName: "[project]/src/app/rate-room/page.tsx",
-                            lineNumber: 65,
+                            lineNumber: 69,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/rate-room/page.tsx",
-                        lineNumber: 64,
+                        lineNumber: 68,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -145,7 +146,7 @@ function RateRoomPage() {
                         children: "Cảm ơn bạn!"
                     }, void 0, false, {
                         fileName: "[project]/src/app/rate-room/page.tsx",
-                        lineNumber: 67,
+                        lineNumber: 71,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -153,7 +154,7 @@ function RateRoomPage() {
                         children: "Đánh giá của bạn đã được gửi thành công. Điều này sẽ giúp cải thiện chất lượng dịch vụ."
                     }, void 0, false, {
                         fileName: "[project]/src/app/rate-room/page.tsx",
-                        lineNumber: 68,
+                        lineNumber: 72,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -165,7 +166,7 @@ function RateRoomPage() {
                                 children: "Quay lại Dashboard"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/rate-room/page.tsx",
-                                lineNumber: 72,
+                                lineNumber: 77,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -174,24 +175,24 @@ function RateRoomPage() {
                                 children: "Đánh giá thêm"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/rate-room/page.tsx",
-                                lineNumber: 78,
+                                lineNumber: 83,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/rate-room/page.tsx",
-                        lineNumber: 71,
+                        lineNumber: 76,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/rate-room/page.tsx",
-                lineNumber: 63,
+                lineNumber: 67,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/rate-room/page.tsx",
-            lineNumber: 62,
+            lineNumber: 66,
             columnNumber: 7
         }, this);
     }
@@ -215,7 +216,7 @@ function RateRoomPage() {
                                             className: "h-5 w-5 mr-2"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                            lineNumber: 98,
+                                            lineNumber: 106,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -225,12 +226,12 @@ function RateRoomPage() {
                                                 children: "🏠"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/rate-room/page.tsx",
-                                                lineNumber: 100,
+                                                lineNumber: 108,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                            lineNumber: 99,
+                                            lineNumber: 107,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -238,13 +239,13 @@ function RateRoomPage() {
                                             children: "SmartDorm"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                            lineNumber: 102,
+                                            lineNumber: 110,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                    lineNumber: 97,
+                                    lineNumber: 102,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -252,7 +253,7 @@ function RateRoomPage() {
                                     children: "/"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                    lineNumber: 104,
+                                    lineNumber: 114,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -260,28 +261,28 @@ function RateRoomPage() {
                                     children: "Đánh giá phòng"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                    lineNumber: 105,
+                                    lineNumber: 115,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/rate-room/page.tsx",
-                            lineNumber: 96,
+                            lineNumber: 101,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/rate-room/page.tsx",
-                        lineNumber: 95,
+                        lineNumber: 100,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/rate-room/page.tsx",
-                    lineNumber: 94,
+                    lineNumber: 99,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/rate-room/page.tsx",
-                lineNumber: 93,
+                lineNumber: 98,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -297,7 +298,7 @@ function RateRoomPage() {
                                     children: "Đánh giá phòng của bạn"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                    lineNumber: 115,
+                                    lineNumber: 125,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -305,7 +306,7 @@ function RateRoomPage() {
                                     children: "Chia sẻ trải nghiệm của bạn để giúp cải thiện chất lượng dịch vụ"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                    lineNumber: 116,
+                                    lineNumber: 126,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -320,7 +321,7 @@ function RateRoomPage() {
                                                         children: "Phòng hiện tại"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/rate-room/page.tsx",
-                                                        lineNumber: 120,
+                                                        lineNumber: 132,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -328,13 +329,13 @@ function RateRoomPage() {
                                                         children: "Phòng 101"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/rate-room/page.tsx",
-                                                        lineNumber: 121,
+                                                        lineNumber: 133,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/rate-room/page.tsx",
-                                                lineNumber: 119,
+                                                lineNumber: 131,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -344,7 +345,7 @@ function RateRoomPage() {
                                                         children: "Thời gian thuê"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/rate-room/page.tsx",
-                                                        lineNumber: 124,
+                                                        lineNumber: 136,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -352,30 +353,30 @@ function RateRoomPage() {
                                                         children: "6 tháng"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/rate-room/page.tsx",
-                                                        lineNumber: 125,
+                                                        lineNumber: 137,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/rate-room/page.tsx",
-                                                lineNumber: 123,
+                                                lineNumber: 135,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/rate-room/page.tsx",
-                                        lineNumber: 118,
+                                        lineNumber: 130,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                    lineNumber: 117,
+                                    lineNumber: 129,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/rate-room/page.tsx",
-                            lineNumber: 114,
+                            lineNumber: 124,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -390,7 +391,7 @@ function RateRoomPage() {
                                             children: "Đánh giá chi tiết"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                            lineNumber: 134,
+                                            lineNumber: 146,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -406,7 +407,7 @@ function RateRoomPage() {
                                                                     children: category.icon
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                                                    lineNumber: 139,
+                                                                    lineNumber: 153,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -414,13 +415,13 @@ function RateRoomPage() {
                                                                     children: category.label
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                                                    lineNumber: 140,
+                                                                    lineNumber: 154,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                                            lineNumber: 138,
+                                                            lineNumber: 152,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -440,18 +441,18 @@ function RateRoomPage() {
                                                                             className: "h-6 w-6 text-yellow-400"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                                                            lineNumber: 151,
+                                                                            lineNumber: 168,
                                                                             columnNumber: 29
                                                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$heroicons$2f$react$2f$24$2f$outline$2f$esm$2f$StarIcon$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__StarIcon$3e$__["StarIcon"], {
                                                                             className: "h-6 w-6 text-gray-300 hover:text-yellow-400 transition-colors"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                                                            lineNumber: 153,
+                                                                            lineNumber: 170,
                                                                             columnNumber: 29
                                                                         }, this)
                                                                     }, star, false, {
                                                                         fileName: "[project]/src/app/rate-room/page.tsx",
-                                                                        lineNumber: 144,
+                                                                        lineNumber: 160,
                                                                         columnNumber: 25
                                                                     }, this)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -459,30 +460,30 @@ function RateRoomPage() {
                                                                     children: rating[category.key] > 0 && `${rating[category.key]}/5`
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                                                    lineNumber: 157,
+                                                                    lineNumber: 174,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                                            lineNumber: 142,
+                                                            lineNumber: 158,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, category.key, true, {
                                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                                    lineNumber: 137,
+                                                    lineNumber: 151,
                                                     columnNumber: 19
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                            lineNumber: 135,
+                                            lineNumber: 149,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                    lineNumber: 133,
+                                    lineNumber: 145,
                                     columnNumber: 13
                                 }, this),
                                 averageRating > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -497,7 +498,7 @@ function RateRoomPage() {
                                                     children: "Đánh giá tổng thể"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                                    lineNumber: 171,
+                                                    lineNumber: 189,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -508,7 +509,7 @@ function RateRoomPage() {
                                                             children: averageRating.toFixed(1)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                                            lineNumber: 173,
+                                                            lineNumber: 193,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -520,45 +521,45 @@ function RateRoomPage() {
                                                                 4,
                                                                 5
                                                             ].map((star)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$heroicons$2f$react$2f$24$2f$solid$2f$esm$2f$StarIcon$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__StarIcon$3e$__["StarIcon"], {
-                                                                    className: `h-6 w-6 ${star <= Math.round(averageRating) ? 'text-yellow-400' : 'text-gray-300'}`
+                                                                    className: `h-6 w-6 ${star <= Math.round(averageRating) ? "text-yellow-400" : "text-gray-300"}`
                                                                 }, star, false, {
                                                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                                                    lineNumber: 178,
+                                                                    lineNumber: 198,
                                                                     columnNumber: 27
                                                                 }, this))
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                                            lineNumber: 176,
+                                                            lineNumber: 196,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                                    lineNumber: 172,
+                                                    lineNumber: 192,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                     className: "text-sm text-blue-600",
-                                                    children: averageRating >= 4.5 ? 'Xuất sắc' : averageRating >= 4 ? 'Rất tốt' : averageRating >= 3 ? 'Tốt' : averageRating >= 2 ? 'Trung bình' : 'Cần cải thiện'
+                                                    children: averageRating >= 4.5 ? "Xuất sắc" : averageRating >= 4 ? "Rất tốt" : averageRating >= 3 ? "Tốt" : averageRating >= 2 ? "Trung bình" : "Cần cải thiện"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                                    lineNumber: 187,
+                                                    lineNumber: 209,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                            lineNumber: 170,
+                                            lineNumber: 188,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/rate-room/page.tsx",
-                                        lineNumber: 169,
+                                        lineNumber: 187,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                    lineNumber: 168,
+                                    lineNumber: 186,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -569,7 +570,7 @@ function RateRoomPage() {
                                             children: "Chia sẻ trải nghiệm của bạn"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                            lineNumber: 200,
+                                            lineNumber: 227,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -580,7 +581,7 @@ function RateRoomPage() {
                                             placeholder: "Hãy chia sẻ những điều bạn thích và không thích về phòng, dịch vụ, chủ trọ... Đánh giá chi tiết sẽ giúp ích cho những người thuê sau này."
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                            lineNumber: 203,
+                                            lineNumber: 230,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -592,13 +593,13 @@ function RateRoomPage() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                            lineNumber: 210,
+                                            lineNumber: 237,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                    lineNumber: 199,
+                                    lineNumber: 226,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -609,7 +610,7 @@ function RateRoomPage() {
                                             children: "Thêm hình ảnh (tùy chọn)"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                            lineNumber: 217,
+                                            lineNumber: 244,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -619,7 +620,7 @@ function RateRoomPage() {
                                                     className: "h-12 w-12 text-gray-400 mx-auto mb-4"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                                    lineNumber: 221,
+                                                    lineNumber: 248,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -627,7 +628,7 @@ function RateRoomPage() {
                                                     children: "Thêm hình ảnh về phòng để đánh giá thêm sinh động"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                                    lineNumber: 222,
+                                                    lineNumber: 249,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -639,7 +640,7 @@ function RateRoomPage() {
                                                     id: "photo-upload"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                                    lineNumber: 223,
+                                                    lineNumber: 252,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -648,7 +649,7 @@ function RateRoomPage() {
                                                     children: "Chọn hình ảnh"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                                    lineNumber: 231,
+                                                    lineNumber: 260,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -656,13 +657,13 @@ function RateRoomPage() {
                                                     children: "Tối đa 5 hình ảnh, mỗi hình dưới 5MB"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                                    lineNumber: 237,
+                                                    lineNumber: 266,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                            lineNumber: 220,
+                                            lineNumber: 247,
                                             columnNumber: 15
                                         }, this),
                                         photos.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -676,7 +677,7 @@ function RateRoomPage() {
                                                             className: "w-full h-24 object-cover rounded-lg"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                                            lineNumber: 244,
+                                                            lineNumber: 275,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -686,24 +687,24 @@ function RateRoomPage() {
                                                             children: "×"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                                            lineNumber: 249,
+                                                            lineNumber: 280,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, index, true, {
                                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                                    lineNumber: 243,
+                                                    lineNumber: 274,
                                                     columnNumber: 21
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                            lineNumber: 241,
+                                            lineNumber: 272,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                    lineNumber: 216,
+                                    lineNumber: 243,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -718,7 +719,7 @@ function RateRoomPage() {
                                                 className: "mr-3 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/rate-room/page.tsx",
-                                                lineNumber: 265,
+                                                lineNumber: 296,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -726,18 +727,18 @@ function RateRoomPage() {
                                                 children: "Đánh giá ẩn danh (không hiển thị tên của bạn)"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/rate-room/page.tsx",
-                                                lineNumber: 271,
+                                                lineNumber: 302,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/rate-room/page.tsx",
-                                        lineNumber: 264,
+                                        lineNumber: 295,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                    lineNumber: 263,
+                                    lineNumber: 294,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -749,7 +750,7 @@ function RateRoomPage() {
                                             children: "Hủy"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                            lineNumber: 277,
+                                            lineNumber: 310,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -759,36 +760,36 @@ function RateRoomPage() {
                                             children: "Gửi đánh giá"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/rate-room/page.tsx",
-                                            lineNumber: 283,
+                                            lineNumber: 316,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/rate-room/page.tsx",
-                                    lineNumber: 276,
+                                    lineNumber: 309,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/rate-room/page.tsx",
-                            lineNumber: 131,
+                            lineNumber: 143,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/rate-room/page.tsx",
-                    lineNumber: 112,
+                    lineNumber: 122,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/rate-room/page.tsx",
-                lineNumber: 111,
+                lineNumber: 121,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/rate-room/page.tsx",
-        lineNumber: 91,
+        lineNumber: 96,
         columnNumber: 5
     }, this);
 }
