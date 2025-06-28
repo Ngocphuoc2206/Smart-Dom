@@ -27,6 +27,9 @@ namespace Smart_Dom.Models
         public float WaterUsage { get; set; } // in m3
 
         [Required]
+        public float ServiceFees { get; set; }
+
+        [Required]
         public float TotalAmount { get; set; } // in VND
 
         [StringLength(500)]

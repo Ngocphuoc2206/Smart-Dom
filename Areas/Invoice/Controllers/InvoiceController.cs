@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using Smart_Dom.DTOs.Invoice;
-using Smart_Dom.Services;
+using Smart_Dom.Hubs;
+using Smart_Dom.Interfaces;
 using System.Threading.Tasks;
 
 namespace Smart_Dom.Areas.Invoice.Controllers
@@ -11,11 +14,17 @@ namespace Smart_Dom.Areas.Invoice.Controllers
     public class InvoiceController : Controller
     {
         private readonly IInvoiceService _invoiceService;
+        private readonly IContractService _contractService;
         private readonly ILogger<InvoiceController> _logger;
-        public InvoiceController(IInvoiceService invoiceService, ILogger<InvoiceController> logger)
+        private readonly IHubContext<NotificationHub> _hubContext;
+        private readonly IRoomService _roomService;
+        public InvoiceController(IInvoiceService invoiceService, ILogger<InvoiceController> logger, IHubContext<NotificationHub> hubContext, IRoomService roomService, IContractService contractService)
         {
             _invoiceService = invoiceService;
             _logger = logger;
+            _hubContext = hubContext;
+            _roomService = roomService;
+            _contractService = contractService;
         }
 
         [HttpGet]
@@ -57,6 +66,29 @@ namespace Smart_Dom.Areas.Invoice.Controllers
             existingInvoice.Id = id;
             await _invoiceService.UpdateInvoiceAsync(invoice, id);
             return Ok();
+        }
+
+        [HttpPost("reminder/{id}")]
+        public async Task<IActionResult> SendReminder(int id)
+        {
+            _logger.LogInformation($"Sending notification to tenant with invoiceID: {id}");
+            var invoice = await _invoiceService.GetInvoiceByIdAsync(id);
+
+            if (invoice == null)
+                return NotFound("Invoice not found");
+
+            var contract = await _contractService.GetContractByIdAsync(invoice.ContractID);
+            var userId = contract.IDUser.ToString();
+            var room = await _roomService.GetRoomByIdAsync(contract.RoomId);
+            if (room == null)
+            {
+                return NotFound("Room not found");
+            }
+            var message = $"Bạn có hóa đơn cần thanh toán cho phòng {room.RoomNumber}.";
+            _logger.LogInformation($"ReceiveNotification { message}, UserID: {userId} ");
+            await _hubContext.Clients.Group(userId).SendAsync("ReceiveNotification", message);
+
+            return Ok(new { message = "Đã gửi nhắc nhở thành công" });
         }
     }
 }

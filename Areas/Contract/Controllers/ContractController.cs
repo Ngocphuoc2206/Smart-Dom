@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Smart_Dom.DTOs.Contract;
-using Smart_Dom.Services;
+using Smart_Dom.Interfaces;
 
 namespace Smart_Dom.Areas.Contract.Controllers
 {

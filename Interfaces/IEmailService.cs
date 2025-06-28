@@ -1,4 +1,4 @@
-﻿namespace Smart_Dom.Services
+﻿namespace Smart_Dom.Interfaces
 {
     public interface IEmailService
     {

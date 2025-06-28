@@ -2,7 +2,7 @@
 using Smart_Dom.Models;
 using System.Threading.Tasks;
 
-namespace Smart_Dom.Services
+namespace Smart_Dom.Interfaces
 {
     public interface INotificationService
     {

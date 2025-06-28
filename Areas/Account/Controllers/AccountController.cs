@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Smart_Dom.DTOs.User;
+using Smart_Dom.Interfaces;
 using Smart_Dom.Models;
-using Smart_Dom.Services;
 namespace Smart_Dom.Areas.Account.Controllers
 {
     [Area("Account")]

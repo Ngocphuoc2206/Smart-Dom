@@ -8,6 +8,7 @@
         public DateTime InvoiceDateLimit { get; set; } // Deadline for payment
         public float ElectricUsage { get; set; } // in kWh
         public float WaterUsage { get; set; } // in m3
+        public float ServiceFees { get; set; }
         public float TotalAmount { get; set; } // in VND
         public string? Note { get; set; } // Additional notes or comments
     }

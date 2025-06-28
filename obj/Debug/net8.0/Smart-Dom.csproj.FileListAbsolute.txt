@@ -299,3 +299,7 @@ C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\Smart
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\Smart-Dom.genruntimeconfig.cache
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\ref\Smart-Dom.dll
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll

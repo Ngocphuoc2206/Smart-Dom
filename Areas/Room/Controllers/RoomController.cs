@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Smart_Dom.DTOs.Room;
+using Smart_Dom.Interfaces;
 using Smart_Dom.Models;
-using Smart_Dom.Services;
 using System.Threading.Tasks;
 
 namespace Smart_Dom.Areas.Room.Controllers

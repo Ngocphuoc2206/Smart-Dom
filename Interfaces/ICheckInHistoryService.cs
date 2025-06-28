@@ -1,6 +1,6 @@
 ﻿using Smart_Dom.Models;
 
-namespace Smart_Dom.Services
+namespace Smart_Dom.Interfaces
 {
     public interface ICheckInHistoryService
     {

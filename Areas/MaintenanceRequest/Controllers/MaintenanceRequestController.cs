@@ -2,8 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Smart_Dom.DTOs.MaintenanceRequest;
 using Smart_Dom.DTOs.Notification;
+using Smart_Dom.Interfaces;
 using Smart_Dom.Models;
-using Smart_Dom.Services;
 using System.Threading.Tasks;
 
 namespace Smart_Dom.Areas.MaintenanceRequest.Controllers

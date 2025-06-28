@@ -1,7 +1,7 @@
 ﻿using Smart_Dom.DTOs.Room;
 using Smart_Dom.Models;
 
-namespace Smart_Dom.Services
+namespace Smart_Dom.Interfaces
 {
     public interface IRoomService
     {

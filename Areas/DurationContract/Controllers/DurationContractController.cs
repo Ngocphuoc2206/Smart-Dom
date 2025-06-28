@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Smart_Dom.Services;
+using Smart_Dom.Interfaces;
 using System.Threading.Tasks;
 
 namespace Smart_Dom.Areas.DurationContract.Controllers

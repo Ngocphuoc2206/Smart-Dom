@@ -1,8 +1,8 @@
 ﻿using Smart_Dom.DTOs.Invoice;
+using Smart_Dom.Interfaces;
 using Smart_Dom.Models;
-using Smart_Dom.Services;
 
-namespace Smart_Dom.Interfaces
+namespace Smart_Dom.Services
 {
     public class InvoiceService : IInvoiceService
     {
@@ -59,6 +59,7 @@ namespace Smart_Dom.Interfaces
                     InvoiceType = invoice.InvoiceType!,
                     InvoiceDateLimit = invoice.InvoiceDateLimit,
                     ElectricUsage = invoice.ElectricUsage,
+                    ServiceFees = invoice.ServiceFees,
                     WaterUsage = invoice.WaterUsage,
                     TotalAmount = invoice.TotalAmount,
                     Note = invoice.Note,

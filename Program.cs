@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
+using Smart_Dom.Hubs;
+using Smart_Dom.Hubs.ChatRealTime;
 using Smart_Dom.Interfaces;
 using Smart_Dom.Repositories;
 using Smart_Dom.Services;
@@ -13,13 +16,20 @@ namespace Smart_Dom
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            
 
-            //Cấu hình kết nối cơ sở dữ liệu với Entity Framework Core
+            // Cấu hình kết nối cơ sở dữ liệu với Entity Framework Core
             builder.Services.AddDbContext<Models.AppDBContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("AppDBContext")));
 
-            //Cấu hình Repository
+            //Đăng ký Signal
+            builder.Services.AddSignalR(options =>
+            {
+                options.KeepAliveInterval = TimeSpan.FromSeconds(15); // ping giữ kết nối
+            });
+            builder.Services.AddSingleton<IUserIdProvider, UserIdProvider>();
+
+
+            // Cấu hình Repository
             builder.Services.AddScoped<IAccountRepository, AccountRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IRoomRepository, RoomRepository>();
@@ -32,7 +42,7 @@ namespace Smart_Dom
             builder.Services.AddScoped<IMaintenanceRequestRepository, MaintenanceRequestRepository>();
             builder.Services.AddScoped<IRoomReviewRepository, RoomReviewRepository>();
 
-            //Cấu hình Services
+            // Cấu hình Services
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IRoomService, RoomService>();
@@ -46,13 +56,14 @@ namespace Smart_Dom
             builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddScoped<IRoomReviewService, RoomReviewService>();
 
-            //Cấu hình cors nhúng nextjs
+            // Cấu hình cors nhúng nextjs
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowNextJs",
                     builder => builder.WithOrigins("http://localhost:3000")
                                       .AllowAnyMethod()
-                                      .AllowAnyHeader());
+                                      .AllowAnyHeader()
+                                      .AllowCredentials());
             });
 
             var app = builder.Build();
@@ -64,13 +75,14 @@ namespace Smart_Dom
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            
-            
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
             app.UseRouting();
             app.UseCors("AllowNextJs");
             app.UseAuthorization();
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            // Top-level route registrations
+            app.MapHub<NotificationHub>("/hub/notifications");
+            app.MapHub<ChatHub>("/chatHub");
 
             app.MapControllerRoute(
                 name: "default",

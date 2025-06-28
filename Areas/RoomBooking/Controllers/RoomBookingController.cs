@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Smart_Dom.DTOs.RoomBooking;
+using Smart_Dom.Interfaces;
 using Smart_Dom.Models;
-using Smart_Dom.Services;
 namespace Smart_Dom.Areas.RoomBooking.Controllers
 {
     [Area("RoomBooking")]
