@@ -18,6 +18,10 @@ import { getContract } from "../hooks/useContract";
 import { getRoomReviewInfo } from "../hooks/useRoomReviewInfo";
 import "../../../Roboto-VariableFont_wdth,wght-normal";
 import { stringify } from "querystring";
+const ELECTRIC_RATE = 2000; // 2.000đ/kWh
+const WATER_RATE = 6700; // 6.700đ/m³
+
+import RevenueLineChart from "@/components/RevenueLineChart";
 
 // Mock data
 
@@ -495,7 +499,6 @@ export default function OwnerDashboard() {
   };
 
   const openBillModal = (bill?: any, id?: any) => {
-    alert(id);
     if (bill) {
       setEditingBill(bill);
       setBillForm({
@@ -955,6 +958,26 @@ export default function OwnerDashboard() {
   const totalRevenue = rentedRoom.reduce((sum, room) => sum + room.price, 0);
   const availableRoom = rooms.filter((r) => r.status == "available").length;
 
+  //Tính tổng doanh thu theo hóa đơn
+  const totalSumInvoice = invoiceTenant.reduce(
+    (sum, item) => sum + item.invoiceAmount,
+    0
+  );
+  //Tính tổng doanh thu theo từng loại
+  const getAmountByType = (type: any) =>
+    invoiceTenant
+      .filter((item) => item.invoiceType === type)
+      .reduce((sum, item) => sum + item.invoiceAmount, 0);
+
+  const roomFee = getAmountByType("month");
+  const electricFee = getAmountByType("electric");
+  const waterFee = getAmountByType("water");
+  const water_electricFee = electricFee + waterFee;
+  const serviceFee = getAmountByType("service");
+  const getPercent = (amount: any) =>
+    totalSumInvoice
+      ? ((amount / totalSumInvoice) * 100).toFixed(1) + "%"
+      : "0%";
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
@@ -2093,7 +2116,9 @@ export default function OwnerDashboard() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-green-100 text-sm">Tổng doanh thu</p>
-                      <p className="text-2xl font-bold">15.2M</p>
+                      <p className="text-2xl font-bold">
+                        {totalSumInvoice.toLocaleString()}
+                      </p>
                       <p className="text-green-100 text-sm">
                         +12% so với tháng trước
                       </p>
@@ -2105,9 +2130,11 @@ export default function OwnerDashboard() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-blue-100 text-sm">Tiền phòng</p>
-                      <p className="text-2xl font-bold">12.0M</p>
+                      <p className="text-2xl font-bold">
+                        {roomFee.toLocaleString()}
+                      </p>
                       <p className="text-blue-100 text-sm">
-                        79% tổng doanh thu
+                        {getPercent(roomFee)} tổng doanh thu
                       </p>
                     </div>
                     <div className="text-3xl">🏠</div>
@@ -2117,9 +2144,11 @@ export default function OwnerDashboard() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-purple-100 text-sm">Tiền điện nước</p>
-                      <p className="text-2xl font-bold">2.8M</p>
+                      <p className="text-2xl font-bold">
+                        {water_electricFee.toLocaleString()}
+                      </p>
                       <p className="text-purple-100 text-sm">
-                        18% tổng doanh thu
+                        {getPercent(water_electricFee)} tổng doanh thu
                       </p>
                     </div>
                     <div className="text-3xl">⚡</div>
@@ -2129,9 +2158,11 @@ export default function OwnerDashboard() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-orange-100 text-sm">Phí dịch vụ</p>
-                      <p className="text-2xl font-bold">400K</p>
+                      <p className="text-2xl font-bold">
+                        {serviceFee.toLocaleString()}
+                      </p>
                       <p className="text-orange-100 text-sm">
-                        3% tổng doanh thu
+                        {getPercent(serviceFee)} tổng doanh thu
                       </p>
                     </div>
                     <div className="text-3xl">🔧</div>
@@ -2144,16 +2175,8 @@ export default function OwnerDashboard() {
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">
                   Biểu đồ doanh thu theo tháng
                 </h3>
-                <div className="h-64 bg-gradient-to-r from-blue-50 to-green-50 rounded-xl flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-4xl mb-4">📊</div>
-                    <p className="text-gray-600">
-                      Biểu đồ doanh thu sẽ được hiển thị ở đây
-                    </p>
-                    <p className="text-sm text-gray-500 mt-2">
-                      Tích hợp với thư viện Chart.js hoặc Recharts
-                    </p>
-                  </div>
+                <div className="h-64 bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-4">
+                  <RevenueLineChart invoices={invoiceTenant} />
                 </div>
               </div>
 
@@ -2180,7 +2203,7 @@ export default function OwnerDashboard() {
                         Điện nước
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Dịch vụ
+                        Dịch Vụ
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Tổng cộng
@@ -2191,61 +2214,32 @@ export default function OwnerDashboard() {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {[
-                      {
-                        room: "101",
-                        tenant: "Nguyễn Văn A",
-                        rent: 3000000,
-                        utilities: 800000,
-                        service: 100000,
-                        status: "paid",
-                      },
-                      {
-                        room: "102",
-                        tenant: "Trần Thị B",
-                        rent: 3200000,
-                        utilities: 750000,
-                        service: 100000,
-                        status: "paid",
-                      },
-                      {
-                        room: "201",
-                        tenant: "Lê Văn C",
-                        rent: 3500000,
-                        utilities: 900000,
-                        service: 100000,
-                        status: "pending",
-                      },
-                      {
-                        room: "202",
-                        tenant: "Phạm Thị D",
-                        rent: 3500000,
-                        utilities: 850000,
-                        service: 100000,
-                        status: "paid",
-                      },
-                    ].map((item, index) => (
+                    {invoiceTenant.map((item, index) => (
                       <tr key={index}>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {item.room}
+                          {item.roomNumber}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           {item.tenant}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {item.rent.toLocaleString()}đ
+                          {item.rentRooms.toLocaleString()}đ
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {item.utilities.toLocaleString()}đ
+                          {(
+                            item.electricUsage * 2500 +
+                            item.waterUsage * 5000
+                          ).toLocaleString()}
+                          đ
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {item.service.toLocaleString()}đ
+                          {item.serviceFees.toLocaleString()}đ
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                           {(
-                            item.rent +
-                            item.utilities +
-                            item.service
+                            item.rentRooms +
+                            item.electricUsage * 2500 +
+                            item.waterUsage * 5000
                           ).toLocaleString()}
                           đ
                         </td>
@@ -2759,13 +2753,19 @@ export default function OwnerDashboard() {
                   <input
                     type="number"
                     value={billForm.electricUsage}
-                    onChange={(e) =>
+                    onChange={(e) => {
+                      const usage = parseInt(e.target.value) || 0;
                       setBillForm({
                         ...billForm,
-                        electricUsage: e.target.value,
-                      })
-                    }
-                    className="form-input w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500"
+                        electricUsage: usage.toString(),
+                        amount:
+                          billForm.type === "electric"
+                            ? (usage * ELECTRIC_RATE).toString()
+                            : billForm.amount,
+                      });
+                    }}
+                    disabled={billForm.type !== "electric"}
+                    className="form-input w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                     placeholder="VD: 150"
                   />
                 </div>
@@ -2776,10 +2776,19 @@ export default function OwnerDashboard() {
                   <input
                     type="number"
                     value={billForm.waterUsage}
-                    onChange={(e) =>
-                      setBillForm({ ...billForm, waterUsage: e.target.value })
-                    }
-                    className="form-input w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500"
+                    onChange={(e) => {
+                      const usage = parseInt(e.target.value) || 0;
+                      setBillForm({
+                        ...billForm,
+                        waterUsage: usage.toString(),
+                        amount:
+                          billForm.type === "water"
+                            ? (usage * WATER_RATE).toString()
+                            : billForm.amount,
+                      });
+                    }}
+                    disabled={billForm.type !== "water"}
+                    className="form-input w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                     placeholder="VD: 15"
                   />
                 </div>
@@ -2790,10 +2799,16 @@ export default function OwnerDashboard() {
                   <input
                     type="number"
                     value={billForm.amount}
-                    onChange={(e) =>
-                      setBillForm({ ...billForm, amount: e.target.value })
+                    disabled={
+                      billForm.type === "electric" || billForm.type === "water"
                     }
-                    className="form-input w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500"
+                    onChange={(e) =>
+                      setBillForm({
+                        ...billForm,
+                        amount: e.target.value || "0",
+                      })
+                    }
+                    className="form-input w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                     placeholder="VD: 3500000"
                     required
                   />
