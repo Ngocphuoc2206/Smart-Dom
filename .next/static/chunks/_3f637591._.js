@@ -29,55 +29,55 @@ function MessagesPage() {
     _s();
     const [messages, setMessages] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([
         {
-            id: '1',
-            sender: 'owner',
-            content: 'Chào bạn! Tôi là chủ trọ. Có vấn đề gì cần hỗ trợ không?',
-            timestamp: '2024-03-01 09:00',
-            type: 'text',
+            id: "1",
+            sender: "owner",
+            content: "Chào bạn! Tôi là chủ trọ. Có vấn đề gì cần hỗ trợ không?",
+            timestamp: "2024-03-01 09:00",
+            type: "text",
             read: true
         },
         {
-            id: '2',
-            sender: 'tenant',
-            content: 'Chào chủ trọ! Tôi muốn hỏi về việc sửa chữa máy lạnh ạ.',
-            timestamp: '2024-03-01 09:15',
-            type: 'text',
+            id: "2",
+            sender: "tenant",
+            content: "Chào chủ trọ! Tôi muốn hỏi về việc sửa chữa máy lạnh ạ.",
+            timestamp: "2024-03-01 09:15",
+            type: "text",
             read: true
         },
         {
-            id: '3',
-            sender: 'owner',
-            content: 'Máy lạnh có vấn đề gì vậy bạn? Bạn có thể mô tả chi tiết không?',
-            timestamp: '2024-03-01 09:20',
-            type: 'text',
+            id: "3",
+            sender: "owner",
+            content: "Máy lạnh có vấn đề gì vậy bạn? Bạn có thể mô tả chi tiết không?",
+            timestamp: "2024-03-01 09:20",
+            type: "text",
             read: true
         },
         {
-            id: '4',
-            sender: 'tenant',
-            content: 'Máy lạnh không thổi lạnh từ 2 ngày nay ạ. Tôi đã thử điều chỉnh nhiệt độ nhưng vẫn không được.',
-            timestamp: '2024-03-01 09:25',
-            type: 'text',
+            id: "4",
+            sender: "tenant",
+            content: "Máy lạnh không thổi lạnh từ 2 ngày nay ạ. Tôi đã thử điều chỉnh nhiệt độ nhưng vẫn không được.",
+            timestamp: "2024-03-01 09:25",
+            type: "text",
             read: true
         },
         {
-            id: '5',
-            sender: 'owner',
-            content: 'Tôi sẽ liên hệ thợ sửa chữa và sẽ có mặt vào chiều mai. Bạn có ở nhà không?',
-            timestamp: '2024-03-01 10:00',
-            type: 'text',
+            id: "5",
+            sender: "owner",
+            content: "Tôi sẽ liên hệ thợ sửa chữa và sẽ có mặt vào chiều mai. Bạn có ở nhà không?",
+            timestamp: "2024-03-01 10:00",
+            type: "text",
             read: true
         },
         {
-            id: '6',
-            sender: 'tenant',
-            content: 'Vâng, tôi sẽ ở nhà. Cảm ơn chủ trọ đã hỗ trợ nhanh chóng!',
-            timestamp: '2024-03-01 10:05',
-            type: 'text',
+            id: "6",
+            sender: "tenant",
+            content: "Vâng, tôi sẽ ở nhà. Cảm ơn chủ trọ đã hỗ trợ nhanh chóng!",
+            timestamp: "2024-03-01 10:05",
+            type: "text",
             read: true
         }
     ]);
-    const [newMessage, setNewMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [newMessage, setNewMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [isTyping, setIsTyping] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const messagesEndRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const fileInputRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
@@ -97,17 +97,17 @@ function MessagesPage() {
         if (newMessage.trim()) {
             const message = {
                 id: Date.now().toString(),
-                sender: 'tenant',
+                sender: "tenant",
                 content: newMessage,
-                timestamp: new Date().toLocaleString('vi-VN'),
-                type: 'text',
+                timestamp: new Date().toLocaleString("vi-VN"),
+                type: "text",
                 read: false
             };
             setMessages((prev)=>[
                     ...prev,
                     message
                 ]);
-            setNewMessage('');
+            setNewMessage("");
             // Simulate owner typing and response
             setTimeout(()=>{
                 setIsTyping(true);
@@ -115,10 +115,10 @@ function MessagesPage() {
                     setIsTyping(false);
                     const ownerResponse = {
                         id: (Date.now() + 1).toString(),
-                        sender: 'owner',
-                        content: 'Tôi đã nhận được tin nhắn của bạn. Sẽ phản hồi sớm nhất có thể!',
-                        timestamp: new Date().toLocaleString('vi-VN'),
-                        type: 'text',
+                        sender: "owner",
+                        content: "Tôi đã nhận được tin nhắn của bạn. Sẽ phản hồi sớm nhất có thể!",
+                        timestamp: new Date().toLocaleString("vi-VN"),
+                        type: "text",
                         read: false
                     };
                     setMessages((prev)=>[
@@ -130,7 +130,7 @@ function MessagesPage() {
         }
     };
     const handleKeyPress = (e)=>{
-        if (e.key === 'Enter' && !e.shiftKey) {
+        if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             sendMessage();
         }
@@ -140,10 +140,10 @@ function MessagesPage() {
         if (file) {
             const message = {
                 id: Date.now().toString(),
-                sender: 'tenant',
+                sender: "tenant",
                 content: `Đã gửi file: ${file.name}`,
-                timestamp: new Date().toLocaleString('vi-VN'),
-                type: 'file',
+                timestamp: new Date().toLocaleString("vi-VN"),
+                type: "file",
                 read: false,
                 fileName: file.name,
                 fileUrl: URL.createObjectURL(file)
@@ -156,9 +156,9 @@ function MessagesPage() {
     };
     const formatTime = (timestamp)=>{
         const date = new Date(timestamp);
-        return date.toLocaleTimeString('vi-VN', {
-            hour: '2-digit',
-            minute: '2-digit'
+        return date.toLocaleTimeString("vi-VN", {
+            hour: "2-digit",
+            minute: "2-digit"
         });
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -182,7 +182,7 @@ function MessagesPage() {
                                                 className: "h-5 w-5 mr-2"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/messages/page.tsx",
-                                                lineNumber: 162,
+                                                lineNumber: 172,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -192,12 +192,12 @@ function MessagesPage() {
                                                     children: "🏠"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/messages/page.tsx",
-                                                    lineNumber: 164,
+                                                    lineNumber: 174,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/messages/page.tsx",
-                                                lineNumber: 163,
+                                                lineNumber: 173,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -205,13 +205,13 @@ function MessagesPage() {
                                                 children: "SmartDorm"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/messages/page.tsx",
-                                                lineNumber: 166,
+                                                lineNumber: 176,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/messages/page.tsx",
-                                        lineNumber: 161,
+                                        lineNumber: 168,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -219,7 +219,7 @@ function MessagesPage() {
                                         children: "/"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/messages/page.tsx",
-                                        lineNumber: 168,
+                                        lineNumber: 180,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -232,12 +232,12 @@ function MessagesPage() {
                                                     children: "CT"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/messages/page.tsx",
-                                                    lineNumber: 171,
+                                                    lineNumber: 183,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/messages/page.tsx",
-                                                lineNumber: 170,
+                                                lineNumber: 182,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -247,7 +247,7 @@ function MessagesPage() {
                                                         children: "Chủ trọ ABC"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/messages/page.tsx",
-                                                        lineNumber: 174,
+                                                        lineNumber: 186,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -257,32 +257,32 @@ function MessagesPage() {
                                                                 className: "w-2 h-2 bg-green-500 rounded-full mr-1"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/messages/page.tsx",
-                                                                lineNumber: 176,
+                                                                lineNumber: 188,
                                                                 columnNumber: 21
                                                             }, this),
                                                             "Đang hoạt động"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/messages/page.tsx",
-                                                        lineNumber: 175,
+                                                        lineNumber: 187,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/messages/page.tsx",
-                                                lineNumber: 173,
+                                                lineNumber: 185,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/messages/page.tsx",
-                                        lineNumber: 169,
+                                        lineNumber: 181,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/messages/page.tsx",
-                                lineNumber: 160,
+                                lineNumber: 167,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -294,12 +294,12 @@ function MessagesPage() {
                                             className: "h-5 w-5"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/messages/page.tsx",
-                                            lineNumber: 184,
+                                            lineNumber: 196,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/messages/page.tsx",
-                                        lineNumber: 183,
+                                        lineNumber: 195,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -308,12 +308,12 @@ function MessagesPage() {
                                             className: "h-5 w-5"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/messages/page.tsx",
-                                            lineNumber: 187,
+                                            lineNumber: 199,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/messages/page.tsx",
-                                        lineNumber: 186,
+                                        lineNumber: 198,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -322,34 +322,34 @@ function MessagesPage() {
                                             className: "h-5 w-5"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/messages/page.tsx",
-                                            lineNumber: 190,
+                                            lineNumber: 202,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/messages/page.tsx",
-                                        lineNumber: 189,
+                                        lineNumber: 201,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/messages/page.tsx",
-                                lineNumber: 182,
+                                lineNumber: 194,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/messages/page.tsx",
-                        lineNumber: 159,
+                        lineNumber: 166,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/messages/page.tsx",
-                    lineNumber: 158,
+                    lineNumber: 165,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/messages/page.tsx",
-                lineNumber: 157,
+                lineNumber: 164,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -360,7 +360,7 @@ function MessagesPage() {
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "flex-1 p-6 overflow-y-auto space-y-4",
                             style: {
-                                maxHeight: 'calc(100vh - 300px)'
+                                maxHeight: "calc(100vh - 300px)"
                             },
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -370,20 +370,20 @@ function MessagesPage() {
                                         children: "Hôm nay"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/messages/page.tsx",
-                                        lineNumber: 204,
+                                        lineNumber: 219,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/messages/page.tsx",
-                                    lineNumber: 203,
+                                    lineNumber: 218,
                                     columnNumber: 13
                                 }, this),
                                 messages.map((message)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: `flex ${message.sender === 'tenant' ? 'justify-end' : 'justify-start'}`,
+                                        className: `flex ${message.sender === "tenant" ? "justify-end" : "justify-start"}`,
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: `max-w-xs lg:max-w-md ${message.sender === 'tenant' ? 'order-2' : 'order-1'}`,
+                                            className: `max-w-xs lg:max-w-md ${message.sender === "tenant" ? "order-2" : "order-1"}`,
                                             children: [
-                                                message.sender === 'owner' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                message.sender === "owner" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "flex items-center mb-1",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -393,12 +393,12 @@ function MessagesPage() {
                                                                 children: "CT"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/messages/page.tsx",
-                                                                lineNumber: 218,
+                                                                lineNumber: 239,
                                                                 columnNumber: 25
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/messages/page.tsx",
-                                                            lineNumber: 217,
+                                                            lineNumber: 238,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -406,80 +406,82 @@ function MessagesPage() {
                                                             children: "Chủ trọ ABC"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/messages/page.tsx",
-                                                            lineNumber: 220,
+                                                            lineNumber: 241,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/messages/page.tsx",
-                                                    lineNumber: 216,
+                                                    lineNumber: 237,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: `px-4 py-3 rounded-2xl ${message.sender === 'tenant' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-900'}`,
-                                                    children: message.type === 'file' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: `px-4 py-3 rounded-2xl ${message.sender === "tenant" ? "bg-green-600 text-white" : "bg-gray-100 text-gray-900"}`,
+                                                    children: message.type === "file" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "flex items-center",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$heroicons$2f$react$2f$24$2f$outline$2f$esm$2f$PaperClipIcon$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__PaperClipIcon$3e$__["PaperClipIcon"], {
                                                                 className: "h-4 w-4 mr-2"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/messages/page.tsx",
-                                                                lineNumber: 233,
+                                                                lineNumber: 254,
                                                                 columnNumber: 25
                                                             }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "text-sm",
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                                                                href: message.fileUrl,
+                                                                download: message.fileName,
+                                                                className: "text-sm underline",
                                                                 children: message.fileName
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/messages/page.tsx",
-                                                                lineNumber: 234,
+                                                                lineNumber: 255,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/messages/page.tsx",
-                                                        lineNumber: 232,
+                                                        lineNumber: 253,
                                                         columnNumber: 23
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                         className: "text-sm",
                                                         children: message.content
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/messages/page.tsx",
-                                                        lineNumber: 237,
+                                                        lineNumber: 264,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/messages/page.tsx",
-                                                    lineNumber: 224,
+                                                    lineNumber: 245,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: `text-xs text-gray-500 mt-1 ${message.sender === 'tenant' ? 'text-right' : 'text-left'}`,
+                                                    className: `text-xs text-gray-500 mt-1 ${message.sender === "tenant" ? "text-right" : "text-left"}`,
                                                     children: [
                                                         formatTime(message.timestamp),
-                                                        message.sender === 'tenant' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        message.sender === "tenant" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                             className: "ml-1",
-                                                            children: message.read ? '✓✓' : '✓'
+                                                            children: message.read ? "✓✓" : "✓"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/messages/page.tsx",
-                                                            lineNumber: 244,
+                                                            lineNumber: 275,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/messages/page.tsx",
-                                                    lineNumber: 241,
+                                                    lineNumber: 268,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/messages/page.tsx",
-                                            lineNumber: 214,
+                                            lineNumber: 231,
                                             columnNumber: 17
                                         }, this)
                                     }, message.id, false, {
                                         fileName: "[project]/src/app/messages/page.tsx",
-                                        lineNumber: 210,
+                                        lineNumber: 225,
                                         columnNumber: 15
                                     }, this)),
                                 isTyping && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -497,12 +499,12 @@ function MessagesPage() {
                                                             children: "CT"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/messages/page.tsx",
-                                                            lineNumber: 259,
+                                                            lineNumber: 288,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/messages/page.tsx",
-                                                        lineNumber: 258,
+                                                        lineNumber: 287,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -510,13 +512,13 @@ function MessagesPage() {
                                                         children: "Chủ trọ ABC"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/messages/page.tsx",
-                                                        lineNumber: 261,
+                                                        lineNumber: 290,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/messages/page.tsx",
-                                                lineNumber: 257,
+                                                lineNumber: 286,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -528,62 +530,62 @@ function MessagesPage() {
                                                             className: "w-2 h-2 bg-gray-400 rounded-full animate-bounce"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/messages/page.tsx",
-                                                            lineNumber: 265,
+                                                            lineNumber: 294,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "w-2 h-2 bg-gray-400 rounded-full animate-bounce",
                                                             style: {
-                                                                animationDelay: '0.1s'
+                                                                animationDelay: "0.1s"
                                                             }
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/messages/page.tsx",
-                                                            lineNumber: 266,
+                                                            lineNumber: 295,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "w-2 h-2 bg-gray-400 rounded-full animate-bounce",
                                                             style: {
-                                                                animationDelay: '0.2s'
+                                                                animationDelay: "0.2s"
                                                             }
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/messages/page.tsx",
-                                                            lineNumber: 267,
+                                                            lineNumber: 299,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/messages/page.tsx",
-                                                    lineNumber: 264,
+                                                    lineNumber: 293,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/messages/page.tsx",
-                                                lineNumber: 263,
+                                                lineNumber: 292,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/messages/page.tsx",
-                                        lineNumber: 256,
+                                        lineNumber: 285,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/messages/page.tsx",
-                                    lineNumber: 255,
+                                    lineNumber: 284,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     ref: messagesEndRef
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/messages/page.tsx",
-                                    lineNumber: 274,
+                                    lineNumber: 309,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/messages/page.tsx",
-                            lineNumber: 201,
+                            lineNumber: 213,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -600,7 +602,7 @@ function MessagesPage() {
                                             accept: "image/*,.pdf,.doc,.docx"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/messages/page.tsx",
-                                            lineNumber: 280,
+                                            lineNumber: 315,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -610,12 +612,12 @@ function MessagesPage() {
                                                 className: "h-5 w-5"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/messages/page.tsx",
-                                                lineNumber: 292,
+                                                lineNumber: 327,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/messages/page.tsx",
-                                            lineNumber: 288,
+                                            lineNumber: 323,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -624,12 +626,12 @@ function MessagesPage() {
                                                 className: "h-5 w-5"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/messages/page.tsx",
-                                                lineNumber: 296,
+                                                lineNumber: 331,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/messages/page.tsx",
-                                            lineNumber: 295,
+                                            lineNumber: 330,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -643,12 +645,12 @@ function MessagesPage() {
                                                     className: "w-full border border-gray-300 rounded-2xl px-4 py-3 pr-12 focus:ring-2 focus:ring-green-500 focus:border-green-500 resize-none",
                                                     rows: 1,
                                                     style: {
-                                                        minHeight: '44px',
-                                                        maxHeight: '120px'
+                                                        minHeight: "44px",
+                                                        maxHeight: "120px"
                                                     }
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/messages/page.tsx",
-                                                    lineNumber: 300,
+                                                    lineNumber: 335,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -657,18 +659,18 @@ function MessagesPage() {
                                                         className: "h-5 w-5"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/messages/page.tsx",
-                                                        lineNumber: 310,
+                                                        lineNumber: 345,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/messages/page.tsx",
-                                                    lineNumber: 309,
+                                                    lineNumber: 344,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/messages/page.tsx",
-                                            lineNumber: 299,
+                                            lineNumber: 334,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -679,18 +681,18 @@ function MessagesPage() {
                                                 className: "h-5 w-5"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/messages/page.tsx",
-                                                lineNumber: 319,
+                                                lineNumber: 354,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/messages/page.tsx",
-                                            lineNumber: 314,
+                                            lineNumber: 349,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/messages/page.tsx",
-                                    lineNumber: 279,
+                                    lineNumber: 314,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -700,7 +702,7 @@ function MessagesPage() {
                                             children: "Nhấn Enter để gửi, Shift + Enter để xuống dòng"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/messages/page.tsx",
-                                            lineNumber: 324,
+                                            lineNumber: 359,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -710,40 +712,40 @@ function MessagesPage() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/messages/page.tsx",
-                                            lineNumber: 325,
+                                            lineNumber: 360,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/messages/page.tsx",
-                                    lineNumber: 323,
+                                    lineNumber: 358,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/messages/page.tsx",
-                            lineNumber: 278,
+                            lineNumber: 313,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/messages/page.tsx",
-                    lineNumber: 199,
+                    lineNumber: 211,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/messages/page.tsx",
-                lineNumber: 198,
+                lineNumber: 210,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/messages/page.tsx",
-        lineNumber: 155,
+        lineNumber: 162,
         columnNumber: 5
     }, this);
 }
-_s(MessagesPage, "EsICkWNTfTjcJYcURNseIfLlmjY=");
+_s(MessagesPage, "RQkFTVjhKI5yW4kC89MsPtU5emE=");
 _c = MessagesPage;
 var _c;
 __turbopack_context__.k.register(_c, "MessagesPage");

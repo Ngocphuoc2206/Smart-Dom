@@ -900,25 +900,40 @@ export default function OwnerDashboard() {
   };
 
   const handleReminder = async (bill: any) => {
-    const res = await fetch(`https://localhost:7257/api/Notification/create`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        userId: bill.userId, // lấy từ contract
-        message: `Bạn có hóa đơn ${translateInvoiceType(
-          bill.invoiceType
-        )} ${bill.invoiceAmount.toLocaleString()}đ cần thanh toán trước ${formatDate(
-          bill.invoiceDateLimit
-        )}`,
-      }),
-    });
+    const resNotify = await fetch(
+      `https://localhost:7257/api/Notification/create`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: bill.userId, // lấy từ contract
+          title: `Nhắc Nhở đóng tiền ${translateInvoiceType(bill.invoiceType)}`,
+          message: `Bạn có hóa đơn ${translateInvoiceType(
+            bill.invoiceType
+          )} ${bill.invoiceAmount.toLocaleString()}đ cần thanh toán trước ${formatDate(
+            bill.invoiceDateLimit
+          )}`,
+        }),
+      }
+    );
 
-    if (res.ok) {
-      toast.success("Đã gửi nhắc nhở thanh toán!");
-      alert("Đã gửi nhắc nhở thanh toán!");
+    const resRemind = await fetch(
+      `https://localhost:7257/api/Invoice/reminder/${bill.id}`,
+      {
+        method: "POST",
+      }
+    );
+
+    if (resNotify.ok) {
+      alert("Đã gửi nhắc nhở đến người thuê!");
     } else {
-      toast.error("Gửi nhắc nhở thất bại.");
-      alert("Gửi nhắc nhở thất bại.");
+      alert("Không thể gửi nhắc nhở.");
+    }
+
+    if (resRemind.ok) {
+      alert("Đã gửi nhắc nhở đến người thuê!");
+    } else {
+      alert("Không thể gửi nhắc nhở.");
     }
   };
 

@@ -9,70 +9,19 @@ import { getInvoice } from "../hooks/useInvoice";
 import { getMaintenanceRequest } from "../hooks/useMaintenanceRequest";
 import { getRoomReview } from "../hooks/useRoomReview";
 import { getRoomBookingInfo } from "../hooks/useRoomBookingInfo";
+import { getNotification } from "../hooks/useNotification";
+import { HubConnectionBuilder } from "@microsoft/signalr";
+import { getContract } from "../hooks/useContract";
+import { useSignalRNotification } from "../hooks/useSignalRNotification";
 
-// Mock data
-
-const mockMyBills = [
-  {
-    id: 1,
-    type: "Tiền phòng",
-    amount: 3500000,
-    dueDate: "2024-02-25",
-    status: "pending",
-    month: "02/2024",
-  },
-  {
-    id: 2,
-    type: "Tiền điện",
-    amount: 450000,
-    dueDate: "2024-02-25",
-    status: "pending",
-    month: "01/2024",
-  },
-  {
-    id: 3,
-    type: "Tiền nước",
-    amount: 120000,
-    dueDate: "2024-02-25",
-    status: "paid",
-    month: "01/2024",
-  },
-];
-
-const mockMyReports = [
-  {
-    id: 1,
-    issue: "Máy lạnh không hoạt động",
-    status: " ",
-    date: "2024-02-20",
-    response: "Đã liên hệ thợ sửa chữa, dự kiến hoàn thành trong 2 ngày.",
-    priority: "high",
-  },
-  {
-    id: 2,
-    issue: "Vòi nước bị rò rỉ",
-    status: "completed",
-    date: "2024-02-15",
-    response: "Đã thay thế vòi nước mới. Vấn đề đã được giải quyết.",
-    priority: "medium",
-  },
-  {
-    id: 3,
-    issue: "Bóng đèn phòng ngủ bị hỏng",
-    status: "in-progress",
-    date: "2024-02-25",
-    response: "Đã ghi nhận, sẽ thay thế trong ngày hôm nay.",
-    priority: "low",
-  },
-];
-
-const mockContract = {
-  roomNumber: "101",
-  startDate: "2024-01-01",
-  endDate: "2024-12-31",
-  monthlyRent: 3500000,
-  deposit: 7000000,
-  status: "active",
+type Notification = {
+  id: number;
+  userId: number;
+  title: string;
+  message: string;
+  createAt: Date;
+  isRead: boolean;
+  [key: string]: any;
 };
 
 export default function TenantDashboard() {
@@ -83,8 +32,14 @@ export default function TenantDashboard() {
   const [rooms, setRooms] = useState<any[]>([]);
   const [invoiceTenant, setInvoiceTenant] = useState<any[]>([]);
   const [RoomReviews, setRoomReviews] = useState<any[]>([]);
+  const [Contracts, setContracts] = useState<any[]>([]);
   const [maintenanceRequest, setMaintenanceRequest] = useState<any[]>([]);
   const [roomBookingInfo, setRoomBookingInfo] = useState<any[]>([]);
+  const [getNotifications, setGetNotifications] = useState<Notification[]>([]);
+  const [unreadCountNotify, setUnreadCountNotify] = useState(0);
+  const { notifications, unreadCount } = useSignalRNotification(
+    user?.idUser ? Number(user.idUser) : undefined
+  );
 
   useEffect(() => {
     getRoom().then(setRooms);
@@ -92,12 +47,21 @@ export default function TenantDashboard() {
     getMaintenanceRequest().then(setMaintenanceRequest);
     getRoomBookingInfo().then(setRoomBookingInfo);
     getRoomReview().then(setRoomReviews);
+    getNotification().then(setGetNotifications);
+    getContract().then(setContracts);
   }, []);
+
+  useEffect(() => {
+    const notify = getNotifications.filter((n) => n.isRead === false).length;
+    const sumNotify = notify + unreadCount;
+    setUnreadCountNotify(sumNotify);
+  }, [getNotifications, unreadCount]); // 👈 chỉ khi dữ liệu này thay đổi mới chạy
 
   const handleLogout = () => {
     logout();
     router.push("/");
   };
+
   const [showReportModal, setShowReportModal] = useState(false);
   const [reportForm, setReportForm] = useState({
     issue: "",
@@ -105,6 +69,8 @@ export default function TenantDashboard() {
     priority: "medium",
     location: "",
   });
+
+  //Connection Notifycation
 
   // Room search filters
   const [roomFilters, setRoomFilters] = useState({
@@ -315,6 +281,23 @@ export default function TenantDashboard() {
   const room = roomBookingInfo.find((r) => r.userId == user?.idUser);
 
   const roomNumber = room?.roomNumber;
+
+  const contractByID = Contracts.find(
+    (c) => c.idUser === user?.idUser && c.status === "paid"
+  );
+
+  // Mock data
+  const mockContract =
+    contractByID && room
+      ? {
+          roomNumber: room.roomNumber,
+          startDate: contractByID.startDate.toString(),
+          endDate: contractByID.endDate.toString(),
+          monthlyRent: room.price,
+          deposit: contractByID.depositAmount,
+          status: "active",
+        }
+      : null; // hoặc bạn gán giá trị mặc định an toàn
 
   const daysLeft = getDaysLeft(room?.desiredEnd);
 
@@ -589,11 +572,28 @@ export default function TenantDashboard() {
                   </Link>
                   <Link
                     href="/notifications"
-                    className="bg-purple-600 text-white p-4 rounded-lg text-center hover:bg-purple-700 transition-colors"
+                    className="relative bg-purple-600 text-white p-4 rounded-lg text-center hover:bg-purple-700 transition-colors"
                   >
-                    <div className="text-2xl mb-2">🔔</div>
-                    <div className="font-medium text-sm">Thông báo</div>
+                    <div>
+                      <div className="text-2xl mb-2">🔔</div>
+                      <div className="font-medium text-sm">Thông báo</div>
+                      <ul>
+                        {notifications.map((msg, i) => (
+                          <li key={i} className="text-sm text-gray-700">
+                            {msg}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Badge số lượng chưa đọc */}
+                    {unreadCountNotify > 0 && (
+                      <span className="absolute top-1 right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
+                        {unreadCountNotify}
+                      </span>
+                    )}
                   </Link>
+
                   <Link
                     href="/payment-history"
                     className="bg-green-600 text-white p-4 rounded-lg text-center hover:bg-green-700 transition-colors"
@@ -1020,7 +1020,7 @@ export default function TenantDashboard() {
                           Phòng số:
                         </span>
                         <span className="ml-2 text-sm text-gray-900">
-                          {mockContract.roomNumber}
+                          {mockContract ? mockContract.roomNumber : ""}
                         </span>
                       </div>
                       <div>
@@ -1028,7 +1028,7 @@ export default function TenantDashboard() {
                           Ngày bắt đầu:
                         </span>
                         <span className="ml-2 text-sm text-gray-900">
-                          {mockContract.startDate}
+                          {formatDateTime(mockContract?.startDate)}
                         </span>
                       </div>
                       <div>
@@ -1036,7 +1036,7 @@ export default function TenantDashboard() {
                           Ngày kết thúc:
                         </span>
                         <span className="ml-2 text-sm text-gray-900">
-                          {mockContract.endDate}
+                          {formatDateTime(mockContract?.endDate)}
                         </span>
                       </div>
                       <div>
@@ -1044,7 +1044,7 @@ export default function TenantDashboard() {
                           Tiền thuê hàng tháng:
                         </span>
                         <span className="ml-2 text-sm text-gray-900">
-                          {mockContract.monthlyRent.toLocaleString()}đ
+                          {mockContract?.monthlyRent.toLocaleString()}đ
                         </span>
                       </div>
                       <div>
@@ -1052,7 +1052,7 @@ export default function TenantDashboard() {
                           Tiền cọc:
                         </span>
                         <span className="ml-2 text-sm text-gray-900">
-                          {mockContract.deposit.toLocaleString()}đ
+                          {mockContract?.deposit.toLocaleString()}đ
                         </span>
                       </div>
                       <div>
@@ -1061,10 +1061,10 @@ export default function TenantDashboard() {
                         </span>
                         <span
                           className={`ml-2 px-2 py-1 text-xs rounded-full ${getStatusColor(
-                            mockContract.status
+                            mockContract?.status ?? ""
                           )}`}
                         >
-                          {getStatusText(mockContract.status)}
+                          {getStatusText(mockContract?.status ?? "")}
                         </span>
                       </div>
                     </div>
