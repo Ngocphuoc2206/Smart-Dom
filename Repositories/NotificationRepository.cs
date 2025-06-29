@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Smart_Dom.DTOs.Notification;
 using Smart_Dom.Interfaces;
 using Smart_Dom.Models;
 
@@ -33,9 +34,21 @@ namespace Smart_Dom.Repositories
             }
         }
 
-        public async Task<IEnumerable<NotificationModel>> GetAllNotificationAsync()
+        public async Task<IEnumerable<NotificationViewDTO>> GetAllNotificationAsync()
         {
-            return await _context.Notifications.ToListAsync();
+            var noties = from notification in _context.Notifications
+                         join m in _context.MaintenanceRequests on notification.UserId equals m.UserId
+                         select new NotificationViewDTO
+                         {
+                             Id = notification.Id,
+                             Title = notification.Title,
+                             TypeNotify = notification.TypeNotify,
+                             IsRead = notification.IsRead,
+                             Message = notification.Message,
+                             Priority = m.PriorityLevel,
+                             CreatedAt = notification.CreatedAt,
+                         };
+            return noties;
         }
 
         public async Task<NotificationModel?> GetByIdAsync(int id)
@@ -43,9 +56,13 @@ namespace Smart_Dom.Repositories
             return await _context.Notifications.FindAsync(id);
         }
 
-        public async Task<NotificationModel?> GetByUserIdAsync(int userId)
+        public async Task<IEnumerable<NotificationModel?>> GetByUserIdAsync(int userId)
         {
-            return await _context.Notifications.FirstOrDefaultAsync(x => x.UserId == userId);
+            var notifications = await _context.Notifications
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            return notifications;
         }
 
         public async Task<bool> SaveChangesAsync()

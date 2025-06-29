@@ -9,4 +9,5 @@ namespace Smart_Dom.Hubs.ChatRealTime
             return connection.GetHttpContext()?.Request.Query["userId"];
         }
     }
+
 }

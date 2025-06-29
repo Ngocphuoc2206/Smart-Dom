@@ -298,8 +298,12 @@ C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\refin
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\Smart-Dom.pdb
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\Smart-Dom.genruntimeconfig.cache
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\ref\Smart-Dom.dll
-C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
 C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
+C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\Microsoft.AspNetCore.Connections.Abstractions.dll
+C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\Microsoft.AspNetCore.SignalR.Common.dll
+C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\Microsoft.AspNetCore.SignalR.Protocols.Json.dll
+C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\bin\Debug\net8.0\Microsoft.Extensions.Features.dll
+C:\Users\Tran Ngoc Phuoc\source\repos\Smart-Dom\Smart-Dom\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

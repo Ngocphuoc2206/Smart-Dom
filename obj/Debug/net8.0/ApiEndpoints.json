@@ -121,6 +121,22 @@
   },
   {
     "ContainingType": "Smart_Dom.Areas.Invoice.Controllers.InvoiceController",
+    "Method": "SimulatePayment",
+    "RelativePath": "api/Invoice/payment/internal",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "Smart_Dom.DTOs.Invoice.InternalPaymentRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.Invoice.Controllers.InvoiceController",
     "Method": "SendReminder",
     "RelativePath": "api/Invoice/reminder/{id}",
     "HttpMethod": "POST",
@@ -271,6 +287,22 @@
       {
         "Name": "notification",
         "Type": "Smart_Dom.DTOs.Notification.CreateNotificationDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.Notification.Controllers.NotificationController",
+    "Method": "Update",
+    "RelativePath": "api/Notification/update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

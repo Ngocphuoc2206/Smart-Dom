@@ -14,6 +14,9 @@
         public float ServiceFees { get; set; } = 0;
         public string? Note { get; set; }
         public DateTime? InvoiceDateLimit { get; set; }
+        public string? Method { get; set; }
+        public string? TransactionCode { get; set; }
+        public DateTime? PaidAt { get; set; }
         public string? Status { get; set; }
     }
 }

@@ -6,11 +6,11 @@ namespace Smart_Dom.Interfaces
 {
     public interface INotificationService
     {
-        Task<IEnumerable<NotificationModel>> GetAllNotificationAsync();
+        Task<IEnumerable<NotificationViewDTO>> GetAllNotificationAsync();
         Task<NotificationModel?> GetNotiByIdAsync(int id);
-        Task<NotificationModel?> GetNotiByUserIdAsync(int userId);
+        Task<IEnumerable<NotificationModel?>> GetNotiByUserIdAsync(int userId);
         Task CreateNotiAsync(CreateNotificationDTO account);
         Task DeleteNotiAsync(int id);
-        Task UpdateNotiAsync(CreateNotificationDTO account);
+        Task UpdateNotiAsync(NotificationModel account);
     }
 }

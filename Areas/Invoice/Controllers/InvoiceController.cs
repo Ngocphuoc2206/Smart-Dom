@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Smart_Dom.DTOs.Invoice;
 using Smart_Dom.Hubs;
 using Smart_Dom.Interfaces;
+using Smart_Dom.Models;
 using System.Threading.Tasks;
 
 namespace Smart_Dom.Areas.Invoice.Controllers
@@ -18,13 +19,15 @@ namespace Smart_Dom.Areas.Invoice.Controllers
         private readonly ILogger<InvoiceController> _logger;
         private readonly IHubContext<NotificationHub> _hubContext;
         private readonly IRoomService _roomService;
-        public InvoiceController(IInvoiceService invoiceService, ILogger<InvoiceController> logger, IHubContext<NotificationHub> hubContext, IRoomService roomService, IContractService contractService)
+        private readonly AppDBContext _context;
+        public InvoiceController(IInvoiceService invoiceService, ILogger<InvoiceController> logger, IHubContext<NotificationHub> hubContext, IRoomService roomService, IContractService contractService, AppDBContext context)
         {
             _invoiceService = invoiceService;
             _logger = logger;
             _hubContext = hubContext;
             _roomService = roomService;
             _contractService = contractService;
+            _context = context;
         }
 
         [HttpGet]
@@ -90,5 +93,37 @@ namespace Smart_Dom.Areas.Invoice.Controllers
 
             return Ok(new { message = "Đã gửi nhắc nhở thành công" });
         }
+
+        [HttpPost("payment/internal")]
+        public async Task<IActionResult> SimulatePayment([FromBody] InternalPaymentRequest req)
+        {
+            // 1. Kiểm tra invoice
+            var invoice = await _invoiceService.GetInvoiceByIdAsync(req.InvoiceId);
+            if (invoice == null || invoice.Status == "paid")
+                return BadRequest("Hóa đơn không hợp lệ");
+
+            // 2. Tạo transaction giả lập
+            var txn = new TransactionModel
+            {
+                InvoiceId = invoice.Id,
+                Method = req.Method,
+                Status = "success",
+                PaidAt = DateTime.Now,
+                TransactionCode = $"TXN{DateTimeOffset.Now.ToUnixTimeMilliseconds()}"
+            };
+            _context.Transactions.Add(txn);
+
+            // 3. Cập nhật invoice
+            invoice.Status = "paid";
+            await _invoiceService.UpdateAsync(invoice);
+
+            return Ok(new
+            {
+                Message = "Thanh toán thành công",
+                TransactionCode = txn.TransactionCode
+            });
+        }
+
+
     }
 }

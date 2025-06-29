@@ -37,5 +37,23 @@ namespace Smart_Dom.Areas.Notification.Controllers
             await _notificationService.CreateNotiAsync(notification);
             return Ok();
         }
+
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> Update(int id)
+        {
+            _logger.LogInformation($"Update a new notification with UserID: {id}");
+            if (!ModelState.IsValid)
+            {
+                _logger.LogWarning("Invalid model state for Notify creation");
+                return BadRequest(ModelState);
+            }
+            var notifications = await _notificationService.GetNotiByUserIdAsync(id);
+            foreach (var notif in notifications)
+            {
+                notif.IsRead = true;
+                await _notificationService.UpdateNotiAsync(notif);
+            }
+            return Ok();
+        }
     }
 }

@@ -13,6 +13,9 @@ namespace Smart_Dom.Models
         [ForeignKey("UserId")]
         public UserModel? User { get; set; }
 
+        [Required]
+        public string? TypeNotify { get; set; }
+
         [Required] 
         public string? Title { get; set; }
 

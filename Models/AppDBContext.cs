@@ -39,6 +39,8 @@ namespace Smart_Dom.Models
         public DbSet<NotificationModel> Notifications { get; set; }
         public DbSet<ReviewImageModel> ReviewsImages { get; set; }
         public DbSet<RoomReviewModel> RoomReviews { get; set;} = null!;
+        public DbSet<ChatMessageModel> ChatMessages { get; set; }
+        public DbSet<TransactionModel> Transactions { get; set; }
 
     }
 }

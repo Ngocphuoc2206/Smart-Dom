@@ -12,6 +12,7 @@ namespace Smart_Dom.Interfaces
         Task<IEnumerable<InvoiceModel>> GetInvoicesByInvoiceTypeAsync(string invoiceType);
         Task CreateInvoiceAsync(CreateInvoice invoice);
         Task UpdateInvoiceAsync(EditInvoice invoice, int id);
+        Task UpdateAsync(InvoiceModel invoice);
         Task DeleteInvoiceAsync(int id);
     }
 }

@@ -32,6 +32,7 @@ namespace Smart_Dom.Services
                     Title = account.Title,
                     Message = account.Message,
                     UserId = account.UserId,
+                    TypeNotify = "bill",
                     IsRead = false,
                     CreatedAt = DateTime.Now,
                 };
@@ -51,7 +52,7 @@ namespace Smart_Dom.Services
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<NotificationModel>> GetAllNotificationAsync()
+        public async Task<IEnumerable<NotificationViewDTO>> GetAllNotificationAsync()
         {
             return await _notificationRepository.GetAllNotificationAsync();
         }
@@ -61,14 +62,14 @@ namespace Smart_Dom.Services
             return await _notificationRepository.GetByIdAsync(id);
         }
 
-        public async Task<NotificationModel?> GetNotiByUserIdAsync(int userId)
+        public async Task<IEnumerable<NotificationModel?>> GetNotiByUserIdAsync(int userId)
         {
             return await _notificationRepository.GetByUserIdAsync(userId);
         }
 
-        public Task UpdateNotiAsync(CreateNotificationDTO account)
+        public async Task UpdateNotiAsync(NotificationModel account)
         {
-            throw new NotImplementedException();
+            await _notificationRepository.UpdateAsync(account);
         }
     }
 }

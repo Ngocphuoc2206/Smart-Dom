@@ -41,6 +41,7 @@ namespace Smart_Dom.Repositories
                            join ct in _context.Contracts on i.ContractID equals ct.ID
                            join r in _context.Rooms on ct.RoomId equals r.ID
                            join u in _context.Users on ct.IDUser equals u.ID
+                           join t in _context.Transactions on i.Id equals t.InvoiceId
                            select new InvoiceViewModel()
                            { 
                                 Id = i.Id,
@@ -52,6 +53,9 @@ namespace Smart_Dom.Repositories
                                 InvoiceType = i.InvoiceType,
                                 ElectricUsage = i.ElectricUsage,
                                 ServiceFees = i.ServiceFees,
+                                Method = t.Method,
+                                PaidAt = t.PaidAt,
+                                TransactionCode = t.TransactionCode,
                                 WaterUsage = i.WaterUsage,
                                 Note = i.Note,
                                 InvoiceDateLimit = i.InvoiceDateLimit,

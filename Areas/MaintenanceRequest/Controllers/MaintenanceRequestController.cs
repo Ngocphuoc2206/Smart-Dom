@@ -119,6 +119,7 @@ namespace Smart_Dom.Areas.MaintenanceRequest.Controllers
                     UserId = report.UserId, // hoặc report.Tenant.Email
                     Title = "Cập nhật trạng thái báo cáo",
                     Message = $"Báo cáo sự cố của bạn tại phòng {room.RoomNumber} đã được cập nhật: {report.Status}.",
+                    TypeNotify = "maintenance"
                 };
                 await _notificationService.CreateNotiAsync(notification);
 

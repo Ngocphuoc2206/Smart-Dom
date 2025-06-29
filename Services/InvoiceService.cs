@@ -143,5 +143,10 @@ namespace Smart_Dom.Services
 
             await _invoiceRepository.UpdateInvoiceAsync(existingInvoice);
         }
+
+        public async Task UpdateAsync(InvoiceModel invoice)
+        {
+            await _invoiceRepository.UpdateInvoiceAsync(invoice);
+        }
     }
 }
