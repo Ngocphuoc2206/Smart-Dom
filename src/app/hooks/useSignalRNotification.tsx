@@ -47,6 +47,7 @@ export const useSignalRNotification = (userId?: string | number) => {
       ) {
         connectionRef.current.stop();
       }
+      connectionRef.current = null;
     };
   }, [userId]);
 

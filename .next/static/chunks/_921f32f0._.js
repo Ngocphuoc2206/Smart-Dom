@@ -53,6 +53,7 @@ function PaymentPage() {
     const [selectedMethod, setSelectedMethod] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [isProcessing, setIsProcessing] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [isCompleted, setIsCompleted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [invoices, setInvoices] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const paymentMethods = [
         {
             id: "momo",
@@ -98,7 +99,7 @@ function PaymentPage() {
                         className: "h-16 w-16 text-green-500 mx-auto mb-4"
                     }, void 0, false, {
                         fileName: "[project]/src/app/payment/page.tsx",
-                        lineNumber: 76,
+                        lineNumber: 78,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -106,7 +107,7 @@ function PaymentPage() {
                         children: "Thanh toán thành công!"
                     }, void 0, false, {
                         fileName: "[project]/src/app/payment/page.tsx",
-                        lineNumber: 77,
+                        lineNumber: 79,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -118,7 +119,7 @@ function PaymentPage() {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/payment/page.tsx",
-                        lineNumber: 78,
+                        lineNumber: 82,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -129,7 +130,7 @@ function PaymentPage() {
                                 children: "Mã giao dịch"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/payment/page.tsx",
-                                lineNumber: 82,
+                                lineNumber: 86,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -140,13 +141,13 @@ function PaymentPage() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/payment/page.tsx",
-                                lineNumber: 83,
+                                lineNumber: 87,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/payment/page.tsx",
-                        lineNumber: 81,
+                        lineNumber: 85,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -158,7 +159,7 @@ function PaymentPage() {
                                 children: "Quay về Dashboard"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/payment/page.tsx",
-                                lineNumber: 86,
+                                lineNumber: 90,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -166,24 +167,24 @@ function PaymentPage() {
                                 children: "Tải biên lai"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/payment/page.tsx",
-                                lineNumber: 89,
+                                lineNumber: 96,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/payment/page.tsx",
-                        lineNumber: 85,
+                        lineNumber: 89,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/payment/page.tsx",
-                lineNumber: 75,
+                lineNumber: 77,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/payment/page.tsx",
-            lineNumber: 74,
+            lineNumber: 76,
             columnNumber: 7
         }, this);
     }
@@ -210,12 +211,12 @@ function PaymentPage() {
                                                 children: "🏠"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/payment/page.tsx",
-                                                lineNumber: 107,
+                                                lineNumber: 114,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/payment/page.tsx",
-                                            lineNumber: 106,
+                                            lineNumber: 113,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -223,18 +224,18 @@ function PaymentPage() {
                                             children: "Thanh toán hóa đơn"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/payment/page.tsx",
-                                            lineNumber: 109,
+                                            lineNumber: 116,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/payment/page.tsx",
-                                    lineNumber: 105,
+                                    lineNumber: 112,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/payment/page.tsx",
-                                lineNumber: 104,
+                                lineNumber: 111,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -243,23 +244,23 @@ function PaymentPage() {
                                 children: "← Quay lại"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/payment/page.tsx",
-                                lineNumber: 112,
+                                lineNumber: 121,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/payment/page.tsx",
-                        lineNumber: 103,
+                        lineNumber: 110,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/payment/page.tsx",
-                    lineNumber: 102,
+                    lineNumber: 109,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/payment/page.tsx",
-                lineNumber: 101,
+                lineNumber: 108,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -275,7 +276,7 @@ function PaymentPage() {
                                     children: "Chi tiết hóa đơn"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/payment/page.tsx",
-                                    lineNumber: 123,
+                                    lineNumber: 135,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -289,7 +290,7 @@ function PaymentPage() {
                                                     children: "Phòng:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                    lineNumber: 127,
+                                                    lineNumber: 141,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -297,13 +298,13 @@ function PaymentPage() {
                                                     children: mockBill.roomNumber
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                    lineNumber: 128,
+                                                    lineNumber: 142,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/payment/page.tsx",
-                                            lineNumber: 126,
+                                            lineNumber: 140,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -314,7 +315,7 @@ function PaymentPage() {
                                                     children: "Khách thuê:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                    lineNumber: 131,
+                                                    lineNumber: 145,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -322,13 +323,13 @@ function PaymentPage() {
                                                     children: mockBill.tenant
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                    lineNumber: 132,
+                                                    lineNumber: 146,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/payment/page.tsx",
-                                            lineNumber: 130,
+                                            lineNumber: 144,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -339,7 +340,7 @@ function PaymentPage() {
                                                     children: "Loại hóa đơn:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                    lineNumber: 135,
+                                                    lineNumber: 149,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -347,13 +348,13 @@ function PaymentPage() {
                                                     children: mockBill.type
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                    lineNumber: 136,
+                                                    lineNumber: 150,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/payment/page.tsx",
-                                            lineNumber: 134,
+                                            lineNumber: 148,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -364,7 +365,7 @@ function PaymentPage() {
                                                     children: "Hạn thanh toán:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                    lineNumber: 139,
+                                                    lineNumber: 153,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -372,19 +373,19 @@ function PaymentPage() {
                                                     children: mockBill.dueDate
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                    lineNumber: 140,
+                                                    lineNumber: 154,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/payment/page.tsx",
-                                            lineNumber: 138,
+                                            lineNumber: 152,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/payment/page.tsx",
-                                    lineNumber: 125,
+                                    lineNumber: 139,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -395,7 +396,7 @@ function PaymentPage() {
                                             children: "Chi tiết các khoản"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/payment/page.tsx",
-                                            lineNumber: 145,
+                                            lineNumber: 161,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -408,7 +409,7 @@ function PaymentPage() {
                                                             children: detail.item
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/payment/page.tsx",
-                                                            lineNumber: 149,
+                                                            lineNumber: 167,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -420,18 +421,18 @@ function PaymentPage() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/payment/page.tsx",
-                                                            lineNumber: 150,
+                                                            lineNumber: 168,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, index, true, {
                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                    lineNumber: 148,
+                                                    lineNumber: 166,
                                                     columnNumber: 19
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/payment/page.tsx",
-                                            lineNumber: 146,
+                                            lineNumber: 164,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -443,7 +444,7 @@ function PaymentPage() {
                                                         children: "Tổng cộng:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/payment/page.tsx",
-                                                        lineNumber: 159,
+                                                        lineNumber: 182,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -454,30 +455,30 @@ function PaymentPage() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/payment/page.tsx",
-                                                        lineNumber: 160,
+                                                        lineNumber: 183,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/payment/page.tsx",
-                                                lineNumber: 158,
+                                                lineNumber: 181,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/payment/page.tsx",
-                                            lineNumber: 157,
+                                            lineNumber: 180,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/payment/page.tsx",
-                                    lineNumber: 144,
+                                    lineNumber: 160,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/payment/page.tsx",
-                            lineNumber: 122,
+                            lineNumber: 134,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -488,7 +489,7 @@ function PaymentPage() {
                                     children: "Chọn phương thức thanh toán"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/payment/page.tsx",
-                                    lineNumber: 168,
+                                    lineNumber: 193,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -504,7 +505,7 @@ function PaymentPage() {
                                                         children: method.icon
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/payment/page.tsx",
-                                                        lineNumber: 182,
+                                                        lineNumber: 209,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -515,7 +516,7 @@ function PaymentPage() {
                                                                 children: method.name
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/payment/page.tsx",
-                                                                lineNumber: 184,
+                                                                lineNumber: 211,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -523,13 +524,13 @@ function PaymentPage() {
                                                                 children: method.description
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/payment/page.tsx",
-                                                                lineNumber: 185,
+                                                                lineNumber: 214,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/payment/page.tsx",
-                                                        lineNumber: 183,
+                                                        lineNumber: 210,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -538,28 +539,28 @@ function PaymentPage() {
                                                             className: "w-full h-full rounded-full bg-white scale-50"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/payment/page.tsx",
-                                                            lineNumber: 193,
+                                                            lineNumber: 226,
                                                             columnNumber: 25
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/payment/page.tsx",
-                                                        lineNumber: 187,
+                                                        lineNumber: 218,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/payment/page.tsx",
-                                                lineNumber: 181,
+                                                lineNumber: 208,
                                                 columnNumber: 19
                                             }, this)
                                         }, method.id, false, {
                                             fileName: "[project]/src/app/payment/page.tsx",
-                                            lineNumber: 172,
+                                            lineNumber: 199,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/payment/page.tsx",
-                                    lineNumber: 170,
+                                    lineNumber: 197,
                                     columnNumber: 13
                                 }, this),
                                 selectedMethod && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -570,7 +571,7 @@ function PaymentPage() {
                                             children: "Thông tin thanh toán"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/payment/page.tsx",
-                                            lineNumber: 204,
+                                            lineNumber: 237,
                                             columnNumber: 17
                                         }, this),
                                         selectedMethod === "card" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -583,7 +584,7 @@ function PaymentPage() {
                                                             children: "Số thẻ"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/payment/page.tsx",
-                                                            lineNumber: 209,
+                                                            lineNumber: 244,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -592,13 +593,13 @@ function PaymentPage() {
                                                             className: "w-full border border-gray-300 rounded-md px-3 py-2"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/payment/page.tsx",
-                                                            lineNumber: 212,
+                                                            lineNumber: 247,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                    lineNumber: 208,
+                                                    lineNumber: 243,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -611,7 +612,7 @@ function PaymentPage() {
                                                                     children: "MM/YY"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                                    lineNumber: 220,
+                                                                    lineNumber: 255,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -620,13 +621,13 @@ function PaymentPage() {
                                                                     className: "w-full border border-gray-300 rounded-md px-3 py-2"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                                    lineNumber: 223,
+                                                                    lineNumber: 258,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/payment/page.tsx",
-                                                            lineNumber: 219,
+                                                            lineNumber: 254,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -636,7 +637,7 @@ function PaymentPage() {
                                                                     children: "CVV"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                                    lineNumber: 230,
+                                                                    lineNumber: 265,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -645,25 +646,25 @@ function PaymentPage() {
                                                                     className: "w-full border border-gray-300 rounded-md px-3 py-2"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                                    lineNumber: 233,
+                                                                    lineNumber: 268,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/payment/page.tsx",
-                                                            lineNumber: 229,
+                                                            lineNumber: 264,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                    lineNumber: 218,
+                                                    lineNumber: 253,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/payment/page.tsx",
-                                            lineNumber: 207,
+                                            lineNumber: 242,
                                             columnNumber: 19
                                         }, this),
                                         selectedMethod === "banking" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -674,7 +675,7 @@ function PaymentPage() {
                                                     children: "Thông tin chuyển khoản"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                    lineNumber: 245,
+                                                    lineNumber: 280,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -686,14 +687,14 @@ function PaymentPage() {
                                                                     children: "Ngân hàng:"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                                    lineNumber: 247,
-                                                                    columnNumber: 26
+                                                                    lineNumber: 285,
+                                                                    columnNumber: 25
                                                                 }, this),
                                                                 " Vietcombank"
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/payment/page.tsx",
-                                                            lineNumber: 247,
+                                                            lineNumber: 284,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -702,14 +703,14 @@ function PaymentPage() {
                                                                     children: "Số tài khoản:"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                                    lineNumber: 248,
-                                                                    columnNumber: 26
+                                                                    lineNumber: 288,
+                                                                    columnNumber: 25
                                                                 }, this),
                                                                 " 1234567890"
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/payment/page.tsx",
-                                                            lineNumber: 248,
+                                                            lineNumber: 287,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -718,14 +719,14 @@ function PaymentPage() {
                                                                     children: "Chủ tài khoản:"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                                    lineNumber: 249,
-                                                                    columnNumber: 26
+                                                                    lineNumber: 291,
+                                                                    columnNumber: 25
                                                                 }, this),
                                                                 " SMARTDORM COMPANY"
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/payment/page.tsx",
-                                                            lineNumber: 249,
+                                                            lineNumber: 290,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -734,29 +735,30 @@ function PaymentPage() {
                                                                     children: "Nội dung:"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                                    lineNumber: 250,
-                                                                    columnNumber: 26
+                                                                    lineNumber: 294,
+                                                                    columnNumber: 25
                                                                 }, this),
-                                                                " THANHTOAN ",
+                                                                " THANHTOAN",
+                                                                " ",
                                                                 mockBill.roomNumber,
                                                                 " ",
                                                                 mockBill.tenant
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/payment/page.tsx",
-                                                            lineNumber: 250,
+                                                            lineNumber: 293,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                    lineNumber: 246,
+                                                    lineNumber: 283,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/payment/page.tsx",
-                                            lineNumber: 244,
+                                            lineNumber: 279,
                                             columnNumber: 19
                                         }, this),
                                         (selectedMethod === "momo" || selectedMethod === "zalopay") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -769,35 +771,36 @@ function PaymentPage() {
                                                         children: "QR Code"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/payment/page.tsx",
-                                                        lineNumber: 258,
+                                                        lineNumber: 305,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                    lineNumber: 257,
+                                                    lineNumber: 304,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                     className: "text-sm text-gray-600",
                                                     children: [
-                                                        "Quét mã QR bằng ứng dụng ",
+                                                        "Quét mã QR bằng ứng dụng",
+                                                        " ",
                                                         selectedMethod === "momo" ? "MoMo" : "ZaloPay"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/payment/page.tsx",
-                                                    lineNumber: 260,
+                                                    lineNumber: 307,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/payment/page.tsx",
-                                            lineNumber: 256,
+                                            lineNumber: 303,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/payment/page.tsx",
-                                    lineNumber: 203,
+                                    lineNumber: 236,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -811,46 +814,46 @@ function PaymentPage() {
                                                 className: "animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/payment/page.tsx",
-                                                lineNumber: 280,
+                                                lineNumber: 328,
                                                 columnNumber: 19
                                             }, this),
                                             "Đang xử lý..."
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/payment/page.tsx",
-                                        lineNumber: 279,
+                                        lineNumber: 327,
                                         columnNumber: 17
                                     }, this) : `Thanh toán ${mockBill.amount.toLocaleString()}đ`
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/payment/page.tsx",
-                                    lineNumber: 269,
+                                    lineNumber: 317,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/payment/page.tsx",
-                            lineNumber: 167,
+                            lineNumber: 192,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/payment/page.tsx",
-                    lineNumber: 120,
+                    lineNumber: 132,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/payment/page.tsx",
-                lineNumber: 119,
+                lineNumber: 131,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/payment/page.tsx",
-        lineNumber: 99,
+        lineNumber: 106,
         columnNumber: 5
     }, this);
 }
-_s(PaymentPage, "wSjpLR5Qtz/iz7JShkyJ968gccM=");
+_s(PaymentPage, "FKZel7EXaAUNb8MuvvR+bf7yCj8=");
 _c = PaymentPage;
 var _c;
 __turbopack_context__.k.register(_c, "PaymentPage");

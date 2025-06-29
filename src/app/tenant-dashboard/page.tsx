@@ -308,6 +308,27 @@ export default function TenantDashboard() {
     (i) => i.status == "pending"
   ).length;
 
+  function calculateInvoiceTotal(bill: any): number {
+    switch (bill.invoiceType) {
+      case "monthly":
+      case "full":
+        return (
+          (bill.rentRooms ?? 0) +
+          (bill.electricUsage ?? 0) * 3500 +
+          (bill.waterUsage ?? 0) * 25000 +
+          (bill.serviceFees ?? 0)
+        );
+      case "electric":
+        return (bill.electricUsage ?? 0) * 3500;
+      case "water":
+        return (bill.waterUsage ?? 0) * 25000;
+      case "service":
+        return bill.serviceFees ?? 0;
+      default:
+        return bill.invoiceAmount ?? 0;
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
@@ -962,7 +983,7 @@ export default function TenantDashboard() {
                           {formatDate(bill.invoiceDateLimit)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {bill.invoiceAmount.toLocaleString()}đ
+                          {calculateInvoiceTotal(bill).toLocaleString()}đ
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           {formatDateTime(bill.invoiceDateLimit)}
@@ -979,7 +1000,7 @@ export default function TenantDashboard() {
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                           {bill.status === "pending" ? (
                             <Link
-                              href="/payment"
+                              href={`/payment/${bill.id}`}
                               className="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700 inline-block"
                             >
                               Thanh toán

@@ -12,6 +12,8 @@ import {
   VideoCameraIcon,
   InformationCircleIcon,
 } from "@heroicons/react/24/outline";
+import { useChatConnection } from "../hooks/useChatConnection";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface Message {
   id: string;
@@ -83,6 +85,10 @@ export default function MessagesPage() {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { user } = useAuth();
+  const userId = user?.idUser;
+  const ownerId = "24";
+  const connection = useChatConnection(userId ?? "");
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -92,39 +98,63 @@ export default function MessagesPage() {
     scrollToBottom();
   }, [messages]);
 
-  const sendMessage = () => {
-    if (newMessage.trim()) {
-      const message: Message = {
-        id: Date.now().toString(),
-        sender: "tenant",
-        content: newMessage,
-        timestamp: new Date().toLocaleString("vi-VN"),
-        type: "text",
-        read: false,
-      };
-
-      setMessages((prev) => [...prev, message]);
-      setNewMessage("");
-
-      // Simulate owner typing and response
-      setTimeout(() => {
-        setIsTyping(true);
-        setTimeout(() => {
-          setIsTyping(false);
-          const ownerResponse: Message = {
-            id: (Date.now() + 1).toString(),
-            sender: "owner",
-            content:
-              "Tôi đã nhận được tin nhắn của bạn. Sẽ phản hồi sớm nhất có thể!",
-            timestamp: new Date().toLocaleString("vi-VN"),
-            type: "text",
-            read: false,
-          };
-          setMessages((prev) => [...prev, ownerResponse]);
-        }, 2000);
-      }, 1000);
+  const sendMessage = async () => {
+    if (connection?.state === "Connected") {
+      connection
+        .invoke("SendMessage", userId, ownerId, newMessage)
+        .then(() => console.log("✅ Message sent"))
+        .catch((err) => console.error("❌ SendMessage error:", err));
+    } else {
+      alert("❗ Connection not ready");
     }
   };
+
+  useEffect(() => {
+    if (!connection) return;
+
+    connection.on("ReceiveMessage", (msg) => {
+      // Hiển thị tin nhắn mới ở UI
+      setMessages((prev) => [...prev, msg]);
+    });
+
+    return () => {
+      connection.off("ReceiveMessage");
+    };
+  }, [connection]);
+
+  // const sendMessage = () => {
+  //   if (newMessage.trim()) {
+  //     const message: Message = {
+  //       id: Date.now().toString(),
+  //       sender: "tenant",
+  //       content: newMessage,
+  //       timestamp: new Date().toLocaleString("vi-VN"),
+  //       type: "text",
+  //       read: false,
+  //     };
+
+  //     setMessages((prev) => [...prev, message]);
+  //     setNewMessage("");
+
+  //     // Simulate owner typing and response
+  //     setTimeout(() => {
+  //       setIsTyping(true);
+  //       setTimeout(() => {
+  //         setIsTyping(false);
+  //         const ownerResponse: Message = {
+  //           id: (Date.now() + 1).toString(),
+  //           sender: "owner",
+  //           content:
+  //             "Tôi đã nhận được tin nhắn của bạn. Sẽ phản hồi sớm nhất có thể!",
+  //           timestamp: new Date().toLocaleString("vi-VN"),
+  //           type: "text",
+  //           read: false,
+  //         };
+  //         setMessages((prev) => [...prev, ownerResponse]);
+  //       }, 2000);
+  //     }, 1000);
+  //   }
+  // };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
