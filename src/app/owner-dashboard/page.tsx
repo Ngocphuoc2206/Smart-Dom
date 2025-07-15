@@ -714,16 +714,30 @@ export default function OwnerDashboard() {
           roomNumber: parseInt(billForm.room),
           tenant: billForm.tenant || "",
           invoiceType: billForm.type || "",
-          totalAmount: parseFloat(billForm.amount),
+          totalAmount: parseFloat(billForm.amount) || "",
           invoiceDateLimit: billForm.dueDate
             ? new Date(billForm.dueDate).toISOString()
             : "",
           description: billForm.description || "",
-          electricUsage: parseFloat(billForm.electricUsage),
-          waterUsage: parseFloat(billForm.waterUsage),
+          electricUsage: parseFloat(billForm.electricUsage) || "0",
+          waterUsage: parseFloat(billForm.waterUsage) || "0",
           note: billForm.description || "",
         }),
       });
+      console.log("Sending bill data", {
+        roomNumber: parseInt(billForm.room),
+        tenant: billForm.tenant || "",
+        invoiceType: billForm.type || "",
+        totalAmount: parseFloat(billForm.amount),
+        invoiceDateLimit: billForm.dueDate
+          ? new Date(billForm.dueDate).toISOString()
+          : "",
+        description: billForm.description || "",
+        electricUsage: parseFloat(billForm.electricUsage),
+        waterUsage: parseFloat(billForm.waterUsage),
+        note: billForm.description || "",
+      });
+
       if (!response.ok) {
         throw new Error("Xác nhận không thành công");
       }
@@ -1375,8 +1389,13 @@ export default function OwnerDashboard() {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           {bill.invoiceType === "monthly"
                             ? "Tiền phòng"
-                            : "Tiền điện"}
+                            : bill.invoiceType === "electric"
+                            ? "Tiền điện"
+                            : bill.invoiceType === "water"
+                            ? "Tiền nước"
+                            : bill.invoiceType}
                         </td>
+
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           {bill.invoiceAmount.toLocaleString()}đ
                         </td>
