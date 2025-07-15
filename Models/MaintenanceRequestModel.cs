@@ -19,24 +19,23 @@ namespace Smart_Dom.Models
         public UserModel? User { get; set; }
 
         [Required]
-        public string? IncidentType { get; set; } // e.g., "Điện", "Nước", "Hệ thống HVAC", "Khác"
+        public string IncidentType { get; set; } = string.Empty;
 
         [Required]
-        public string? Location { get; set; } // e.g., "Phòng khách", "Phòng ngủ", "Nhà bếp", "Nhà vệ sinh"
+        public string Location { get; set; } = string.Empty;
 
         [Required]
-        public string? PriorityLevel { get; set; } // e.g., "Thấp", "Trung bình", "Cao"
-        
-        [Required]
-        public string? Description { get; set; } // Detailed description of the issue
+        public string PriorityLevel { get; set; } = string.Empty;
 
         [Required]
-        public DateTime? RequestDate { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         [Required]
-        public string? ResponeFromOwners { get; set; } = null;
-        
+        public DateTime RequestDate { get; set; }
+
+        public string? ResponeFromOwners { get; set; }
+
         [Required]
-        public string? Status { get; set; }
+        public string Status { get; set; } = string.Empty;
     }
 }
