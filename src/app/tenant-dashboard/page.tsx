@@ -198,7 +198,9 @@ export default function TenantDashboard() {
     e.preventDefault();
     const IDRoom = rooms.find(
       (r) =>
-        r.fullName.trim().toLowerCase() === user?.name?.trim().toLowerCase()
+        r.fullName &&
+        user?.name &&
+        r.fullName.trim().toLowerCase() === user.name.trim().toLowerCase()
     )?.id;
 
     alert(`IDRoom: ${IDRoom} - UserName: ${user?.name}`);
@@ -870,7 +872,7 @@ export default function TenantDashboard() {
                               Đặt phòng
                             </Link>
                             <Link
-                              href={`/room-details/${room.number}`}
+                              href={`/room-details/${room.id}`}
                               className="flex-1 border border-green-600 text-green-600 py-2 rounded hover:bg-green-50 text-center font-medium"
                             >
                               Xem chi tiết
@@ -879,7 +881,7 @@ export default function TenantDashboard() {
                         ) : room.status === "occupied" ? (
                           <>
                             <Link
-                              href={`/room-details/${room.number}`}
+                              href={`/room-details/${room.id}`}
                               className="flex-1 border border-blue-600 text-blue-600 py-2 rounded hover:bg-blue-50 text-center font-medium"
                             >
                               Xem chi tiết
@@ -894,7 +896,7 @@ export default function TenantDashboard() {
                         ) : (
                           <>
                             <Link
-                              href={`/room-details/${room.number}`}
+                              href={`/room-details/${room.id}`}
                               className="flex-1 border border-yellow-600 text-yellow-600 py-2 rounded hover:bg-yellow-50 text-center font-medium"
                             >
                               Xem chi tiết

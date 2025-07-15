@@ -1029,7 +1029,11 @@ export default function OwnerDashboard() {
           <div className="space-y-2">
             {[
               { id: "overview", label: "Tổng quan", icon: "📊" },
-              { id: "rooms", label: "Quản lý phòng", icon: "🏠" },
+              {
+                id: "rooms",
+                label: "Quản lý phòng",
+                icon: "🏠",
+              },
               { id: "tenants", label: "Khách thuê", icon: "👥" },
               { id: "bills", label: "Hóa đơn", icon: "💳" },
               { id: "reports", label: "Báo cáo sự cố", icon: "🔧" },
