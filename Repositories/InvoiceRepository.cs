@@ -41,7 +41,8 @@ namespace Smart_Dom.Repositories
                            join ct in _context.Contracts on i.ContractID equals ct.ID
                            join r in _context.Rooms on ct.RoomId equals r.ID
                            join u in _context.Users on ct.IDUser equals u.ID
-                           join t in _context.Transactions on i.Id equals t.InvoiceId
+                           join t in _context.Transactions on i.Id equals t.InvoiceId into transactionGroup
+                           from t in transactionGroup.DefaultIfEmpty() // LEFT JOIN
                            select new InvoiceViewModel()
                            { 
                                 Id = i.Id,

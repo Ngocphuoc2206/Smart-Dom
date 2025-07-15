@@ -49,8 +49,13 @@ namespace Smart_Dom.Hubs.ChatRealTime
         public override Task OnConnectedAsync()
         {
             var httpContext = Context.GetHttpContext();
-            var userId = httpContext.Request.Query["userId"].ToString();
+            if (httpContext == null)
+            {
+                Console.WriteLine("❌ HttpContext is null.");
+                return base.OnConnectedAsync();
+            }
 
+            var userId = httpContext.Request.Query["userId"].ToString();
             if (!string.IsNullOrEmpty(userId))
             {
                 _connections[userId] = Context.ConnectionId;
@@ -60,7 +65,7 @@ namespace Smart_Dom.Hubs.ChatRealTime
             return base.OnConnectedAsync();
         }
 
-        public override Task OnDisconnectedAsync(Exception exception)
+        public override Task OnDisconnectedAsync(Exception? exception)
         {
             var userId = _connections.FirstOrDefault(x => x.Value == Context.ConnectionId).Key;
             if (userId != null)
