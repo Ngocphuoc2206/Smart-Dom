@@ -331,6 +331,22 @@
   },
   {
     "ContainingType": "Smart_Dom.Areas.Notification.Controllers.NotificationController",
+    "Method": "GetID",
+    "RelativePath": "api/Notification/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Smart_Dom.Areas.Notification.Controllers.NotificationController",
     "Method": "Create",
     "RelativePath": "api/Notification/create",
     "HttpMethod": "POST",

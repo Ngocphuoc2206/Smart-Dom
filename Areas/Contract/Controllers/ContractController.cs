@@ -101,7 +101,7 @@ namespace Smart_Dom.Areas.Contract.Controllers
             {
                 existingContract.EndDate = contractDate.ExpiredDate.Value;
                 existingRoomBookings.DesiredEnd = contractDate.ExpiredDate.Value;
-                existingRoomBookings.Status = "occupied";
+                existingRoomBookings.Status = "pending processing";
                 existingRooms.Status = "occupied";
                 existingContract.Status = "paid";
             }

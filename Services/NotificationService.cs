@@ -57,6 +57,11 @@ namespace Smart_Dom.Services
             return await _notificationRepository.GetAllNotificationAsync();
         }
 
+        public async Task<IEnumerable<NotificationViewDTO>> GetAllNotificationByUserIDAsync(int id)
+        {
+            return await _notificationRepository.GetAllNotificationByUserIDAsync(id);
+        }
+
         public async Task<NotificationModel?> GetNotiByIdAsync(int id)
         {
             return await _notificationRepository.GetByIdAsync(id);

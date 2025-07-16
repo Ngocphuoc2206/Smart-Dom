@@ -48,7 +48,26 @@ namespace Smart_Dom.Repositories
                              Priority = m.PriorityLevel,
                              CreatedAt = notification.CreatedAt,
                          };
-            return noties;
+            return await noties.ToListAsync();
+        }
+
+        public async Task<IEnumerable<NotificationViewDTO>> GetAllNotificationByUserIDAsync(int id)
+        {
+            var noties = from notification in _context.Notifications
+                         join m in _context.MaintenanceRequests on notification.UserId equals m.UserId into mainGroup
+                         from maint in mainGroup.DefaultIfEmpty()
+                         where notification.UserId == id
+                         select new NotificationViewDTO
+                         {
+                             Id = notification.Id,
+                             Title = notification.Title,
+                             TypeNotify = notification.TypeNotify,
+                             IsRead = notification.IsRead,
+                             Message = notification.Message,
+                             Priority = maint.PriorityLevel,
+                             CreatedAt = notification.CreatedAt,
+                         };
+            return await noties.ToListAsync();
         }
 
         public async Task<NotificationModel?> GetByIdAsync(int id)

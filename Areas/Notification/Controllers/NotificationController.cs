@@ -25,6 +25,14 @@ namespace Smart_Dom.Areas.Notification.Controllers
             return Ok(noties); // Pass 'noties' to the Ok() method to make use of the variable.
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetID(int id)
+        {
+            _logger.LogInformation($"Fetching Notification ID User: ${id} ");
+            var noties = await _notificationService.GetAllNotificationByUserIDAsync(id);
+            return Ok(noties);
+        }
+
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody]CreateNotificationDTO notification)
         {
