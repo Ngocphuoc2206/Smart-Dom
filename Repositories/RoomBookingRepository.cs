@@ -69,6 +69,7 @@ namespace Smart_Dom.Repositories
                                   price = r.Price,
                                   NumberID = u.IDCard,
                                   UserId = u.ID,
+                                  RoomId = rb.RoomId,
                                   DesiredStart = rb.DesiredStart,
                                   DepositAmount = c.DepositAmount,
                                   DesiredEnd = rb.DesiredEnd,

@@ -9,6 +9,7 @@
         public string? NumberID { get; set; }
         public float price { get; set; }
         public int UserId { get; set; }
+        public int RoomId { get; set; }
         public int RoomNumber { get; set; }
         public int? DepositAmount { get; set; }
         public string? EmergencyContact { get; set; }
