@@ -82,91 +82,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$contexts$2f$AuthConte
 ;
 ;
 ;
-// Mock data cho biên lai
-const mockReceipts = {
-    "1": {
-        id: "1",
-        billNumber: "HD001",
-        type: "Tiền phòng",
-        month: "02/2024",
-        amount: 3500000,
-        paidDate: "2024-02-25",
-        dueDate: "2024-02-25",
-        status: "paid",
-        paymentMethod: "Chuyển khoản",
-        transactionId: "TXN123456789",
-        tenant: {
-            name: "Nguyễn Văn A",
-            room: "101",
-            phone: "0123456789",
-            email: "tenant@demo.com"
-        },
-        landlord: {
-            name: "Chủ trọ ABC",
-            phone: "0987654321",
-            email: "owner@demo.com",
-            address: "123 Đường ABC, Quận 1, TP.HCM"
-        },
-        details: [
-            {
-                description: "Tiền thuê phòng tháng 02/2024",
-                amount: 3000000
-            },
-            {
-                description: "Tiền điện (150 kWh x 3,500đ)",
-                amount: 525000
-            },
-            {
-                description: "Tiền nước (15m³ x 25,000đ)",
-                amount: 375000
-            },
-            {
-                description: "Phí dịch vụ",
-                amount: 100000
-            },
-            {
-                description: "Phí internet",
-                amount: 200000
-            }
-        ],
-        notes: "Cảm ơn bạn đã thanh toán đúng hạn. Chúc bạn có một tháng vui vẻ!"
-    },
-    "2": {
-        id: "2",
-        billNumber: "HD002",
-        type: "Tiền điện",
-        month: "01/2024",
-        amount: 450000,
-        paidDate: "2024-01-28",
-        dueDate: "2024-01-25",
-        status: "paid",
-        paymentMethod: "Tiền mặt",
-        transactionId: "CASH001",
-        tenant: {
-            name: "Nguyễn Văn A",
-            room: "101",
-            phone: "0123456789",
-            email: "tenant@demo.com"
-        },
-        landlord: {
-            name: "Chủ trọ ABC",
-            phone: "0987654321",
-            email: "owner@demo.com",
-            address: "123 Đường ABC, Quận 1, TP.HCM"
-        },
-        details: [
-            {
-                description: "Tiền điện tháng 01/2024 (120 kWh x 3,500đ)",
-                amount: 420000
-            },
-            {
-                description: "Phí quản lý điện",
-                amount: 30000
-            }
-        ],
-        notes: "Thanh toán bằng tiền mặt tại văn phòng."
-    }
-};
 function ReceiptPage() {
     const params = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useParams"])();
     const receiptId = params.id;
@@ -174,12 +89,82 @@ function ReceiptPage() {
     const [RoomBookings, setRoomBookings] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [invoices, setInvoices] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const { user } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$contexts$2f$AuthContext$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useAuth"])();
-    const receipt = mockReceipts[receiptId];
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$hooks$2f$useRoomBookingInfo$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getRoomBookingInfo"])().then(setRoomBookings);
+        getInvoiceByUserID(user.idUser.toString()).then(setInvoiceTenant);
     }, []); // thêm dependency array rỗng vào đây
+    const formatDate = (dateString)=>{
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0"); // Tháng bắt đầu từ 0
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
+    };
+    const translateInvoiceType = (type)=>{
+        switch(type){
+            case "monthly":
+                return "Tiền phòng";
+            case "electric":
+                return "Tiền điện";
+            case "water":
+                return "Tiền nước";
+            case "service":
+                return "Phí dịch vụ";
+            case "other":
+                return "Khác";
+            default:
+                return type; // fallback nếu không khớp
+        }
+    };
     const roomBookingInfo = RoomBookings.find((r)=>r.userId === user?.idUser);
-    if (!receipt || !roomBookingInfo) {
+    const invoice = invoices.find((i)=>i.userId === user?.idUser && i.id.toString() === receiptId);
+    const mockReceipts = {
+        "1": {
+            id: "1",
+            billNumber: "HD001",
+            type: "Tiền phòng",
+            month: "02/2024",
+            amount: 3500000,
+            paidDate: "2024-02-25",
+            dueDate: "2024-02-25",
+            status: "paid",
+            paymentMethod: "Chuyển khoản",
+            transactionId: "TXN123456789",
+            tenant: {
+                name: "Nguyễn Văn A",
+                room: "101",
+                phone: "0123456789",
+                email: "tenant@demo.com"
+            },
+            landlord: {
+                name: "Chủ trọ ABC",
+                phone: "0987654321",
+                email: "owner@demo.com",
+                address: "123 Đường ABC, Quận 1, TP.HCM"
+            },
+            details: [
+                {
+                    description: "Tiền thuê phòng tháng 02/2024",
+                    amount: invoice?.rentRooms
+                },
+                {
+                    description: "Tiền điện (150 kWh x 3,500đ)",
+                    amount: invoice?.electricUsage * 3500
+                },
+                {
+                    description: "Tiền nước (15m³ x 25,000đ)",
+                    amount: invoice?.waterUsage * 25000
+                },
+                {
+                    description: "Phí dịch vụ",
+                    amount: invoice?.serviceFees * 25000
+                }
+            ],
+            notes: "Cảm ơn bạn đã thanh toán đúng hạn. Chúc bạn có một tháng vui vẻ!"
+        }
+    };
+    const receipt = mockReceipts[receiptId];
+    if (!receipt || !roomBookingInfo || !invoice) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "min-h-screen bg-gray-50 flex items-center justify-center",
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -190,7 +175,7 @@ function ReceiptPage() {
                         children: "Không tìm thấy biên lai"
                     }, void 0, false, {
                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                        lineNumber: 110,
+                        lineNumber: 115,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -199,18 +184,18 @@ function ReceiptPage() {
                         children: "← Quay lại Dashboard"
                     }, void 0, false, {
                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                        lineNumber: 113,
+                        lineNumber: 118,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                lineNumber: 109,
+                lineNumber: 114,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-            lineNumber: 108,
+            lineNumber: 113,
             columnNumber: 7
         }, this);
     }
@@ -246,7 +231,7 @@ function ReceiptPage() {
                                                 className: "h-5 w-5 mr-2"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                lineNumber: 152,
+                                                lineNumber: 157,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -256,12 +241,12 @@ function ReceiptPage() {
                                                     children: "🏠"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                    lineNumber: 154,
+                                                    lineNumber: 159,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                lineNumber: 153,
+                                                lineNumber: 158,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -269,13 +254,13 @@ function ReceiptPage() {
                                                 children: "SmartDorm"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                lineNumber: 156,
+                                                lineNumber: 161,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                        lineNumber: 148,
+                                        lineNumber: 153,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -283,7 +268,7 @@ function ReceiptPage() {
                                         children: "/"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                        lineNumber: 160,
+                                        lineNumber: 165,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -294,13 +279,13 @@ function ReceiptPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                        lineNumber: 161,
+                                        lineNumber: 166,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                lineNumber: 147,
+                                lineNumber: 152,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -314,14 +299,14 @@ function ReceiptPage() {
                                                 className: "h-5 w-5 mr-2"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                lineNumber: 170,
+                                                lineNumber: 175,
                                                 columnNumber: 17
                                             }, this),
                                             "In biên lai"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                        lineNumber: 166,
+                                        lineNumber: 171,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -332,36 +317,36 @@ function ReceiptPage() {
                                                 className: "h-5 w-5 mr-2"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                lineNumber: 177,
+                                                lineNumber: 182,
                                                 columnNumber: 17
                                             }, this),
                                             "Tải PDF"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                        lineNumber: 173,
+                                        lineNumber: 178,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                lineNumber: 165,
+                                lineNumber: 170,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                        lineNumber: 146,
+                        lineNumber: 151,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                    lineNumber: 145,
+                    lineNumber: 150,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                lineNumber: 144,
+                lineNumber: 149,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -383,7 +368,7 @@ function ReceiptPage() {
                                                     children: "BIÊN LAI THANH TOÁN"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                    lineNumber: 192,
+                                                    lineNumber: 197,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -391,13 +376,13 @@ function ReceiptPage() {
                                                     children: "SmartDorm - Hệ thống quản lý ký túc xá thông minh"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                    lineNumber: 193,
+                                                    lineNumber: 198,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                            lineNumber: 191,
+                                            lineNumber: 196,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -411,7 +396,7 @@ function ReceiptPage() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                    lineNumber: 198,
+                                                    lineNumber: 203,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -421,7 +406,7 @@ function ReceiptPage() {
                                                             className: "h-5 w-5 mr-2"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                            lineNumber: 200,
+                                                            lineNumber: 205,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -429,30 +414,30 @@ function ReceiptPage() {
                                                             children: "Đã thanh toán"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                            lineNumber: 201,
+                                                            lineNumber: 206,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                    lineNumber: 199,
+                                                    lineNumber: 204,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                            lineNumber: 197,
+                                            lineNumber: 202,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                    lineNumber: 190,
+                                    lineNumber: 195,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                lineNumber: 189,
+                                lineNumber: 194,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -471,14 +456,14 @@ function ReceiptPage() {
                                                                 className: "h-5 w-5 mr-2 text-blue-600"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                lineNumber: 216,
+                                                                lineNumber: 221,
                                                                 columnNumber: 19
                                                             }, this),
                                                             "Thông tin chủ trọ"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                        lineNumber: 215,
+                                                        lineNumber: 220,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -494,7 +479,7 @@ function ReceiptPage() {
                                                                             children: "Tên:"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                            lineNumber: 222,
+                                                                            lineNumber: 227,
                                                                             columnNumber: 23
                                                                         }, this),
                                                                         " ",
@@ -502,7 +487,7 @@ function ReceiptPage() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                    lineNumber: 221,
+                                                                    lineNumber: 226,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -513,7 +498,7 @@ function ReceiptPage() {
                                                                             children: "Điện thoại:"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                            lineNumber: 226,
+                                                                            lineNumber: 231,
                                                                             columnNumber: 23
                                                                         }, this),
                                                                         " ",
@@ -521,7 +506,7 @@ function ReceiptPage() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                    lineNumber: 225,
+                                                                    lineNumber: 230,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -532,7 +517,7 @@ function ReceiptPage() {
                                                                             children: "Email:"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                            lineNumber: 230,
+                                                                            lineNumber: 235,
                                                                             columnNumber: 23
                                                                         }, this),
                                                                         " ",
@@ -540,7 +525,7 @@ function ReceiptPage() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                    lineNumber: 229,
+                                                                    lineNumber: 234,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -551,7 +536,7 @@ function ReceiptPage() {
                                                                             children: "Địa chỉ:"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                            lineNumber: 234,
+                                                                            lineNumber: 239,
                                                                             columnNumber: 23
                                                                         }, this),
                                                                         " ",
@@ -559,24 +544,24 @@ function ReceiptPage() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                    lineNumber: 233,
+                                                                    lineNumber: 238,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                            lineNumber: 220,
+                                                            lineNumber: 225,
                                                             columnNumber: 19
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                        lineNumber: 219,
+                                                        lineNumber: 224,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                lineNumber: 214,
+                                                lineNumber: 219,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -589,14 +574,14 @@ function ReceiptPage() {
                                                                 className: "h-5 w-5 mr-2 text-green-600"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                lineNumber: 244,
+                                                                lineNumber: 249,
                                                                 columnNumber: 19
                                                             }, this),
                                                             "Thông tin khách thuê"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                        lineNumber: 243,
+                                                        lineNumber: 248,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -612,7 +597,7 @@ function ReceiptPage() {
                                                                             children: "Tên:"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                            lineNumber: 250,
+                                                                            lineNumber: 255,
                                                                             columnNumber: 23
                                                                         }, this),
                                                                         " ",
@@ -620,7 +605,7 @@ function ReceiptPage() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                    lineNumber: 249,
+                                                                    lineNumber: 254,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -631,7 +616,7 @@ function ReceiptPage() {
                                                                             children: "Phòng:"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                            lineNumber: 254,
+                                                                            lineNumber: 259,
                                                                             columnNumber: 23
                                                                         }, this),
                                                                         " ",
@@ -639,7 +624,7 @@ function ReceiptPage() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                    lineNumber: 253,
+                                                                    lineNumber: 258,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -650,7 +635,7 @@ function ReceiptPage() {
                                                                             children: "Điện thoại:"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                            lineNumber: 258,
+                                                                            lineNumber: 263,
                                                                             columnNumber: 23
                                                                         }, this),
                                                                         " ",
@@ -658,7 +643,7 @@ function ReceiptPage() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                    lineNumber: 257,
+                                                                    lineNumber: 262,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -669,7 +654,7 @@ function ReceiptPage() {
                                                                             children: "Email:"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                            lineNumber: 262,
+                                                                            lineNumber: 267,
                                                                             columnNumber: 23
                                                                         }, this),
                                                                         " ",
@@ -677,30 +662,30 @@ function ReceiptPage() {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                    lineNumber: 261,
+                                                                    lineNumber: 266,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                            lineNumber: 248,
+                                                            lineNumber: 253,
                                                             columnNumber: 19
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                        lineNumber: 247,
+                                                        lineNumber: 252,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                lineNumber: 242,
+                                                lineNumber: 247,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                        lineNumber: 212,
+                                        lineNumber: 217,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -713,7 +698,7 @@ function ReceiptPage() {
                                                         className: "h-8 w-8 text-blue-600 mx-auto mb-2"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                        lineNumber: 273,
+                                                        lineNumber: 278,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -721,21 +706,21 @@ function ReceiptPage() {
                                                         children: "Ngày thanh toán"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                        lineNumber: 274,
+                                                        lineNumber: 279,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "jsx-967b6d2091f4535c" + " " + "font-semibold text-gray-900",
-                                                        children: receipt.paidDate
+                                                        children: formatDate(invoice.paidAt)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                        lineNumber: 277,
+                                                        lineNumber: 282,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                lineNumber: 272,
+                                                lineNumber: 277,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -745,7 +730,7 @@ function ReceiptPage() {
                                                         className: "h-8 w-8 text-green-600 mx-auto mb-2"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                        lineNumber: 282,
+                                                        lineNumber: 287,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -753,21 +738,21 @@ function ReceiptPage() {
                                                         children: "Phương thức"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                        lineNumber: 283,
+                                                        lineNumber: 288,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "jsx-967b6d2091f4535c" + " " + "font-semibold text-gray-900",
-                                                        children: receipt.paymentMethod
+                                                        children: invoice.method
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                        lineNumber: 284,
+                                                        lineNumber: 289,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                lineNumber: 281,
+                                                lineNumber: 286,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -777,7 +762,7 @@ function ReceiptPage() {
                                                         className: "h-8 w-8 text-purple-600 mx-auto mb-2"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                        lineNumber: 289,
+                                                        lineNumber: 294,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -785,27 +770,27 @@ function ReceiptPage() {
                                                         children: "Mã giao dịch"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                        lineNumber: 290,
+                                                        lineNumber: 295,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "jsx-967b6d2091f4535c" + " " + "font-semibold text-gray-900",
-                                                        children: receipt.transactionId
+                                                        children: invoice.transactionCode
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                        lineNumber: 291,
+                                                        lineNumber: 296,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                lineNumber: 288,
+                                                lineNumber: 293,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                        lineNumber: 271,
+                                        lineNumber: 276,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -816,7 +801,7 @@ function ReceiptPage() {
                                                 children: "Chi tiết thanh toán"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                lineNumber: 299,
+                                                lineNumber: 304,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -834,7 +819,7 @@ function ReceiptPage() {
                                                                         children: "Mô tả"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                        lineNumber: 306,
+                                                                        lineNumber: 311,
                                                                         columnNumber: 23
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -842,51 +827,147 @@ function ReceiptPage() {
                                                                         children: "Số tiền"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                        lineNumber: 309,
+                                                                        lineNumber: 314,
                                                                         columnNumber: 23
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                lineNumber: 305,
+                                                                lineNumber: 310,
                                                                 columnNumber: 21
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                            lineNumber: 304,
+                                                            lineNumber: 309,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
                                                             className: "jsx-967b6d2091f4535c" + " " + "divide-y divide-gray-200",
                                                             children: [
-                                                                receipt.details.map((item, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                                        className: "jsx-967b6d2091f4535c",
-                                                                        children: [
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                className: "jsx-967b6d2091f4535c" + " " + "px-6 py-4 text-sm text-gray-900",
-                                                                                children: item.description
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                                lineNumber: 317,
-                                                                                columnNumber: 25
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                                className: "jsx-967b6d2091f4535c" + " " + "px-6 py-4 text-sm text-gray-900 text-right font-medium",
-                                                                                children: [
-                                                                                    item.amount.toLocaleString(),
-                                                                                    "đ"
-                                                                                ]
-                                                                            }, void 0, true, {
-                                                                                fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                                lineNumber: 320,
-                                                                                columnNumber: 25
-                                                                            }, this)
-                                                                        ]
-                                                                    }, index, true, {
-                                                                        fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                        lineNumber: 316,
-                                                                        columnNumber: 23
-                                                                    }, this)),
+                                                                invoice.invoiceType === "monthly" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                                    className: "jsx-967b6d2091f4535c",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                            className: "jsx-967b6d2091f4535c" + " " + "px-6 py-4 text-sm text-gray-900",
+                                                                            children: [
+                                                                                "Tiền thuê phòng tháng",
+                                                                                " ",
+                                                                                formatDate(invoice.invoiceDateLimit)
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/app/receipt/[id]/page.tsx",
+                                                                            lineNumber: 322,
+                                                                            columnNumber: 25
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                            className: "jsx-967b6d2091f4535c" + " " + "px-6 py-4 text-sm text-gray-900 text-right font-medium",
+                                                                            children: [
+                                                                                invoice.rentRooms.toLocaleString(),
+                                                                                "đ"
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/app/receipt/[id]/page.tsx",
+                                                                            lineNumber: 326,
+                                                                            columnNumber: 25
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/src/app/receipt/[id]/page.tsx",
+                                                                    lineNumber: 321,
+                                                                    columnNumber: 23
+                                                                }, this),
+                                                                invoice.invoiceType === "electric" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                                    className: "jsx-967b6d2091f4535c",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                            className: "jsx-967b6d2091f4535c" + " " + "px-6 py-4 text-sm text-gray-900",
+                                                                            children: [
+                                                                                "Tiền điện (",
+                                                                                invoice.electricUsage,
+                                                                                " kWh x 3,500đ)"
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/app/receipt/[id]/page.tsx",
+                                                                            lineNumber: 334,
+                                                                            columnNumber: 25
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                            className: "jsx-967b6d2091f4535c" + " " + "px-6 py-4 text-sm text-gray-900 text-right font-medium",
+                                                                            children: [
+                                                                                (invoice.electricUsage * 3500).toLocaleString(),
+                                                                                "đ"
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/app/receipt/[id]/page.tsx",
+                                                                            lineNumber: 337,
+                                                                            columnNumber: 25
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/src/app/receipt/[id]/page.tsx",
+                                                                    lineNumber: 333,
+                                                                    columnNumber: 23
+                                                                }, this),
+                                                                invoice.invoiceType === "water" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                                    className: "jsx-967b6d2091f4535c",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                            className: "jsx-967b6d2091f4535c" + " " + "px-6 py-4 text-sm text-gray-900",
+                                                                            children: [
+                                                                                "Tiền nước (",
+                                                                                invoice.waterUsage,
+                                                                                " m³ x 25,000đ)"
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/app/receipt/[id]/page.tsx",
+                                                                            lineNumber: 345,
+                                                                            columnNumber: 25
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                            className: "jsx-967b6d2091f4535c" + " " + "px-6 py-4 text-sm text-gray-900 text-right font-medium",
+                                                                            children: [
+                                                                                (invoice.waterUsage * 25000).toLocaleString(),
+                                                                                "đ"
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/app/receipt/[id]/page.tsx",
+                                                                            lineNumber: 348,
+                                                                            columnNumber: 25
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/src/app/receipt/[id]/page.tsx",
+                                                                    lineNumber: 344,
+                                                                    columnNumber: 23
+                                                                }, this),
+                                                                invoice.invoiceType === "service" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                                    className: "jsx-967b6d2091f4535c",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                            className: "jsx-967b6d2091f4535c" + " " + "px-6 py-4 text-sm text-gray-900",
+                                                                            children: "Phí dịch vụ"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/app/receipt/[id]/page.tsx",
+                                                                            lineNumber: 356,
+                                                                            columnNumber: 25
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                            className: "jsx-967b6d2091f4535c" + " " + "px-6 py-4 text-sm text-gray-900 text-right font-medium",
+                                                                            children: [
+                                                                                invoice.serviceFees.toLocaleString(),
+                                                                                "đ"
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/src/app/receipt/[id]/page.tsx",
+                                                                            lineNumber: 359,
+                                                                            columnNumber: 25
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/src/app/receipt/[id]/page.tsx",
+                                                                    lineNumber: 355,
+                                                                    columnNumber: 23
+                                                                }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                                     className: "jsx-967b6d2091f4535c" + " " + "bg-green-50",
                                                                     children: [
@@ -895,47 +976,60 @@ function ReceiptPage() {
                                                                             children: "TỔNG CỘNG"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                            lineNumber: 326,
+                                                                            lineNumber: 366,
                                                                             columnNumber: 23
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                                             className: "jsx-967b6d2091f4535c" + " " + "px-6 py-4 text-base font-bold text-green-600 text-right",
                                                                             children: [
-                                                                                totalAmount.toLocaleString(),
+                                                                                (()=>{
+                                                                                    switch(invoice.invoiceType){
+                                                                                        case "monthly":
+                                                                                            return invoice.rentRooms.toLocaleString();
+                                                                                        case "electric":
+                                                                                            return (invoice.electricUsage * 3500).toLocaleString();
+                                                                                        case "water":
+                                                                                            return (invoice.waterUsage * 25000).toLocaleString();
+                                                                                        case "service":
+                                                                                            return invoice.serviceFees.toLocaleString();
+                                                                                        default:
+                                                                                            return "0";
+                                                                                    }
+                                                                                })(),
                                                                                 "đ"
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                            lineNumber: 329,
+                                                                            lineNumber: 369,
                                                                             columnNumber: 23
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                                    lineNumber: 325,
+                                                                    lineNumber: 365,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                            lineNumber: 314,
+                                                            lineNumber: 319,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                    lineNumber: 303,
+                                                    lineNumber: 308,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                lineNumber: 302,
+                                                lineNumber: 307,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                        lineNumber: 298,
+                                        lineNumber: 303,
                                         columnNumber: 13
                                     }, this),
                                     receipt.notes && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -946,7 +1040,7 @@ function ReceiptPage() {
                                                 children: "Ghi chú"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                lineNumber: 341,
+                                                lineNumber: 399,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -956,18 +1050,18 @@ function ReceiptPage() {
                                                     children: receipt.notes
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                    lineNumber: 345,
+                                                    lineNumber: 403,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                lineNumber: 344,
+                                                lineNumber: 402,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                        lineNumber: 340,
+                                        lineNumber: 398,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -980,7 +1074,7 @@ function ReceiptPage() {
                                                     children: "Cảm ơn bạn đã sử dụng dịch vụ của SmartDorm!"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                    lineNumber: 353,
+                                                    lineNumber: 411,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -992,7 +1086,7 @@ function ReceiptPage() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                    lineNumber: 356,
+                                                    lineNumber: 414,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1000,30 +1094,30 @@ function ReceiptPage() {
                                                     children: "Hotline hỗ trợ: 1900-1234 | Email: support@smartdorm.vn"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                                    lineNumber: 360,
+                                                    lineNumber: 418,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                            lineNumber: 352,
+                                            lineNumber: 410,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                        lineNumber: 351,
+                                        lineNumber: 409,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                lineNumber: 210,
+                                lineNumber: 215,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                        lineNumber: 187,
+                        lineNumber: 192,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1035,7 +1129,7 @@ function ReceiptPage() {
                                 children: "Quay lại Dashboard"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                lineNumber: 370,
+                                lineNumber: 428,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1046,14 +1140,14 @@ function ReceiptPage() {
                                         className: "h-5 w-5 mr-2"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                        lineNumber: 380,
+                                        lineNumber: 438,
                                         columnNumber: 13
                                     }, this),
                                     "In biên lai"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                lineNumber: 376,
+                                lineNumber: 434,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1064,26 +1158,26 @@ function ReceiptPage() {
                                         className: "h-5 w-5 mr-2"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                        lineNumber: 387,
+                                        lineNumber: 445,
                                         columnNumber: 13
                                     }, this),
                                     "Tải PDF"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                                lineNumber: 383,
+                                lineNumber: 441,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                        lineNumber: 369,
+                        lineNumber: 427,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/receipt/[id]/page.tsx",
-                lineNumber: 185,
+                lineNumber: 190,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1093,7 +1187,7 @@ function ReceiptPage() {
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/receipt/[id]/page.tsx",
-        lineNumber: 142,
+        lineNumber: 147,
         columnNumber: 5
     }, this);
 }

@@ -24,6 +24,28 @@ const mod = __turbopack_context__.x("next/dist/server/app-render/work-unit-async
 
 module.exports = mod;
 }}),
+"[project]/src/app/hooks/useNotificationByID.tsx [app-ssr] (ecmascript)": ((__turbopack_context__) => {
+"use strict";
+
+var { g: global, __dirname } = __turbopack_context__;
+{
+__turbopack_context__.s({
+    "getNotificationByUserID": (()=>getNotificationByUserID)
+});
+async function getNotificationByUserID(id) {
+    try {
+        const res = await fetch(`https://localhost:7257/api/Notification/${id}`);
+        if (!res.ok) {
+            throw new Error("Network response was not ok");
+        }
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.error("Lỗi khi lấy danh sách đăng ký:", error);
+        return []; // fallback
+    }
+}
+}}),
 "[project]/src/app/notifications/page.tsx [app-ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
@@ -44,8 +66,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$heroicons$
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$heroicons$2f$react$2f$24$2f$outline$2f$esm$2f$WrenchScrewdriverIcon$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__WrenchScrewdriverIcon$3e$__ = __turbopack_context__.i("[project]/node_modules/@heroicons/react/24/outline/esm/WrenchScrewdriverIcon.js [app-ssr] (ecmascript) <export default as WrenchScrewdriverIcon>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$heroicons$2f$react$2f$24$2f$outline$2f$esm$2f$HomeIcon$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HomeIcon$3e$__ = __turbopack_context__.i("[project]/node_modules/@heroicons/react/24/outline/esm/HomeIcon.js [app-ssr] (ecmascript) <export default as HomeIcon>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$heroicons$2f$react$2f$24$2f$outline$2f$esm$2f$TrashIcon$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__TrashIcon$3e$__ = __turbopack_context__.i("[project]/node_modules/@heroicons/react/24/outline/esm/TrashIcon.js [app-ssr] (ecmascript) <export default as TrashIcon>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$hooks$2f$useNotificationByID$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/hooks/useNotificationByID.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$contexts$2f$AuthContext$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/contexts/AuthContext.tsx [app-ssr] (ecmascript)");
 "use client";
+;
 ;
 ;
 ;
@@ -124,7 +148,7 @@ function NotificationsPage() {
         }
     };
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        getNotification().then((data)=>{
+        (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$hooks$2f$useNotificationByID$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getNotificationByUserID"])(user?.idUser).then((data)=>{
             const cleaned = removeDuplicateNotifications(data);
             setNotifications(cleaned);
         });
@@ -154,7 +178,7 @@ function NotificationsPage() {
                 } : notif));
     };
     const fetchNoti = async ()=>{
-        const data = await getNotification();
+        const data = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$hooks$2f$useNotificationByID$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getNotificationByUserID"])(user?.idUser);
         setNotifications(data);
     };
     const markAllAsRead = async ()=>{
@@ -168,7 +192,7 @@ function NotificationsPage() {
         } catch (error) {
             console.error("Error fetching expired status:", error);
         }
-        window.location.reload();
+        fetchNoti();
         setNotifications((prev)=>prev.map((notif)=>({
                     ...notif,
                     read: true
@@ -573,4 +597,4 @@ function NotificationsPage() {
 
 };
 
-//# sourceMappingURL=%5Broot-of-the-server%5D__a707ec8f._.js.map
+//# sourceMappingURL=%5Broot-of-the-server%5D__f3238ff1._.js.map

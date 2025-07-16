@@ -13,7 +13,7 @@ import {
   HomeIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import { getNotification } from "../hooks/useNotification";
+import { getNotificationByUserID } from "../hooks/useNotificationByID";
 import { useAuth } from "@/contexts/AuthContext";
 
 interface Notification {
@@ -81,7 +81,7 @@ export default function NotificationsPage() {
   };
 
   useEffect(() => {
-    getNotification().then((data) => {
+    getNotificationByUserID(user?.idUser).then((data) => {
       const cleaned = removeDuplicateNotifications(data);
       setNotifications(cleaned);
     });
@@ -115,7 +115,7 @@ export default function NotificationsPage() {
     );
   };
   const fetchNoti = async () => {
-    const data = await getNotification();
+    const data = await getNotificationByUserID(user?.idUser);
     setNotifications(data);
   };
 
@@ -134,7 +134,7 @@ export default function NotificationsPage() {
     } catch (error) {
       console.error("Error fetching expired status:", error);
     }
-    window.location.reload();
+    fetchNoti();
     setNotifications((prev) => prev.map((notif) => ({ ...notif, read: true })));
   };
 
