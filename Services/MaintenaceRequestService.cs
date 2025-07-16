@@ -80,7 +80,7 @@ namespace Smart_Dom.Services
             return await _maintenanceRequestRepository.GetRequestsByStatusAsync(status);
         }
 
-        public async Task<IEnumerable<MaintenanceRequestModel>> GetRequestsByUserIdAsync(int userId)
+        public async Task<IEnumerable<MaintenanceRequestViewModel>> GetRequestsByUserIdAsync(int userId)
         {
             return await _maintenanceRequestRepository.GetRequestsByUserIdAsync(userId);
         }

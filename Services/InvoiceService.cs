@@ -148,5 +148,10 @@ namespace Smart_Dom.Services
         {
             await _invoiceRepository.UpdateInvoiceAsync(invoice);
         }
+
+        public async Task<IEnumerable<InvoiceViewModel>> GetAllInvoiceByUserID(int id)
+        {
+            return await _invoiceRepository.GetAllianceByUserIdAsync(id);
+        }
     }
 }

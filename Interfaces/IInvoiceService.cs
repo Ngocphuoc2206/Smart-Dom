@@ -6,6 +6,7 @@ namespace Smart_Dom.Interfaces
     public interface IInvoiceService
     {
         Task<IEnumerable<InvoiceViewModel>> GetInvoicesAsync();
+        Task<IEnumerable<InvoiceViewModel>> GetAllInvoiceByUserID(int id);
         Task<InvoiceModel> GetInvoiceByIdAsync(int id);
         Task<IEnumerable<InvoiceModel>> GetInvoicesByContractIdAsync(int contractId);
         Task<IEnumerable<InvoiceModel>> GetInvoicesByStatusAsync(string status);

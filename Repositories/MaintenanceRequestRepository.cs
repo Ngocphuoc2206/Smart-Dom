@@ -77,9 +77,24 @@ namespace Smart_Dom.Repositories
             return await _context.MaintenanceRequests.Where(i => i.Status == status).ToListAsync();
         }
 
-        public async Task<IEnumerable<MaintenanceRequestModel>> GetRequestsByUserIdAsync(int userId)
+        public async Task<IEnumerable<MaintenanceRequestViewModel>> GetRequestsByUserIdAsync(int userId)
         {
-            return await _context.MaintenanceRequests.Where(i => i.UserId == userId).ToListAsync();
+            var requests = from rq in _context.MaintenanceRequests
+                           join r in _context.Rooms on rq.RoomId equals r.ID
+                           join u in _context.Users on rq.UserId equals u.ID
+                           where rq.UserId == userId
+                           select new MaintenanceRequestViewModel
+                           {
+                               ID = rq.Id,
+                               CreateAt = rq.RequestDate,
+                               RoomNumber = r.RoomNumber,
+                               Tenant = u.FullName,
+                               IncidentType = rq.IncidentType,
+                               PriorityLevel = rq.PriorityLevel,
+                               Description = rq.Description,
+                               Status = rq.Status
+                           };
+            return await requests.ToListAsync();
         }
 
         public async Task<bool> SaveChangesAsync()

@@ -46,6 +46,14 @@ namespace Smart_Dom.Areas.MaintenanceRequest.Controllers
             return Ok(requests);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAllByIDUser(int id)
+        {
+            _logger.LogInformation("Fetching Maintenance Request...");
+            var requests = await _maintenanceRequestService.GetRequestsByUserIdAsync(id);
+            return Ok(requests);
+        }
+
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateMaintenanceRequestDTO maintenanceRequest)
         {

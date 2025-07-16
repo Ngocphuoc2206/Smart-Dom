@@ -35,36 +35,72 @@ namespace Smart_Dom.Repositories
             }
         }
 
+        public async Task<IEnumerable<InvoiceViewModel>> GetAllianceByUserIdAsync(int id)
+        {
+            var invoices = await (from i in _context.Invoices
+                                  join ct in _context.Contracts on i.ContractID equals ct.ID into CT
+                                  from ct in CT.DefaultIfEmpty()
+                                  join r in _context.Rooms on ct.RoomId equals r.ID into room
+                                  from r in room.DefaultIfEmpty()
+                                  join u in _context.Users on ct.IDUser equals u.ID into user
+                                  from u in user.DefaultIfEmpty()
+                                  join t in _context.Transactions on i.Id equals t.InvoiceId into transactionGroup
+                                  from t in transactionGroup.DefaultIfEmpty() // LEFT JOIN
+                                  where ct.IDUser == id
+                                  select new InvoiceViewModel()
+                                  {
+                                      Id = i.Id,
+                                      UserId = ct.IDUser,
+                                      RoomNumber = r.RoomNumber,
+                                      Tenant = u.FullName,
+                                      RentRooms = r.Price,
+                                      InvoiceAmount = i.TotalAmount,
+                                      InvoiceType = i.InvoiceType,
+                                      ElectricUsage = i.ElectricUsage,
+                                      ServiceFees = i.ServiceFees,
+                                      Method = t.Method,
+                                      PaidAt = t.PaidAt,
+                                      TransactionCode = t.TransactionCode,
+                                      WaterUsage = i.WaterUsage,
+                                      Note = i.Note,
+                                      InvoiceDateLimit = i.InvoiceDateLimit,
+                                      Status = i.Status,
+                                  }).ToListAsync();
+
+            return invoices;
+        }
+
         public async Task<IEnumerable<InvoiceViewModel>> GetAllInvoicesAsync()
         {
-            var invoices = from i in _context.Invoices
-                           join ct in _context.Contracts on i.ContractID equals ct.ID into CT
-                           from ct in CT.DefaultIfEmpty()
-                           join r in _context.Rooms on ct.RoomId equals r.ID into room
-                           from r in room.DefaultIfEmpty()
-                           join u in _context.Users on ct.IDUser equals u.ID into user
-                           from u in user.DefaultIfEmpty()
-                           join t in _context.Transactions on i.Id equals t.InvoiceId into transactionGroup
-                           from t in transactionGroup.DefaultIfEmpty() // LEFT JOIN
-                           select new InvoiceViewModel()
-                           { 
-                                Id = i.Id,
-                                UserId = ct.IDUser,
-                                RoomNumber = r.RoomNumber,
-                                Tenant = u.FullName,
-                                RentRooms = r.Price,
-                                InvoiceAmount = i.TotalAmount,
-                                InvoiceType = i.InvoiceType,
-                                ElectricUsage = i.ElectricUsage,
-                                ServiceFees = i.ServiceFees,
-                                Method = t.Method,
-                                PaidAt = t.PaidAt,
-                                TransactionCode = t.TransactionCode,
-                                WaterUsage = i.WaterUsage,
-                                Note = i.Note,
-                                InvoiceDateLimit = i.InvoiceDateLimit,
-                                Status = i.Status,
-                           };
+            var invoices = await (from i in _context.Invoices
+                                  join ct in _context.Contracts on i.ContractID equals ct.ID into CT
+                                  from ct in CT.DefaultIfEmpty()
+                                  join r in _context.Rooms on ct.RoomId equals r.ID into room
+                                  from r in room.DefaultIfEmpty()
+                                  join u in _context.Users on ct.IDUser equals u.ID into user
+                                  from u in user.DefaultIfEmpty()
+                                  join t in _context.Transactions on i.Id equals t.InvoiceId into transactionGroup
+                                  from t in transactionGroup.DefaultIfEmpty() // LEFT JOIN
+                                  select new InvoiceViewModel()
+                                  {
+                                      Id = i.Id,
+                                      UserId = ct.IDUser,
+                                      RoomNumber = r.RoomNumber,
+                                      Tenant = u.FullName,
+                                      RentRooms = r.Price,
+                                      InvoiceAmount = i.TotalAmount,
+                                      InvoiceType = i.InvoiceType,
+                                      ElectricUsage = i.ElectricUsage,
+                                      ServiceFees = i.ServiceFees,
+                                      Method = t.Method,
+                                      PaidAt = t.PaidAt,
+                                      TransactionCode = t.TransactionCode,
+                                      WaterUsage = i.WaterUsage,
+                                      Note = i.Note,
+                                      InvoiceDateLimit = i.InvoiceDateLimit,
+                                      Status = i.Status,
+                                  }).ToListAsync();
+
             return invoices;
         }
 

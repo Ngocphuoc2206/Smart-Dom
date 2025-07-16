@@ -38,6 +38,14 @@ namespace Smart_Dom.Areas.Invoice.Controllers
             return Ok(invoices);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTenantInvoice(int id)
+        {
+            _logger.LogInformation("Fetching all invoices tenant...");
+            var invoices = await _invoiceService.GetAllInvoiceByUserID(id);
+            return Ok(invoices);
+        }
+
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateInvoice invoice)
         {
