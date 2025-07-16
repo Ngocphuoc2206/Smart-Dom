@@ -8,7 +8,7 @@ import {
   BanknotesIcon,
   CheckCircleIcon,
 } from "@heroicons/react/24/outline";
-import { getInvoice } from "../hooks/useInvoice";
+import { getInvoice } from "../../hooks/useInvoice";
 import { useAuth } from "@/contexts/AuthContext";
 import { useParams } from "next/navigation";
 

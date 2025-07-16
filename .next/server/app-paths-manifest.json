@@ -1,7 +1,11 @@
 {
   "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/notifications/page": "app/notifications/page.js",
   "/owner-dashboard/page": "app/owner-dashboard/page.js",
   "/page": "app/page.js",
-  "/room-details/[id]/page": "app/room-details/[id]/page.js",
-  "/tenant-dashboard/page": "app/tenant-dashboard/page.js"
+  "/payment-history/page": "app/payment-history/page.js",
+  "/rate-room/page": "app/rate-room/page.js",
+  "/receipt/[id]/page": "app/receipt/[id]/page.js",
+  "/tenant-dashboard/page": "app/tenant-dashboard/page.js",
+  "/tenant-dashboard/reviews/page": "app/tenant-dashboard/reviews/page.js"
 }

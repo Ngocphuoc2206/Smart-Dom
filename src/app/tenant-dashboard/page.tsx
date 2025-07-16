@@ -6,6 +6,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { getRoom } from "@/app/hooks/useRoom";
 import { getInvoice } from "../hooks/useInvoice";
+import jsPDF from "jspdf";
 import { getMaintenanceRequest } from "../hooks/useMaintenanceRequest";
 import { getRoomReview } from "../hooks/useRoomReview";
 import { getRoomBookingInfo } from "../hooks/useRoomBookingInfo";
@@ -13,6 +14,8 @@ import { getNotification } from "../hooks/useNotification";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import { getContract } from "../hooks/useContract";
 import { useSignalRNotification } from "../hooks/useSignalRNotification";
+import { getRequestMeta } from "next/dist/server/request-meta";
+import { getMaintenanceRequestInfo } from "../hooks/useMaintenanceRequestInfo";
 
 type Notification = {
   id: number;
@@ -40,6 +43,16 @@ export default function TenantDashboard() {
   const { notifications, unreadCount } = useSignalRNotification(
     user?.idUser ? Number(user.idUser) : undefined
   );
+  const [showExtendModal, setShowExtendModal] = useState(false);
+  const [showReturnModal, setShowReturnModal] = useState(false);
+  const [extendForm, setExtendForm] = useState({
+    newEndDate: "",
+    reason: "",
+  });
+  const [returnForm, setReturnForm] = useState({
+    reason: "",
+    expectedReturnDate: "",
+  });
 
   useEffect(() => {
     getRoom().then(setRooms);
@@ -192,6 +205,56 @@ export default function TenantDashboard() {
       ...prev,
       [field]: value,
     }));
+  };
+
+  // Xử lý gửi yêu cầu gia hạn
+  const handleSubmitExtend = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // Gọi API gia hạn hợp đồng ở đây
+    alert(`Yêu cầu gia hạn: ${extendForm.newEndDate}`);
+
+    try {
+      const response = await fetch(
+        `https://localhost:7257/api/Contract/update/${user?.idUser}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ExpiredDate: extendForm.newEndDate
+              ? new Date(extendForm.newEndDate).toISOString()
+              : "",
+          }),
+        }
+      );
+
+      if (response.ok) {
+        // Thông báo thành công
+        alert("Báo cáo sự cố đã được gửi thành công!");
+        setShowExtendModal(false);
+        setExtendForm({ newEndDate: "", reason: "" });
+      } else {
+        const error = await response.json();
+        console.error("Lỗi gửi báo cáo:", error);
+        alert("Không thể gửi báo cáo. Vui lòng thử lại.");
+      }
+    } catch (err) {
+      console.error("Lỗi mạng:", err);
+      alert("Lỗi kết nối đến máy chủ!");
+    }
+    window.location.reload();
+  };
+
+  // Xử lý gửi yêu cầu trả phòng
+  const handleSubmitReturn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // Gọi API trả phòng ở đây
+    alert(
+      `Yêu cầu trả phòng: ${returnForm.expectedReturnDate}, Lý do: ${returnForm.reason}`
+    );
+    setShowReturnModal(false);
+    setReturnForm({ reason: "", expectedReturnDate: "" });
   };
 
   const handleSubmitReport = async (e: React.FormEvent) => {
@@ -872,7 +935,7 @@ export default function TenantDashboard() {
                               Đặt phòng
                             </Link>
                             <Link
-                              href={`/room-details/${room.id}`}
+                              href={`/room-details/${room.number}`}
                               className="flex-1 border border-green-600 text-green-600 py-2 rounded hover:bg-green-50 text-center font-medium"
                             >
                               Xem chi tiết
@@ -881,7 +944,7 @@ export default function TenantDashboard() {
                         ) : room.status === "occupied" ? (
                           <>
                             <Link
-                              href={`/room-details/${room.id}`}
+                              href={`/room-details/${room.number}`}
                               className="flex-1 border border-blue-600 text-blue-600 py-2 rounded hover:bg-blue-50 text-center font-medium"
                             >
                               Xem chi tiết
@@ -896,7 +959,7 @@ export default function TenantDashboard() {
                         ) : (
                           <>
                             <Link
-                              href={`/room-details/${room.id}`}
+                              href={`/room-details/${room.number}`}
                               className="flex-1 border border-yellow-600 text-yellow-600 py-2 rounded hover:bg-yellow-50 text-center font-medium"
                             >
                               Xem chi tiết
@@ -1097,14 +1160,72 @@ export default function TenantDashboard() {
                       Thao tác
                     </h3>
                     <div className="space-y-3">
-                      <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                      <button
+                        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+                        onClick={() => {
+                          const doc = new jsPDF();
+
+                          // Thiết lập font Times-Roman cho tiêu đề
+                          doc.setFont("Times", "Roman");
+                          doc.setFontSize(18);
+
+                          // Căn giữa tiêu đề
+                          const pageWidth = doc.internal.pageSize.width;
+                          const title = "HỢP ĐỒNG THUÊ PHÒNG";
+                          const titleWidth =
+                            (doc.getStringUnitWidth(title) *
+                              doc.getFontSize()) /
+                            doc.internal.scaleFactor;
+                          const titleX = (pageWidth - titleWidth) / 2;
+
+                          doc.text(title, titleX, 20);
+
+                          // Thiết lập font và size cho nội dung
+                          doc.setFont("Times", "Roman");
+                          doc.setFontSize(12);
+
+                          // Thêm nội dung với encoding
+                          const content = [
+                            `Phòng số: ${mockContract?.roomNumber ?? ""}`,
+                            `Ngày bắt đầu: ${formatDateTime(
+                              mockContract?.startDate
+                            )}`,
+                            `Ngày kết thúc: ${formatDateTime(
+                              mockContract?.endDate
+                            )}`,
+                            `Tiền thuê hàng tháng: ${
+                              mockContract?.monthlyRent?.toLocaleString() ?? ""
+                            }đ`,
+                            `Tiền cọc: ${
+                              mockContract?.deposit?.toLocaleString() ?? ""
+                            }đ`,
+                            `Trạng thái: ${getStatusText(
+                              mockContract?.status ?? ""
+                            )}`,
+                          ];
+
+                          // In nội dung với khoảng cách đều
+                          let yPos = 40;
+                          content.forEach((line) => {
+                            doc.text(line, 20, yPos);
+                            yPos += 10;
+                          });
+
+                          // Thêm chữ ký
+                          yPos += 20;
+                          doc.text("Chữ ký bên cho thuê", 20, yPos);
+                          doc.text("Chữ ký bên thuê", pageWidth - 80, yPos);
+
+                          doc.save("HopDongThuePhong.pdf");
+                        }}
+                      >
                         Tải hợp đồng PDF
                       </button>
-                      <button className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
+                      <button
+                        className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
+                        onClick={() => setShowExtendModal(true)}
+                      >
                         Yêu cầu gia hạn
-                      </button>
-                      <button className="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700">
-                        Yêu cầu trả phòng
                       </button>
                     </div>
                   </div>
@@ -1439,6 +1560,57 @@ export default function TenantDashboard() {
           )}
         </main>
       </div>
+
+      {showExtendModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-200">
+              <h3 className="text-xl font-bold text-gray-900">
+                Yêu cầu gia hạn hợp đồng
+              </h3>
+              <p className="text-gray-600 mt-1">
+                Nhập thông tin gia hạn hợp đồng thuê phòng
+              </p>
+            </div>
+            <form onSubmit={handleSubmitExtend} className="p-6">
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Ngày kết thúc mới *
+                  </label>
+                  <input
+                    type="date"
+                    value={extendForm.newEndDate}
+                    onChange={(e) =>
+                      setExtendForm({
+                        ...extendForm,
+                        newEndDate: e.target.value,
+                      })
+                    }
+                    className="form-input w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="flex space-x-3 mt-6">
+                <button
+                  type="button"
+                  onClick={() => setShowExtendModal(false)}
+                  className="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  Hủy
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors"
+                >
+                  Gửi yêu cầu
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Report Modal */}
       {showReportModal && (
