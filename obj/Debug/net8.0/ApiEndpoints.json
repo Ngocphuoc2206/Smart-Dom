@@ -84,6 +84,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Smart_Dom.Areas.Contract.Controllers.ContractController",
+    "Method": "UpdateContract",
+    "RelativePath": "api/Contract/update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "contractDate",
+        "Type": "Smart_Dom.DTOs.Contract.UpdateContractDueDate",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Smart_Dom.Areas.DurationContract.Controllers.DurationContractController",
     "Method": "Get",
     "RelativePath": "api/DurationContract",

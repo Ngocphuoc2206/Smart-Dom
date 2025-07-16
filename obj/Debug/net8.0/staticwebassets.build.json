@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "lhwBOIyvjn4fg+MF9dNXEKHHFzUG+GUTTa6bK7/7FfM=",
+  "Hash": "OhcefArJgg/IiJIZeymUQ3mKGvObeMz/xJyU9m3lfaY=",
   "Source": "Smart-Dom",
   "BasePath": "_content/Smart-Dom",
   "Mode": "Default",
@@ -1319,6 +1319,195 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
+      "Identity": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\5c59c301-e705-4dba-aea0-467ec23204df_ERD_HeThongQLDuLieu.png",
+      "SourceId": "Smart-Dom",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\",
+      "BasePath": "_content/Smart-Dom",
+      "RelativePath": "uploads/5c59c301-e705-4dba-aea0-467ec23204df_ERD_HeThongQLDuLieu#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "be39ufogs2",
+      "Integrity": "jYxXc8KwkxudDzIvvvB0gU9Q09ZMGQcsiNpEMUWbD6w=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\5c59c301-e705-4dba-aea0-467ec23204df_ERD_HeThongQLDuLieu.png"
+    },
+    {
+      "Identity": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\652d367b-93d5-417e-bbc8-7ba3509388b8_MVC_KienTrucHeThong.png",
+      "SourceId": "Smart-Dom",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\",
+      "BasePath": "_content/Smart-Dom",
+      "RelativePath": "uploads/652d367b-93d5-417e-bbc8-7ba3509388b8_MVC_KienTrucHeThong#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "jzptdf4wnl",
+      "Integrity": "Mc7Oro4jrMvipQmO6eyef+TftfxKZWD5cC3YvG/FY9s=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\652d367b-93d5-417e-bbc8-7ba3509388b8_MVC_KienTrucHeThong.png"
+    },
+    {
+      "Identity": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\65c8022c-9d1a-43eb-b409-761704e4a2f8_Risk_Matrix_DuAn.png",
+      "SourceId": "Smart-Dom",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\",
+      "BasePath": "_content/Smart-Dom",
+      "RelativePath": "uploads/65c8022c-9d1a-43eb-b409-761704e4a2f8_Risk_Matrix_DuAn#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "u0znkfvk2i",
+      "Integrity": "DjGb/WfuAWd37GGAGQsj5PagxxQkmwxSn4VeE0dwKQY=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\65c8022c-9d1a-43eb-b409-761704e4a2f8_Risk_Matrix_DuAn.png"
+    },
+    {
+      "Identity": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\672fec5c-a7a2-4fe6-830c-ca56cabdca71_output.png",
+      "SourceId": "Smart-Dom",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\",
+      "BasePath": "_content/Smart-Dom",
+      "RelativePath": "uploads/672fec5c-a7a2-4fe6-830c-ca56cabdca71_output#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "d8a1y1ja2x",
+      "Integrity": "819q8saaVoejeYucsDKYQ3vTQaFiHf+N074i4RnEtVk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\672fec5c-a7a2-4fe6-830c-ca56cabdca71_output.png"
+    },
+    {
+      "Identity": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\70c409b1-0336-4880-aa09-682bb915bd15_ERD_HeThongQLDuLieu.png",
+      "SourceId": "Smart-Dom",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\",
+      "BasePath": "_content/Smart-Dom",
+      "RelativePath": "uploads/70c409b1-0336-4880-aa09-682bb915bd15_ERD_HeThongQLDuLieu#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "be39ufogs2",
+      "Integrity": "jYxXc8KwkxudDzIvvvB0gU9Q09ZMGQcsiNpEMUWbD6w=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\70c409b1-0336-4880-aa09-682bb915bd15_ERD_HeThongQLDuLieu.png"
+    },
+    {
+      "Identity": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\7cf3cc04-89e4-4d9c-909a-055f887c0551_MVC_KienTrucHeThong.png",
+      "SourceId": "Smart-Dom",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\",
+      "BasePath": "_content/Smart-Dom",
+      "RelativePath": "uploads/7cf3cc04-89e4-4d9c-909a-055f887c0551_MVC_KienTrucHeThong#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "jzptdf4wnl",
+      "Integrity": "Mc7Oro4jrMvipQmO6eyef+TftfxKZWD5cC3YvG/FY9s=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\7cf3cc04-89e4-4d9c-909a-055f887c0551_MVC_KienTrucHeThong.png"
+    },
+    {
+      "Identity": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\944d9097-36ad-4511-83e7-e159e050a0cc_output.png",
+      "SourceId": "Smart-Dom",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\",
+      "BasePath": "_content/Smart-Dom",
+      "RelativePath": "uploads/944d9097-36ad-4511-83e7-e159e050a0cc_output#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "d8a1y1ja2x",
+      "Integrity": "819q8saaVoejeYucsDKYQ3vTQaFiHf+N074i4RnEtVk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\944d9097-36ad-4511-83e7-e159e050a0cc_output.png"
+    },
+    {
+      "Identity": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\ce6e7d0a-527f-44b7-aadf-8757d9b66e45_Risk_Matrix_DuAn.png",
+      "SourceId": "Smart-Dom",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\",
+      "BasePath": "_content/Smart-Dom",
+      "RelativePath": "uploads/ce6e7d0a-527f-44b7-aadf-8757d9b66e45_Risk_Matrix_DuAn#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "u0znkfvk2i",
+      "Integrity": "DjGb/WfuAWd37GGAGQsj5PagxxQkmwxSn4VeE0dwKQY=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\ce6e7d0a-527f-44b7-aadf-8757d9b66e45_Risk_Matrix_DuAn.png"
+    },
+    {
+      "Identity": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\eb4c3e3b-826a-4a79-9711-caab6539ba55_He-thong-quan-ly-bai-xe.jpg",
+      "SourceId": "Smart-Dom",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\",
+      "BasePath": "_content/Smart-Dom",
+      "RelativePath": "uploads/eb4c3e3b-826a-4a79-9711-caab6539ba55_He-thong-quan-ly-bai-xe#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "9lkqkjtx7r",
+      "Integrity": "vbq77o8lKl1MlMZA8PVX6U3Zp/Oz3+YDxBwc6xwKAXM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\eb4c3e3b-826a-4a79-9711-caab6539ba55_He-thong-quan-ly-bai-xe.jpg"
+    },
+    {
       "Identity": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\f172a529-ccb5-47cc-be21-76e449e19e17_R.jpg",
       "SourceId": "Smart-Dom",
       "SourceType": "Discovered",
@@ -1338,6 +1527,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\f172a529-ccb5-47cc-be21-76e449e19e17_R.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\f3800055-06ff-4f48-97ef-d87ddcc78ee0_He-thong-quan-ly-bai-xe.jpg",
+      "SourceId": "Smart-Dom",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\",
+      "BasePath": "_content/Smart-Dom",
+      "RelativePath": "uploads/f3800055-06ff-4f48-97ef-d87ddcc78ee0_He-thong-quan-ly-bai-xe#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "9lkqkjtx7r",
+      "Integrity": "vbq77o8lKl1MlMZA8PVX6U3Zp/Oz3+YDxBwc6xwKAXM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\f3800055-06ff-4f48-97ef-d87ddcc78ee0_He-thong-quan-ly-bai-xe.jpg"
     }
   ],
   "Endpoints": [
@@ -6426,6 +6636,744 @@
       ]
     },
     {
+      "Route": "uploads/5c59c301-e705-4dba-aea0-467ec23204df_ERD_HeThongQLDuLieu.be39ufogs2.png",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\5c59c301-e705-4dba-aea0-467ec23204df_ERD_HeThongQLDuLieu.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21961"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"jYxXc8KwkxudDzIvvvB0gU9Q09ZMGQcsiNpEMUWbD6w=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:21:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "be39ufogs2"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/5c59c301-e705-4dba-aea0-467ec23204df_ERD_HeThongQLDuLieu.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-jYxXc8KwkxudDzIvvvB0gU9Q09ZMGQcsiNpEMUWbD6w="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/5c59c301-e705-4dba-aea0-467ec23204df_ERD_HeThongQLDuLieu.png",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\5c59c301-e705-4dba-aea0-467ec23204df_ERD_HeThongQLDuLieu.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21961"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"jYxXc8KwkxudDzIvvvB0gU9Q09ZMGQcsiNpEMUWbD6w=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:21:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-jYxXc8KwkxudDzIvvvB0gU9Q09ZMGQcsiNpEMUWbD6w="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/652d367b-93d5-417e-bbc8-7ba3509388b8_MVC_KienTrucHeThong.jzptdf4wnl.png",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\652d367b-93d5-417e-bbc8-7ba3509388b8_MVC_KienTrucHeThong.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "25970"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Mc7Oro4jrMvipQmO6eyef+TftfxKZWD5cC3YvG/FY9s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:38:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "jzptdf4wnl"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/652d367b-93d5-417e-bbc8-7ba3509388b8_MVC_KienTrucHeThong.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Mc7Oro4jrMvipQmO6eyef+TftfxKZWD5cC3YvG/FY9s="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/652d367b-93d5-417e-bbc8-7ba3509388b8_MVC_KienTrucHeThong.png",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\652d367b-93d5-417e-bbc8-7ba3509388b8_MVC_KienTrucHeThong.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "25970"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Mc7Oro4jrMvipQmO6eyef+TftfxKZWD5cC3YvG/FY9s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:38:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Mc7Oro4jrMvipQmO6eyef+TftfxKZWD5cC3YvG/FY9s="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/65c8022c-9d1a-43eb-b409-761704e4a2f8_Risk_Matrix_DuAn.png",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\65c8022c-9d1a-43eb-b409-761704e4a2f8_Risk_Matrix_DuAn.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "103834"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"DjGb/WfuAWd37GGAGQsj5PagxxQkmwxSn4VeE0dwKQY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:21:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-DjGb/WfuAWd37GGAGQsj5PagxxQkmwxSn4VeE0dwKQY="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/65c8022c-9d1a-43eb-b409-761704e4a2f8_Risk_Matrix_DuAn.u0znkfvk2i.png",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\65c8022c-9d1a-43eb-b409-761704e4a2f8_Risk_Matrix_DuAn.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "103834"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"DjGb/WfuAWd37GGAGQsj5PagxxQkmwxSn4VeE0dwKQY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:21:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "u0znkfvk2i"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/65c8022c-9d1a-43eb-b409-761704e4a2f8_Risk_Matrix_DuAn.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-DjGb/WfuAWd37GGAGQsj5PagxxQkmwxSn4VeE0dwKQY="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/672fec5c-a7a2-4fe6-830c-ca56cabdca71_output.d8a1y1ja2x.png",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\672fec5c-a7a2-4fe6-830c-ca56cabdca71_output.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "102197"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"819q8saaVoejeYucsDKYQ3vTQaFiHf+N074i4RnEtVk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:21:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "d8a1y1ja2x"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/672fec5c-a7a2-4fe6-830c-ca56cabdca71_output.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-819q8saaVoejeYucsDKYQ3vTQaFiHf+N074i4RnEtVk="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/672fec5c-a7a2-4fe6-830c-ca56cabdca71_output.png",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\672fec5c-a7a2-4fe6-830c-ca56cabdca71_output.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "102197"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"819q8saaVoejeYucsDKYQ3vTQaFiHf+N074i4RnEtVk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:21:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-819q8saaVoejeYucsDKYQ3vTQaFiHf+N074i4RnEtVk="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/70c409b1-0336-4880-aa09-682bb915bd15_ERD_HeThongQLDuLieu.be39ufogs2.png",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\70c409b1-0336-4880-aa09-682bb915bd15_ERD_HeThongQLDuLieu.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21961"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"jYxXc8KwkxudDzIvvvB0gU9Q09ZMGQcsiNpEMUWbD6w=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:38:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "be39ufogs2"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/70c409b1-0336-4880-aa09-682bb915bd15_ERD_HeThongQLDuLieu.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-jYxXc8KwkxudDzIvvvB0gU9Q09ZMGQcsiNpEMUWbD6w="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/70c409b1-0336-4880-aa09-682bb915bd15_ERD_HeThongQLDuLieu.png",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\70c409b1-0336-4880-aa09-682bb915bd15_ERD_HeThongQLDuLieu.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21961"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"jYxXc8KwkxudDzIvvvB0gU9Q09ZMGQcsiNpEMUWbD6w=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:38:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-jYxXc8KwkxudDzIvvvB0gU9Q09ZMGQcsiNpEMUWbD6w="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/7cf3cc04-89e4-4d9c-909a-055f887c0551_MVC_KienTrucHeThong.jzptdf4wnl.png",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\7cf3cc04-89e4-4d9c-909a-055f887c0551_MVC_KienTrucHeThong.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "25970"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Mc7Oro4jrMvipQmO6eyef+TftfxKZWD5cC3YvG/FY9s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:21:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "jzptdf4wnl"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/7cf3cc04-89e4-4d9c-909a-055f887c0551_MVC_KienTrucHeThong.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Mc7Oro4jrMvipQmO6eyef+TftfxKZWD5cC3YvG/FY9s="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/7cf3cc04-89e4-4d9c-909a-055f887c0551_MVC_KienTrucHeThong.png",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\7cf3cc04-89e4-4d9c-909a-055f887c0551_MVC_KienTrucHeThong.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "25970"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Mc7Oro4jrMvipQmO6eyef+TftfxKZWD5cC3YvG/FY9s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:21:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Mc7Oro4jrMvipQmO6eyef+TftfxKZWD5cC3YvG/FY9s="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/944d9097-36ad-4511-83e7-e159e050a0cc_output.d8a1y1ja2x.png",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\944d9097-36ad-4511-83e7-e159e050a0cc_output.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "102197"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"819q8saaVoejeYucsDKYQ3vTQaFiHf+N074i4RnEtVk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:38:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "d8a1y1ja2x"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/944d9097-36ad-4511-83e7-e159e050a0cc_output.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-819q8saaVoejeYucsDKYQ3vTQaFiHf+N074i4RnEtVk="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/944d9097-36ad-4511-83e7-e159e050a0cc_output.png",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\944d9097-36ad-4511-83e7-e159e050a0cc_output.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "102197"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"819q8saaVoejeYucsDKYQ3vTQaFiHf+N074i4RnEtVk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:38:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-819q8saaVoejeYucsDKYQ3vTQaFiHf+N074i4RnEtVk="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/ce6e7d0a-527f-44b7-aadf-8757d9b66e45_Risk_Matrix_DuAn.png",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\ce6e7d0a-527f-44b7-aadf-8757d9b66e45_Risk_Matrix_DuAn.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "103834"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"DjGb/WfuAWd37GGAGQsj5PagxxQkmwxSn4VeE0dwKQY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:38:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-DjGb/WfuAWd37GGAGQsj5PagxxQkmwxSn4VeE0dwKQY="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/ce6e7d0a-527f-44b7-aadf-8757d9b66e45_Risk_Matrix_DuAn.u0znkfvk2i.png",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\ce6e7d0a-527f-44b7-aadf-8757d9b66e45_Risk_Matrix_DuAn.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "103834"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"DjGb/WfuAWd37GGAGQsj5PagxxQkmwxSn4VeE0dwKQY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:38:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "u0znkfvk2i"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/ce6e7d0a-527f-44b7-aadf-8757d9b66e45_Risk_Matrix_DuAn.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-DjGb/WfuAWd37GGAGQsj5PagxxQkmwxSn4VeE0dwKQY="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/eb4c3e3b-826a-4a79-9711-caab6539ba55_He-thong-quan-ly-bai-xe.9lkqkjtx7r.jpg",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\eb4c3e3b-826a-4a79-9711-caab6539ba55_He-thong-quan-ly-bai-xe.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "236281"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"vbq77o8lKl1MlMZA8PVX6U3Zp/Oz3+YDxBwc6xwKAXM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:38:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9lkqkjtx7r"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/eb4c3e3b-826a-4a79-9711-caab6539ba55_He-thong-quan-ly-bai-xe.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-vbq77o8lKl1MlMZA8PVX6U3Zp/Oz3+YDxBwc6xwKAXM="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/eb4c3e3b-826a-4a79-9711-caab6539ba55_He-thong-quan-ly-bai-xe.jpg",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\eb4c3e3b-826a-4a79-9711-caab6539ba55_He-thong-quan-ly-bai-xe.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "236281"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"vbq77o8lKl1MlMZA8PVX6U3Zp/Oz3+YDxBwc6xwKAXM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:38:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-vbq77o8lKl1MlMZA8PVX6U3Zp/Oz3+YDxBwc6xwKAXM="
+        }
+      ]
+    },
+    {
       "Route": "uploads/f172a529-ccb5-47cc-be21-76e449e19e17_R.jpg",
       "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\f172a529-ccb5-47cc-be21-76e449e19e17_R.jpg",
       "Selectors": [],
@@ -6504,6 +7452,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-ACtY3s4Bp8I+ZsrWt3BuF4Kgyyq8bNSiiR9Lf62IdOA="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/f3800055-06ff-4f48-97ef-d87ddcc78ee0_He-thong-quan-ly-bai-xe.9lkqkjtx7r.jpg",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\f3800055-06ff-4f48-97ef-d87ddcc78ee0_He-thong-quan-ly-bai-xe.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "236281"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"vbq77o8lKl1MlMZA8PVX6U3Zp/Oz3+YDxBwc6xwKAXM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:21:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "9lkqkjtx7r"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/f3800055-06ff-4f48-97ef-d87ddcc78ee0_He-thong-quan-ly-bai-xe.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-vbq77o8lKl1MlMZA8PVX6U3Zp/Oz3+YDxBwc6xwKAXM="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/f3800055-06ff-4f48-97ef-d87ddcc78ee0_He-thong-quan-ly-bai-xe.jpg",
+      "AssetFile": "C:\\Users\\Tran Ngoc Phuoc\\source\\repos\\Smart-Dom\\Smart-Dom\\wwwroot\\uploads\\f3800055-06ff-4f48-97ef-d87ddcc78ee0_He-thong-quan-ly-bai-xe.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "236281"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"vbq77o8lKl1MlMZA8PVX6U3Zp/Oz3+YDxBwc6xwKAXM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Jul 2025 15:21:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-vbq77o8lKl1MlMZA8PVX6U3Zp/Oz3+YDxBwc6xwKAXM="
         }
       ]
     }

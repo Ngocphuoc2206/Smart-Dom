@@ -107,9 +107,9 @@ namespace Smart_Dom.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<RoomBookingModel>> GetBookingsByUserIdAsync(int userId)
+        public async Task<RoomBookingModel> GetBookingsByUserIdAsync(int userId)
         {
-            throw new NotImplementedException();
+            return await _bookingRepository.GetBookingsByUserIdAsync(userId);
         }
 
         public async Task<IEnumerable<RoomBookingViewModel>> GetRoomAllInformation()

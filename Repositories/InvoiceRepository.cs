@@ -38,9 +38,12 @@ namespace Smart_Dom.Repositories
         public async Task<IEnumerable<InvoiceViewModel>> GetAllInvoicesAsync()
         {
             var invoices = from i in _context.Invoices
-                           join ct in _context.Contracts on i.ContractID equals ct.ID
-                           join r in _context.Rooms on ct.RoomId equals r.ID
-                           join u in _context.Users on ct.IDUser equals u.ID
+                           join ct in _context.Contracts on i.ContractID equals ct.ID into CT
+                           from ct in CT.DefaultIfEmpty()
+                           join r in _context.Rooms on ct.RoomId equals r.ID into room
+                           from r in room.DefaultIfEmpty()
+                           join u in _context.Users on ct.IDUser equals u.ID into user
+                           from u in user.DefaultIfEmpty()
                            join t in _context.Transactions on i.Id equals t.InvoiceId into transactionGroup
                            from t in transactionGroup.DefaultIfEmpty() // LEFT JOIN
                            select new InvoiceViewModel()

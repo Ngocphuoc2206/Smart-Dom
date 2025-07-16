@@ -58,4 +58,14 @@ wwwroot\lib\jquery-validation\LICENSE.md
 wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
 wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
 wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
+wwwroot\uploads\5c59c301-e705-4dba-aea0-467ec23204df_ERD_HeThongQLDuLieu.png
+wwwroot\uploads\652d367b-93d5-417e-bbc8-7ba3509388b8_MVC_KienTrucHeThong.png
+wwwroot\uploads\65c8022c-9d1a-43eb-b409-761704e4a2f8_Risk_Matrix_DuAn.png
+wwwroot\uploads\672fec5c-a7a2-4fe6-830c-ca56cabdca71_output.png
+wwwroot\uploads\70c409b1-0336-4880-aa09-682bb915bd15_ERD_HeThongQLDuLieu.png
+wwwroot\uploads\7cf3cc04-89e4-4d9c-909a-055f887c0551_MVC_KienTrucHeThong.png
+wwwroot\uploads\944d9097-36ad-4511-83e7-e159e050a0cc_output.png
+wwwroot\uploads\ce6e7d0a-527f-44b7-aadf-8757d9b66e45_Risk_Matrix_DuAn.png
+wwwroot\uploads\eb4c3e3b-826a-4a79-9711-caab6539ba55_He-thong-quan-ly-bai-xe.jpg
 wwwroot\uploads\f172a529-ccb5-47cc-be21-76e449e19e17_R.jpg
+wwwroot\uploads\f3800055-06ff-4f48-97ef-d87ddcc78ee0_He-thong-quan-ly-bai-xe.jpg
