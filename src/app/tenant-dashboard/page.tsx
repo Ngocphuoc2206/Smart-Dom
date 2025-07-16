@@ -68,7 +68,7 @@ export default function TenantDashboard() {
     getRoomReview().then(setRoomReviews);
     getNotification().then(setGetNotifications);
     getContract().then(setContracts);
-  }, [user?.idUser]); // 👈 thêm user?.idUser vào dependency
+  }, [user?.idUser]); //thêm user?.idUser vào dependency
 
   useEffect(() => {
     const notify = getNotifications.filter((n) => n.isRead === false).length;
@@ -265,14 +265,10 @@ export default function TenantDashboard() {
 
   const handleSubmitReport = async (e: React.FormEvent) => {
     e.preventDefault();
-    const IDRoom = rooms.find(
-      (r) =>
-        r.fullName &&
-        user?.name &&
-        r.fullName.trim().toLowerCase() === user.name.trim().toLowerCase()
-    )?.id;
+    const roomBooking = roomBookingInfo.find((r) => r.userId === user?.idUser);
+    const IDRoom = roomBooking?.roomId;
 
-    alert(`IDRoom: ${IDRoom} - UserName: ${user?.name}`);
+    alert(`IDRoom: ${IDRoom} - IDUSer: ${user?.idUser}`);
     try {
       const response = await fetch(
         "https://localhost:7257/api/MaintenanceRequest/create",
@@ -1282,7 +1278,7 @@ export default function TenantDashboard() {
                           {report.incidentType}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {formatDateTime(report.requestDate)}
+                          {formatDateTime(report.createAt)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span
