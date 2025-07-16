@@ -5,7 +5,9 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { getRoom } from "@/app/hooks/useRoom";
+// Change this import to match the actual export from useInvoice
 import { getInvoice } from "../hooks/useInvoice";
+import { getInvoiceByUserID } from "../hooks/useInvoiceID";
 import jsPDF from "jspdf";
 import { getMaintenanceRequest } from "../hooks/useMaintenanceRequest";
 import { getRoomReview } from "../hooks/useRoomReview";
@@ -16,6 +18,7 @@ import { getContract } from "../hooks/useContract";
 import { useSignalRNotification } from "../hooks/useSignalRNotification";
 import { getRequestMeta } from "next/dist/server/request-meta";
 import { getMaintenanceRequestInfo } from "../hooks/useMaintenanceRequestInfo";
+import { getMaintenanceRequestByUserID } from "../hooks/useMaintenanceByUserID";
 
 type Notification = {
   id: number;
@@ -55,14 +58,17 @@ export default function TenantDashboard() {
   });
 
   useEffect(() => {
+    if (!user?.idUser) return; // Nếu chưa có userId thì không gọi
     getRoom().then(setRooms);
-    getInvoice().then(setInvoiceTenant);
-    getMaintenanceRequest().then(setMaintenanceRequest);
+    getInvoiceByUserID(user.idUser.toString()).then(setInvoiceTenant);
+    getMaintenanceRequestByUserID(user.idUser.toString()).then(
+      setMaintenanceRequest
+    );
     getRoomBookingInfo().then(setRoomBookingInfo);
     getRoomReview().then(setRoomReviews);
     getNotification().then(setGetNotifications);
     getContract().then(setContracts);
-  }, []);
+  }, [user?.idUser]); // 👈 thêm user?.idUser vào dependency
 
   useEffect(() => {
     const notify = getNotifications.filter((n) => n.isRead === false).length;
@@ -231,7 +237,7 @@ export default function TenantDashboard() {
 
       if (response.ok) {
         // Thông báo thành công
-        alert("Báo cáo sự cố đã được gửi thành công!");
+        alert("Đã được gửi thành công!");
         setShowExtendModal(false);
         setExtendForm({ newEndDate: "", reason: "" });
       } else {
@@ -347,9 +353,7 @@ export default function TenantDashboard() {
 
   const roomNumber = room?.roomNumber;
 
-  const contractByID = Contracts.find(
-    (c) => c.idUser === user?.idUser && c.status === "paid"
-  );
+  const contractByID = Contracts.find((c) => c.idUser === user?.idUser);
 
   // Mock data
   const mockContract =
@@ -369,8 +373,8 @@ export default function TenantDashboard() {
   const review = RoomReviews.find((r) => r.userID == user?.idUser);
   const overall = review?.overallRating || 0;
 
-  const unpaid_invoice = invoiceTenant.filter(
-    (i) => i.status == "pending"
+  const unpaid_invoice = (invoiceTenant ?? []).filter(
+    (i) => i.status === "pending"
   ).length;
 
   function calculateInvoiceTotal(bill: any): number {

@@ -129,19 +129,7 @@ export default function RegisterPage() {
         const json = await response.json().catch(() => null);
         throw new Error(json?.message || "Đăng ký thất bại");
       }
-
-      login({
-        email: formData.email,
-        userType: "tenant",
-        name: formData.fullName,
-        phone: formData.phone,
-        isAuthenticated: true,
-        idNumber: formData.idNumber,
-        dob: formData.dateOfBirth,
-        address: formData.address,
-        gender: formData.gender,
-      });
-      router.push("/tenant-dashboard");
+      router.push("/auth/login");
     } catch (err: any) {
       setGlobalError(err.message || "Có lỗi xảy ra, vui lòng thử lại.");
     } finally {
