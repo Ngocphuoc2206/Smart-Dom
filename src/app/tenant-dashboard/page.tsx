@@ -263,6 +263,11 @@ export default function TenantDashboard() {
     setReturnForm({ reason: "", expectedReturnDate: "" });
   };
 
+  const fetchReport = async () => {
+    const data = await getMaintenanceRequestByUserID(user?.idUser);
+    setMaintenanceRequest(data);
+  };
+
   const handleSubmitReport = async (e: React.FormEvent) => {
     e.preventDefault();
     const roomBooking = roomBookingInfo.find((r) => r.userId === user?.idUser);
@@ -300,6 +305,7 @@ export default function TenantDashboard() {
 
         // Thông báo thành công
         alert("Báo cáo sự cố đã được gửi thành công!");
+        fetchReport();
       } else {
         const error = await response.json();
         console.error("Lỗi gửi báo cáo:", error);

@@ -45,6 +45,16 @@ export default function NotificationsPage() {
     "all" | "unread" | "bill" | "maintenance"
   >("all");
 
+  const removeDuplicateNotifications = (data: RawNotification[]) => {
+    const uniqueMap = new Map<number, RawNotification>();
+    data.forEach((item) => {
+      if (!uniqueMap.has(item.id)) {
+        uniqueMap.set(item.id, item); // Giữ bản đầu tiên nếu trùng id
+      }
+    });
+    return Array.from(uniqueMap.values());
+  };
+
   const formatDate = (dateString: any) => {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, "0");
@@ -71,8 +81,11 @@ export default function NotificationsPage() {
   };
 
   useEffect(() => {
-    getNotification().then(setNotifications);
-  }, []); // thêm dependency array rỗng vào đây
+    getNotification().then((data) => {
+      const cleaned = removeDuplicateNotifications(data);
+      setNotifications(cleaned);
+    });
+  }, []);
 
   const getIconColor = (type: string, priority: string) => {
     if (priority === "high") return "text-red-600 bg-red-100";
@@ -121,7 +134,7 @@ export default function NotificationsPage() {
     } catch (error) {
       console.error("Error fetching expired status:", error);
     }
-    await fetchNoti();
+    window.location.reload();
     setNotifications((prev) => prev.map((notif) => ({ ...notif, read: true })));
   };
 
@@ -230,9 +243,9 @@ export default function NotificationsPage() {
               </p>
             </div>
           ) : (
-            filteredNotifications.map((notification) => (
+            filteredNotifications.map((notification, index) => (
               <div
-                key={notification.id}
+                key={`${notification.id}-${notification.createdAt || index}`}
                 className={`bg-white rounded-lg shadow-sm border border-gray-200 p-6 transition-all hover:shadow-md ${
                   !notification.isRead ? "border-l-4 border-l-green-500" : ""
                 }`}
